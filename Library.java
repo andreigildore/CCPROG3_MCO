@@ -9,34 +9,64 @@ public class Library {
 
     /* adding methods */
     public void addAnime(Anime input) {
-        
+        animes.add(input);
     }
     
     public void addTVSeries(TVSeries input) {
-        
+        tvSeries.add(input);
     }
 
     public void addMusicSingle(MusicSingle input) {
-        
+        musicSingles.add(input);
     }
 
-    public void addMusicAlbum(MusicAlbum anime) {
-        
+    public void addMusicAlbum(MusicAlbum input) {
+        musicAlbums.add(input);
     }
 
-    public void addVideoGame(Anime anime) {
-        
+    public void addVideoGame(Anime input) {
+        videoGames.add(input);
     }
-
-    
 
     /* removal methods */
-    public void removeAnime(Anime anime) {
+    public void removeAnime(Anime input) {
+        anime.remove(input);
+    }
 
+    public void removeTVSeries(TVSeries input) {
+        tvSeries.remove(input);
+    }
+
+    public void removeMusicSingle(MusicSingle input) {
+        musicSingles.remove(input);
+    }
+
+    public void removeMusicAlbum(MusicAlbums input) {
+        musicAlbums.remove(input);
+    }
+
+    public void removeVideoGame(VideoGame input) {
+        videoGames.remove(input);
     }
 
     /* retrieval methods */
     public ArrayList<Anime> getAnimes() {
+        return animes;
+    }
+
+    public ArrayList<TVSeries> getTVSeries() {
+        return animes;
+    }
+
+    public ArrayList<MusicSingle> getMusicSingles() {
+        return animes;
+    }
+
+    public ArrayList<MusicAlbum> getMusicAlbums() {
+        return animes;
+    }
+
+    public ArrayList<VideoGame> getVideoGames() {
         return animes;
     }
 
