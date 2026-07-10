@@ -4,16 +4,19 @@ public class User {
     private String password;
     private Library library;
 
+    public User () {
+        this.library = new Library();
+    }
+
     public String getEmail() {
         return email;
+    }
+    public String getUsername() {
+        return username;
     }
 
     private void setEmail(String input) {
         email = input;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     private void setUsername(String input) {
@@ -25,12 +28,25 @@ public class User {
     }
 
     public void register(String username, String email, String password) {
-        setUsername(username);
-        setEmail(email);
-        setPassword(password);
+        if (username == null || username.isBlank() || email == null || email.isBlank()
+           || password == null || password.isBlank()) {
+            System.out.println("Invalid registration details.");
+        }
+        else {
+            setUsername(username);
+            setEmail(email);
+            setPassword(password);
+        }
+        
     }
 
     public boolean login(String username, String password) {
-        return this.username.equals(username) && this.password.equals(password);
+        if (this.username == null || this.password == null || this.email == null) {
+            System.out.println("User has not registered yet.");
+            return false;
+        } 
+        else {
+            return this.username.equals(username) && this.password.equals(password);
+        }
     }
 }
