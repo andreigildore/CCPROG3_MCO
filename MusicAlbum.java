@@ -10,7 +10,7 @@ public class MusicAlbum {
     private String review;
     private String artist;
     private String recordLabel;
-    private ArrayList<Track> ArrayList;
+    private ArrayList<Track> tracks;
     private int noOfTracks;
 
     public MusicAlbum(String title, LocalDate dateAdded, String genre, String artist, String recordLabel) {
@@ -39,9 +39,9 @@ public class MusicAlbum {
     }
 
     public void review(String text) {
-        if (text != null || !text.isBlank()){
+        if (text != null && !text.isBlank()){
             if (this.status == 2) {
-                this.rating = text;
+                this.review = text;
                 System.out.println("Rating saved successfully.");
             } else {
                 System.out.println("Cannot rate an unfinished album.");

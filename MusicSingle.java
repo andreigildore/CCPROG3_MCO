@@ -33,8 +33,8 @@ public class MusicSingle {
     }
 
      public void review(String text) {
-        if (text != null || !text.isBlank()) {
-            this.rating = text;
+        if (text != null && !text.isBlank()) {
+            this.review = text;
             System.out.println("Review saved successfully.");
         }
         else
