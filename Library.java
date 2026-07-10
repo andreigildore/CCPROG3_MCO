@@ -127,7 +127,7 @@ public class Library {
     }
 
     public void filterByStatus(int status) {
-        System.out.println("\n--- Filtering by Status: " + status + " ---");
+        System.out.println("\n--- Filtering by Status: " + StatusMapper.getStatus(status) + " ---");
         for (Anime anime : animes) { 
             if (anime.getStatus() == status) 
                 System.out.println(anime.displayInfo()); 
@@ -157,11 +157,11 @@ public class Library {
         } else if (type.equalsIgnoreCase("VideoGame")) {
             for (VideoGame videoGame : videoGames) System.out.println(videoGame.displayInfo());
         } else if (type.equalsIgnoreCase("TVSeries")) {
-            for (TVSeries t : tvSeries) System.out.println(t.displayInfo());
+            for (TVSeries tvS : tvSeries) System.out.println(tvS.displayInfo());
         } else if (type.equalsIgnoreCase("MusicSingle")) {
-            for (MusicSingle ms : musicSingles) System.out.println(ms.displayInfo());
+            for (MusicSingle musicSingle : musicSingles) System.out.println(musicSingle.displayInfo());
         } else if (type.equalsIgnoreCase("MusicAlbum")) {
-            for (MusicAlbum ma : musicAlbums) System.out.println(ma.displayInfo());
+            for (MusicAlbum musicAlbum : musicAlbums) System.out.println(musicAlbum.displayInfo());
         } else {
             System.out.println("Invalid media type.");
         }

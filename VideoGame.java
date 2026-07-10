@@ -28,25 +28,45 @@ public class VideoGame {
     }
 
     public void rate(int rating) {
-        if (this.status == 2) {
-            this.rating = rating;
-            System.out.println("Rating saved successfully.");
-        } else {
-            System.out.println("Cannot rate an incomplete/unfinished Video Game.");
+        if (rating >= 0 && rating <= 10) {
+            if (this.status == 2) {
+                this.rating = rating;
+                System.out.println("Rating saved successfully.");
+            } else {
+                System.out.println("Cannot rate an unfinished Video Game.");
+            }
         }
+        else
+            System.out.println("Invalid rating input");
     }
 
     public void review(String text) {
-        if (this.status == 2) {
-            this.review = text;
-            System.out.println("Review saved successfully.");
-        } else {
-            System.out.println("Cannot review an incomplete/unfinished Video Game.");
+        if (text != null && text.isBlank()) {
+            if (this.status == 2) {
+                this.review = text;
+                System.out.println("Review saved successfully.");
+            } else {
+                System.out.println("Cannot review an unfinished Video Game.");
+            }
         }
+        else
+            System.out.println("Review has no content or is null");
     }
 
     public String displayInfo() {
-        return "Video Game: " + title + " | Platform: " + platform + " | Playtime: " + playtime + " hrs | Status: " + status;
+        return String.format("""
+        Video Game : %s
+        Developer : %s
+        Platform : %s
+        Playtime : $d hrs
+        Status : %s
+        """,
+        title,
+        developer,
+        platform,
+        playtime,
+        StatusMapper.getStatus(status)
+        );
     }
 
     public String getTitle() {

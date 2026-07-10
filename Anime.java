@@ -31,24 +31,33 @@ public class Anime {
     }
 
     public void updateProgress(int n) {
+        
     }
 
     public void rate(int rating) {
-        if (this.status == 2) {
-            this.rating = rating;
-            System.out.println("Rating saved successfully.");
-        } else {
-            System.out.println("Cannot rate an incomplete/unfinished Anime.");
+        if (rating >= 0 && rating  <= 10) {
+            if (this.status == 2) {
+                this.rating = rating;
+                System.out.println("Rating saved successfully.");
+            } else {
+                System.out.println("Cannot rate an unfinished Anime.");
+            }
         }
+        else
+            System.out.println("Invalid rating input");
     }
 
     public void review(String text) {
-        if (this.status == 2) {
-            this.review = text;
-            System.out.println("Review saved successfully.");
-        } else {
-            System.out.println("Cannot review an incomplete/unfinished Anime.");
+        if (text != null && text.isBlank()){
+            if (this.status == 2) {
+                this.review = text;
+                System.out.println("Review saved successfully.");
+            } else {
+                System.out.println("Cannot review an unfinished Anime.");
+            }
         }
+        else
+            System.out.println("Review has no content or is null");
     }
 
     public String displayInfo() {
@@ -56,13 +65,15 @@ public class Anime {
         Anime  : %s
         Studio : %s
         Subbed : %b
+        No. Of Episodes : %d
         Status : %s
         """,
         title,
         animationStudio,
         isSubbed,
-        status
-    );
+        noOfEpisodes,
+        StatusMapper.getStatus(status)
+        );
     }
 
     public String getTitle() {

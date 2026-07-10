@@ -36,25 +36,45 @@ public class TVSeries {
     }
 
     public void rate(int rating) {
-        if (this.status == 2) {
-            this.rating = rating;
-            System.out.println("Rating saved successfully.");
-        } else {
-            System.out.println("Cannot rate an incomplete/unfinished TV Series.");
+        if (rating >= 0 && rating <= 10) {
+            if (this.status == 2) {
+                this.rating = rating;
+                System.out.println("Rating saved successfully.");
+            } else {
+                System.out.println("Cannot rate an unfinished TV Series.");
+            }
         }
+        else
+            System.out.println("Invalid rating input");
     }
 
     public void review(String text) {
-        if (this.status == 2) {
-            this.review = text;
-            System.out.println("Review saved successfully.");
-        } else {
-            System.out.println("Cannot review an incomplete/unfinished TV Series.");
+        if (text != null && text.isBlank()) {
+            if (this.status == 2) {
+                this.review = text;
+                System.out.println("Review saved successfully.");
+            } else {
+                System.out.println("Cannot review an unfinished TV Series.");
+            }
         }
+        else
+            System.out.println("Review has no content or is null");
     }
 
     public String displayInfo() {
-        return "TV Series: " + title + " | Creator: " + creator + " | Reality TV: " + isRealityTV + " | Status: " + status;
+        return String.format("""
+        TV Series  : %s
+        Creator : %s
+        Reality Tv : %s
+        No. Of Episodes : %d
+        Status : %s
+        """,
+        title,
+        creator,
+        isRealityTV ? "Yes" : "No",
+        noOfEpisodes,
+        StatusMapper.getStatus(status)
+        );
     }
 
     public String getTitle() {
