@@ -78,18 +78,71 @@ public class Library {
         return videoGames;
     }
 
+    /* --- MCO1 REQUIRED LOGIC METHODS --- */
+
     public void updateStatus(String mediaTitle, int newStatus) {
+        for (Anime a : animes) {
+            if (a.getTitle().equalsIgnoreCase(mediaTitle)) { a.updateStatus(newStatus); System.out.println("Status updated."); return; }
+        }
+        for (TVSeries t : tvSeries) {
+            if (t.getTitle().equalsIgnoreCase(mediaTitle)) { t.updateStatus(newStatus); System.out.println("Status updated."); return; }
+        }
+        for (MusicSingle ms : musicSingles) {
+            if (ms.getTitle().equalsIgnoreCase(mediaTitle)) { ms.updateStatus(newStatus); System.out.println("Status updated."); return; }
+        }
+        for (MusicAlbum ma : musicAlbums) {
+            if (ma.getTitle().equalsIgnoreCase(mediaTitle)) { ma.updateStatus(newStatus); System.out.println("Status updated."); return; }
+        }
+        for (VideoGame vg : videoGames) {
+            if (vg.getTitle().equalsIgnoreCase(mediaTitle)) { vg.updateStatus(newStatus); System.out.println("Status updated."); return; }
+        }
+        System.out.println("Error: '" + mediaTitle + "' not found in your library.");
     }
 
     public void displayAllEntries() {
+        System.out.println("\n--- Your Media Library ---");
+        for (Anime a : animes) System.out.println(a.displayInfo());
+        for (TVSeries t : tvSeries) System.out.println(t.displayInfo());
+        for (MusicSingle ms : musicSingles) System.out.println(ms.displayInfo());
+        for (MusicAlbum ma : musicAlbums) System.out.println(ma.displayInfo());
+        for (VideoGame vg : videoGames) System.out.println(vg.displayInfo());
     }
 
     public void filterByStatus(int status) {
+        System.out.println("\n--- Filtering by Status: " + status + " ---");
+        for (Anime a : animes) { if (a.getStatus() == status) System.out.println(a.displayInfo()); }
+        for (TVSeries t : tvSeries) { if (t.getStatus() == status) System.out.println(t.displayInfo()); }
+        for (MusicSingle ms : musicSingles) { if (ms.getStatus() == status) System.out.println(ms.displayInfo()); }
+        for (MusicAlbum ma : musicAlbums) { if (ma.getStatus() == status) System.out.println(ma.displayInfo()); }
+        for (VideoGame vg : videoGames) { if (vg.getStatus() == status) System.out.println(vg.displayInfo()); }
     }
 
     public void filterByType(String type) {
+        System.out.println("\n--- Filtering by Type: " + type + " ---");
+        if (type.equalsIgnoreCase("Anime")) {
+            for (Anime a : animes) System.out.println(a.displayInfo());
+        } else if (type.equalsIgnoreCase("VideoGame")) {
+            for (VideoGame vg : videoGames) System.out.println(vg.displayInfo());
+        } else if (type.equalsIgnoreCase("TVSeries")) {
+            for (TVSeries t : tvSeries) System.out.println(t.displayInfo());
+        } else if (type.equalsIgnoreCase("MusicSingle")) {
+            for (MusicSingle ms : musicSingles) System.out.println(ms.displayInfo());
+        } else if (type.equalsIgnoreCase("MusicAlbum")) {
+            for (MusicAlbum ma : musicAlbums) System.out.println(ma.displayInfo());
+        } else {
+            System.out.println("Invalid media type.");
+        }
     }
 
     public void displaySummary() {
+        int total = animes.size() + tvSeries.size() + musicSingles.size() + musicAlbums.size() + videoGames.size();
+        System.out.println("\n=== Library Summary ===");
+        System.out.println("Total Entries: " + total);
+        System.out.println("Anime: " + animes.size());
+        System.out.println("Video Games: " + videoGames.size());
+        System.out.println("TV Series: " + tvSeries.size());
+        System.out.println("Music Singles: " + musicSingles.size());
+        System.out.println("Music Albums: " + musicAlbums.size());
+        System.out.println("=======================");
     }
 }
