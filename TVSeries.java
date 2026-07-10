@@ -57,7 +57,6 @@ public class TVSeries {
         return "TV Series: " + title + " | Creator: " + creator + " | Reality TV: " + isRealityTV + " | Status: " + status;
     }
 
-    // --- FIX 1: GETTERS ---
     public String getTitle() {
         return this.title;
     }
