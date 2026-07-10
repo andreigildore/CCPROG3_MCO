@@ -8,14 +8,20 @@ public class MusicSingle {
     private String review;
     private String artist;
     private String recordLabel;
+    private int status;
 
-    public MusicSingle(String title, String genre, String artist, String recordLabel) {
+    public MusicSingle(String title, LocalDate dateAdded, String genre, String artist, String recordLabel) {
         this.title = title;
         this.genre = genre;
         this.artist = artist;
         this.recordLabel = recordLabel;
+        this.status = 0;
+        this.dateAdded = dateAdded;
     }
 
+    public String getTitle() {
+        return title;
+    }
 
     public void rate(int rating) {
         if (rating >= 0 && rating  <= 10) {
@@ -28,7 +34,7 @@ public class MusicSingle {
 
      public void review(String text) {
         if (text != null || !text.isBlank()) {
-            this.rating = rating;
+            this.rating = text;
             System.out.println("Review saved successfully.");
         }
         else
@@ -51,7 +57,14 @@ public class MusicSingle {
         );
     }
 
-    public void updateStatus (int newStatus) {
-        
+    public int getStatus() {
+        return this.status;
+    }
+
+    public void updateStatus(int newStatus) {
+        if(newStatus >= 0 && newStatus <= 2)
+            status = newStatus;
+        else
+            System.out.println("Invalid status.");
     }
 }

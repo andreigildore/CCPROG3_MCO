@@ -13,11 +13,16 @@ public class MusicAlbum {
     private ArrayList<Track> ArrayList;
     private int noOfTracks;
 
-    public MusicAlbum(String title, String genre, String artist, String recordLabel) {
+    public MusicAlbum(String title, LocalDate dateAdded, String genre, String artist, String recordLabel) {
         this.title = title;
         this.genre = genre;
         this.artist = artist;
         this.recordLabel = recordLabel;
+        this.dateAdded = dateAdded;
+    }
+
+    public String getTitle() {
+        return this.title;
     }
 
     public void rate(int rating) {
@@ -36,7 +41,7 @@ public class MusicAlbum {
     public void review(String text) {
         if (text != null || !text.isBlank()){
             if (this.status == 2) {
-                this.rating = rating;
+                this.rating = text;
                 System.out.println("Rating saved successfully.");
             } else {
                 System.out.println("Cannot rate an unfinished album.");
@@ -68,7 +73,14 @@ public class MusicAlbum {
 
     }
 
-    public void updateStatus(int newStatus) {
+    public int getStatus() {
+        return this.status;
+    }
 
+    public void updateStatus(int newStatus) {
+        if(newStatus >= 0 && newStatus <= 2)
+            status = newStatus;
+        else
+            System.out.println("Invalid status.");
     }
 }

@@ -24,7 +24,10 @@ public class VideoGame {
     }
 
     public void updateStatus(int newStatus) {
-        this.status = newStatus;
+        if(newStatus >= 0 && newStatus <= 2)
+            status = newStatus;
+        else
+            System.out.println("Invalid status.");
     }
 
     public void rate(int rating) {
@@ -41,7 +44,7 @@ public class VideoGame {
     }
 
     public void review(String text) {
-        if (text != null && text.isBlank()) {
+        if (text != null && !text.isBlank()) {
             if (this.status == 2) {
                 this.review = text;
                 System.out.println("Review saved successfully.");
@@ -58,7 +61,7 @@ public class VideoGame {
         Video Game : %s
         Developer : %s
         Platform : %s
-        Playtime : $d hrs
+        Playtime : %d hrs
         Status : %s
         """,
         title,

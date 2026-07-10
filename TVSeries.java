@@ -25,7 +25,10 @@ public class TVSeries {
     }
 
     public void updateStatus(int newStatus) {
-        this.status = newStatus;
+        if(newStatus >= 0 && newStatus <= 2)
+            status = newStatus;
+        else
+            System.out.println("Invalid status.");
     }
 
     public void updateProgress(int n) {
@@ -49,7 +52,7 @@ public class TVSeries {
     }
 
     public void review(String text) {
-        if (text != null && text.isBlank()) {
+        if (text != null && !text.isBlank()) {
             if (this.status == 2) {
                 this.review = text;
                 System.out.println("Review saved successfully.");
