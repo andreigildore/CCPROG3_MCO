@@ -55,7 +55,6 @@ public class Anime {
         return "Anime: " + title + " | Studio: " + animationStudio + " | Subbed: " + isSubbed + " | Status: " + status;
     }
 
-    // --- FIX 1: GETTERS ---
     public String getTitle() {
         return this.title;
     }
