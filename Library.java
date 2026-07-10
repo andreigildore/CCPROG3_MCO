@@ -6,6 +6,14 @@ public class Library {
     private ArrayList<MusicSingle> musicSingles;
     private ArrayList<MusicAlbum> musicAlbums;
     private ArrayList<VideoGame> videoGames;
+	
+	public Library() {
+		this.animes = new ArrayList<>();
+		this.tvSeries = new ArrayList<>();
+        this.musicSingles = new ArrayList<>();
+        this.musicAlbums = new ArrayList<>();
+        this.videoGames = new ArrayList<>();
+	}
 
     /* adding methods */
     public void addAnime(Anime input) {
@@ -24,13 +32,13 @@ public class Library {
         musicAlbums.add(input);
     }
 
-    public void addVideoGame(Anime input) {
+    public void addVideoGame(VideoGame input) {
         videoGames.add(input);
     }
 
     /* removal methods */
     public void removeAnime(Anime input) {
-        anime.remove(input);
+        animes.remove(input);
     }
 
     public void removeTVSeries(TVSeries input) {
@@ -41,7 +49,7 @@ public class Library {
         musicSingles.remove(input);
     }
 
-    public void removeMusicAlbum(MusicAlbums input) {
+    public void removeMusicAlbum(MusicAlbum input) {
         musicAlbums.remove(input);
     }
 
@@ -55,20 +63,33 @@ public class Library {
     }
 
     public ArrayList<TVSeries> getTVSeries() {
-        return animes;
+        return tvSeries;
     }
 
     public ArrayList<MusicSingle> getMusicSingles() {
-        return animes;
+        return musicSingles;
     }
 
     public ArrayList<MusicAlbum> getMusicAlbums() {
-        return animes;
+        return musicAlbums;
     }
 
     public ArrayList<VideoGame> getVideoGames() {
-        return animes;
+        return videoGames;
     }
 
-    /* search specific media by name */
+    public void updateStatus(String mediaTitle, int newStatus) {
+    }
+
+    public void displayAllEntries() {
+    }
+
+    public void filterByStatus(int status) {
+    }
+
+    public void filterByType(String type) {
+    }
+
+    public void displaySummary() {
+    }
 }
