@@ -41,7 +41,7 @@ public class User {
     }
 
     public boolean login(String username, String password) {
-        if (this.username == null || this.password == null || this.email == null) {
+        if (this.username == null || this.username.isBlank()) { // only checks one since user details are initialized simultaneously
             System.out.println("User has not registered yet.");
             return false;
         } 

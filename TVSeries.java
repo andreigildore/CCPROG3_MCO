@@ -32,15 +32,15 @@ public class TVSeries {
     }
 
     public void trackCurrentSeason() {
-        System.out.println("Tracking current season for reality TV...");
+        System.out.println("Tracking current season for the TV Series...");
     }
 
-    public void rate(int n) {
+    public void rate(int rating) {
         if (this.status == 2) {
-            this.rating = n;
+            this.rating = rating;
             System.out.println("Rating saved successfully.");
         } else {
-            System.out.println("Error: Cannot rate an incomplete TV Series.");
+            System.out.println("Cannot rate an incomplete/unfinished TV Series.");
         }
     }
 
@@ -49,7 +49,7 @@ public class TVSeries {
             this.review = text;
             System.out.println("Review saved successfully.");
         } else {
-            System.out.println("Error: Cannot review an incomplete TV Series.");
+            System.out.println("Cannot review an incomplete/unfinished TV Series.");
         }
     }
 

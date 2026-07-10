@@ -8,16 +8,17 @@ public class Episode {
     }
 
     public String getTitle() { 
-		return title; 
-	}
+        return title; 
+    }
     public void setTitle(String title) { 
-		this.title = title; 
-	}
+        this.title = title; 
+    }
 
     public int getEpisodeNumber() { 
-		return episodeNumber; 
-	}
+        return episodeNumber; 
+    }
     public void setEpisodeNumber(int episodeNumber) { 
-		this.episodeNumber = episodeNumber; 
-	}
+        this.episodeNumber = episodeNumber; 
+    }
 }
+
