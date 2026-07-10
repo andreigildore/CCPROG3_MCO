@@ -78,8 +78,6 @@ public class Library {
         return videoGames;
     }
 
-    /* --- MCO1 REQUIRED LOGIC METHODS --- */
-
     public void updateStatus(String mediaTitle, int newStatus) {
         for (Anime a : animes) {
             if (a.getTitle().equalsIgnoreCase(mediaTitle)) { a.updateStatus(newStatus); System.out.println("Status updated."); return; }
