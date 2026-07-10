@@ -11,8 +11,13 @@ public class User {
     public String getEmail() {
         return email;
     }
+
     public String getUsername() {
         return username;
+    }
+
+    public Library getLibrary() {
+        return library;
     }
 
     private void setEmail(String input) {
