@@ -22,7 +22,7 @@ public class Anime {
         this.creator = creator;
         this.noOfEpisodes = noOfEpisodes;
         this.isSubbed = isSubbed;
-        this.status = 0; // Defaults to Planned
+        this.status = 0;
         this.episodes = new ArrayList<>();
     }
 
@@ -53,5 +53,14 @@ public class Anime {
 
     public String displayInfo() {
         return "Anime: " + title + " | Studio: " + animationStudio + " | Subbed: " + isSubbed + " | Status: " + status;
+    }
+
+    // --- FIX 1: GETTERS ---
+    public String getTitle() {
+        return this.title;
+    }
+
+    public int getStatus() {
+        return this.status;
     }
 }
