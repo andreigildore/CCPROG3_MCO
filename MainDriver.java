@@ -10,7 +10,9 @@ public class MainDriver {
             Welcome to the Media Vault!
 
             """);
-        setupUser();
+        System.out.println("Use sample user details? (y/n)");
+        if (readYesOrNo())
+            setupUser();   
         boolean programRuns = true;
 
         while (programRuns) {
