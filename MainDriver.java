@@ -611,6 +611,7 @@ public class MainDriver {
     }
 
     public static boolean readYesOrNo() {
-        return readString().equalsIgnoreCase("y") || readString().equalsIgnoreCase("yes");
+        String input = readString();
+        return input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes");
     }
 }

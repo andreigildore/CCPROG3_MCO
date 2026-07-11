@@ -124,6 +124,8 @@ public class TVSeries {
     }
 
     public String displayInfo() {
+        String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
+        String reviewStr = (review != null && !review.isBlank()) ? review : "No review";
         return String.format("""
         TV Series  : %s
         Creator : %s
@@ -131,13 +133,17 @@ public class TVSeries {
         Reality Tv : %s
         No. Of Episodes : %d
         Status : %s
+        Rating : %s
+        Review : %s
         """,
         title,
         creator,
         genre,
         isRealityTV ? "Yes" : "No",
         noOfEpisodes,
-        StatusMapper.getStatus(status)
+        StatusMapper.getStatus(status),
+        ratingStr,
+        reviewStr
         );
     }
 }

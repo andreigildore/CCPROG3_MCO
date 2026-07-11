@@ -118,6 +118,8 @@ public class Anime {
     }
 
     public String displayInfo() {
+        String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
+        String reviewStr = (review != null && !review.isBlank()) ? review : "No review";
         return String.format("""
         Anime  : %s
         Creator : %s 
@@ -126,6 +128,8 @@ public class Anime {
         Subbed : %b
         No. Of Episodes : %d
         Status : %s
+        Rating : %s
+        Review : %s
         """,
         title,
         creator,
@@ -133,7 +137,9 @@ public class Anime {
         genre,
         isSubbed,
         noOfEpisodes,
-        StatusMapper.getStatus(status)
+        StatusMapper.getStatus(status),
+        ratingStr,
+        reviewStr
         );
     }
 

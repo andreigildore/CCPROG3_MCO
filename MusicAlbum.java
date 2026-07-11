@@ -110,6 +110,8 @@ public class MusicAlbum {
     }
 
     public String displayInfo() {
+        String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
+        String reviewStr = (review != null && !review.isBlank()) ? review : "No review";
         return String.format("""
         Title  : %s
         Artist : %s
@@ -117,13 +119,17 @@ public class MusicAlbum {
         Genre: %s
         No. Of Tracks : %d
         Status : %s
+        Rating : %s
+        Review : %s
         """,
         title,
         artist,
         recordLabel,
         genre,
         noOfTracks,
-        StatusMapper.getStatus(status)
+        StatusMapper.getStatus(status),
+        ratingStr,
+        reviewStr
         );
     }
     

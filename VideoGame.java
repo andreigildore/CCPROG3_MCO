@@ -15,7 +15,6 @@ public class VideoGame {
         this.developer = developer;
         this.platform = platform;
         this.status = 0;
-        this.playtime = 0;
     }
 
     public String getTitle() {
@@ -67,11 +66,17 @@ public class VideoGame {
             System.out.println("Review has no content or is null");
     }
 
-    public void addPlaytime(int playtime) {
-
+    public void addPlaytime(int additionalPlaytime) {
+        if (additionalPlaytime > 0) {
+            this.playtime += additionalPlaytime;
+            System.out.println("Playtime updated. Total: " + this.playtime + " hrs.");
+        } else {
+            System.out.println("Invalid playtime amount.");
+        }
     }
-
     public String displayInfo() {
+        String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
+        String reviewStr = (review != null && !review.isBlank()) ? review : "No review";
         return String.format("""
         Video Game : %s
         Developer : %s
@@ -79,13 +84,17 @@ public class VideoGame {
         Genre : %s
         Playtime : %d hrs
         Status : %s
+        Rating : %s
+        Review : %s
         """,
         title,
         developer,
         platform,
         genre,
         playtime,
-        StatusMapper.getStatus(status)
+        StatusMapper.getStatus(status),
+        ratingStr,
+        reviewStr
         );
     }
 
