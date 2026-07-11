@@ -38,7 +38,7 @@ public class Track {
                 System.out.println("Track rated succesfully.");
             }
             else
-                System.out.println("Track has not been listend to.");
+                System.out.println("Track has not been listened to.");
         }
         else
             System.out.println("Invalid rating score");

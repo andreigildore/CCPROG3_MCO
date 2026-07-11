@@ -37,7 +37,7 @@ public class MusicSingle {
     }
 
     public void rate(int rating) {
-        if (rating >= 0 && rating  <= 10) {
+        if (rating >= 1 && rating  <= 10) {
             if (this.status == 2) {
                 this.rating = rating;
                 System.out.println("Rating saved successfully.");

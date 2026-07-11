@@ -80,7 +80,7 @@ public class MusicAlbum {
     }
 
     public void rate(int rating) {
-        if (rating >= 0 && rating  <= 10) {
+        if (rating >= 1 && rating  <= 10) {
             if (this.status == 2) {
                 this.rating = rating;
                 System.out.println("Rating saved successfully.");
@@ -96,7 +96,7 @@ public class MusicAlbum {
         if (text != null && !text.isBlank()){
             if (this.status == 2) {
                 this.review = text;
-                System.out.println("Rating saved successfully.");
+                System.out.println("Review saved successfully.");
             } else {
                 System.out.println("Cannot rate an unfinished album.");
             }

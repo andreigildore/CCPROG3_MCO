@@ -1,7 +1,6 @@
 public class VideoGame {
     private String title;
     private String genre;
-    private int gameMode;
     private int status;
     private int rating;
     private String review;
@@ -9,10 +8,10 @@ public class VideoGame {
     private String developer;
     private String platform;
 
-    public VideoGame(String title, String genre, int gameMode, String developer, String platform) {
+    public VideoGame(String title, String genre, int playtime String developer, String platform) {
         this.title = title;
         this.genre = genre;
-        this.gameMode = gameMode;
+        this.playtime = playtime;
         this.developer = developer;
         this.platform = platform;
         this.status = 0;
@@ -27,7 +26,7 @@ public class VideoGame {
     }
 
     public void rate(int rating) {
-        if (rating >= 0 && rating <= 10) {
+        if (rating >= 1 && rating <= 10) {
             if (this.status == 2) {
                 this.rating = rating;
                 System.out.println("Rating saved successfully.");
@@ -50,6 +49,10 @@ public class VideoGame {
         }
         else
             System.out.println("Review has no content or is null");
+    }
+
+    public void addPlaytime(int playtime) {
+
     }
 
     public String displayInfo() {

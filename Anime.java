@@ -1,4 +1,3 @@
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Anime {
@@ -60,7 +59,7 @@ public class Anime {
         if (episode != null)
             episode.rate(rating);
         else
-            System.out.println("Episode " + episodeNumber + " not found in" + title + ".");
+            System.out.println("Episode " + episodeNumber + " not found in " + title + ".");
     }
 
     public void markEpisodeWatched(int episodeNumber) {
@@ -70,7 +69,7 @@ public class Anime {
             System.out.println("Marked episode " + episodeNumber + " as watched.");
         }
         else
-            System.out.println("Episode " + episodeNumber + " not found in" + title + ".");
+            System.out.println("Episode " + episodeNumber + " not found in " + title + ".");
     }
 
     public void displayEpisodes() {
