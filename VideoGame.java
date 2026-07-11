@@ -1,3 +1,6 @@
+/**
+ * represents a video game entry in the user's library
+ */
 public class VideoGame {
     private String title;
     private String genre;
@@ -8,6 +11,9 @@ public class VideoGame {
     private String developer;
     private String platform;
 
+    /**
+     * creates a new video game with default status of 0 (planned)
+     */
     public VideoGame(String title, String genre, int playtime, String developer, String platform) {
         this.title = title;
         this.genre = genre;
@@ -33,6 +39,9 @@ public class VideoGame {
         return this.review;
     }
     
+    /**
+     * updates the status if the new value is within valid range
+     */
     public void updateStatus(int newStatus) {
         if(newStatus >= 0 && newStatus <= 2)
             status = newStatus;
@@ -40,8 +49,12 @@ public class VideoGame {
             System.out.println("Invalid status.");
     }
 
+    /**
+     * rates the video game from 1-10
+     */
     public void rate(int rating) {
         if (rating >= 1 && rating <= 10) {
+            // only completed media can be rated
             if (this.status == 2) {
                 this.rating = rating;
                 System.out.println("Rating saved successfully.");
@@ -53,6 +66,9 @@ public class VideoGame {
             System.out.println("Invalid rating input");
     }
 
+    /**
+     * adds a text review if the game is completed
+     */
     public void review(String text) {
         if (text != null && !text.isBlank()) {
             if (this.status == 2) {
@@ -66,6 +82,9 @@ public class VideoGame {
             System.out.println("Review has no content or is null");
     }
 
+    /**
+     * adds hours to the total playtime
+     */
     public void addPlaytime(int additionalPlaytime) {
         if (additionalPlaytime > 0) {
             this.playtime += additionalPlaytime;
@@ -74,6 +93,9 @@ public class VideoGame {
             System.out.println("Invalid playtime amount.");
         }
     }
+    /**
+     * returns a formatted string of the video game's details
+     */
     public String displayInfo() {
         String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
         String reviewStr = (review != null && !review.isBlank()) ? review : "No review";

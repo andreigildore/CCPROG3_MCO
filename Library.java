@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * stores and manages all media entries in the user's library
+ */
 public class Library {
     private ArrayList<Anime> animes;
     private ArrayList<TVSeries> tvSeries;
@@ -20,6 +23,7 @@ public class Library {
         if (initialStatus == 0 || initialStatus == 1) {
             input.updateStatus(initialStatus);
             animes.add(input);
+            System.out.println("Successfully added " + input.getTitle() + " as Anime to your library.");
         } 
         else {
             System.out.println("Invalid initial status. New entries must be Planned or In Progress.");
@@ -30,6 +34,7 @@ public class Library {
         if (initialStatus == 0 || initialStatus == 1) {
             input.updateStatus(initialStatus);
             tvSeries.add(input);
+            System.out.println("Successfully added " + input.getTitle() + " as TV Series to your library.");
         } 
         else {
             System.out.println("Invalid initial status. New entries must be Planned or In Progress.");
@@ -40,6 +45,7 @@ public class Library {
         if (initialStatus == 0 || initialStatus == 1) {
             input.updateStatus(initialStatus);
             musicSingles.add(input);
+            System.out.println("Successfully added " + input.getTitle() + " as Music Single to your library.");
         } 
         else {
             System.out.println("Invalid initial status. New entries must be Planned or In Progress.");
@@ -50,6 +56,7 @@ public class Library {
         if (initialStatus == 0 || initialStatus == 1) {
             input.updateStatus(initialStatus);
             musicAlbums.add(input);
+            System.out.println("Successfully added " + input.getTitle() + " as Music Album to your library.");
         } 
         else {
             System.out.println("Invalid initial status. New entries must be Planned or In Progress.");
@@ -60,6 +67,7 @@ public class Library {
         if (initialStatus == 0 || initialStatus == 1) {
             input.updateStatus(initialStatus);
             videoGames.add(input);
+            System.out.println("Successfully added " + input.getTitle() + " as Video Game to your library.");
         } 
         else {
             System.out.println("Invalid initial status. New entries must be Planned or In Progress.");
@@ -150,10 +158,15 @@ public class Library {
         return null;
     }
 
+    /**
+     * finds a media entry by type and title, then updates its status
+     */
     public void updateStatus(String type, String mediaTitle, int newStatus) {
+        // search the matching type list for the title, update if found
         if (type.equalsIgnoreCase("Anime")) {
             for (Anime anime : animes) {
                 if (anime.getTitle().equalsIgnoreCase(mediaTitle)) { 
+                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatus(anime.getStatus()));
                     anime.updateStatus(newStatus); 
                     System.out.println("Status updated."); 
                     return; 
@@ -163,6 +176,7 @@ public class Library {
         else if (type.equalsIgnoreCase("TVSeries")) {
             for (TVSeries tvS : tvSeries) {
                 if (tvS.getTitle().equalsIgnoreCase(mediaTitle)) { 
+                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatus(tvS.getStatus()));
                     tvS.updateStatus(newStatus); 
                     System.out.println("Status updated."); 
                     return; 
@@ -172,6 +186,7 @@ public class Library {
         else if (type.equalsIgnoreCase("MusicSingle")) {
             for (MusicSingle musicSingle : musicSingles) {
                 if (musicSingle.getTitle().equalsIgnoreCase(mediaTitle)) { 
+                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatus(musicSingle.getStatus()));
                     musicSingle.updateStatus(newStatus); 
                     System.out.println("Status updated."); 
                     return; 
@@ -181,6 +196,7 @@ public class Library {
         else if (type.equalsIgnoreCase("MusicAlbum")) {
             for (MusicAlbum musicAlbum : musicAlbums) {
                 if (musicAlbum.getTitle().equalsIgnoreCase(mediaTitle)) { 
+                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatus(musicAlbum.getStatus()));
                     musicAlbum.updateStatus(newStatus); 
                     System.out.println("Status updated."); 
                     return; 
@@ -190,6 +206,7 @@ public class Library {
         else if (type.equalsIgnoreCase("VideoGame")) {
             for (VideoGame videoGame : videoGames) {
                 if (videoGame.getTitle().equalsIgnoreCase(mediaTitle)) { 
+                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatus(videoGame.getStatus()));
                     videoGame.updateStatus(newStatus); 
                     System.out.println("Status updated."); 
                     return; 
@@ -202,7 +219,16 @@ public class Library {
         }
         System.out.println("Error: '" + mediaTitle + "' not found in your " + type + " library.");
     }
+    /**
+     * displays all entries across every media type
+     */
     public void displayAllEntries() {
+        int total = animes.size() + tvSeries.size() + musicSingles.size() + musicAlbums.size() + videoGames.size();
+        // skip display if library has no entries at all
+        if (total == 0) {
+            System.out.println("\nYour library is empty. Add some media to get started!");
+            return;
+        }
         System.out.println("\n--- Your Media Library ---");
         for (Anime anime : animes)                   System.out.println(anime.displayInfo());
         for (TVSeries tvS : tvSeries)                System.out.println(tvS.displayInfo());
@@ -211,6 +237,9 @@ public class Library {
         for (VideoGame videoGame : videoGames)       System.out.println(videoGame.displayInfo());
     }
 
+    /**
+     * displays only entries that match the given status
+     */
     public void filterByStatus(int status) {
         System.out.println("\n--- Filtering by Status: " + StatusMapper.getStatus(status) + " ---");
         for (Anime anime : animes) { 
@@ -235,6 +264,9 @@ public class Library {
             }
     }
 
+    /**
+     * displays only entries of the given media type
+     */
     public void filterByType(String type) {
         System.out.println("\n--- Filtering by Type: " + type + " ---");
         if (type.equalsIgnoreCase("Anime")) {
@@ -257,10 +289,14 @@ public class Library {
         }
     }
 
+    /**
+     * prints a summary of library stats including counts and average rating
+     */
     public void displaySummary() {
         int total = animes.size() + tvSeries.size() + musicSingles.size() + musicAlbums.size() + videoGames.size();
 
         int planned = 0, inProgress = 0, completed = 0;
+        // tracks how many completed entries have a rating and their total sum
         int ratedCount = 0;
         int ratingSum = 0;
 
@@ -319,6 +355,7 @@ public class Library {
                 }
         }
 
+        // average rating only from completed entries that have been rated
         String avgRatingText = ratedCount == 0 ? "N/A" : String.format("%.2f", (double) ratingSum / ratedCount);
 
         System.out.println(String.format("""

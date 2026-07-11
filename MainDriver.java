@@ -1,9 +1,15 @@
 import java.util.Scanner;
 
+/**
+ * handles all user interaction and drives the media vault program
+ */
 public class MainDriver {
     private static final Scanner sc = new Scanner(System.in);
     private static final User currentUser = new User(); // assume only one user for the program
 
+    /**
+     * entry point - sets up the user then loops the main menu until exit
+     */
     public static void main(String args[]) {
         System.out.println("""
             
@@ -24,6 +30,7 @@ public class MainDriver {
         }
         boolean programRuns = true;
 
+        // main loop - keeps showing the menu until the user picks exit
         while (programRuns) {
             printMenu();
             System.out.println("Enter Input (1-7) : ");
@@ -58,11 +65,17 @@ public class MainDriver {
         System.out.println("Closing the vault...");
     }
     
+    /**
+     * registers and logs in a sample user for quick testing
+     */
     private static void setupUser() {
         currentUser.register("jdjdsbgad", "jdjdsbgad64@email.com", "jdjdsbgad!@#1234");
         currentUser.login("jdjdsbgad", "jdjdsbgad!@#1234");
     }
 
+    /**
+     * prints the main menu options to the console
+     */
     private static void printMenu() {
         System.out.println("""
 
@@ -78,6 +91,9 @@ public class MainDriver {
     }
 
     /* menu methods */
+    /**
+     * prompts the user to pick a media type and collects details to add a new entry
+     */
     public static void addNewMedia() {
         Library library = currentUser.getLibrary();
         boolean running = true;
@@ -178,6 +194,9 @@ public class MainDriver {
         }
     }
 
+    /**
+     * lets the user pick a media entry by type and title, then update its status
+     */
     public static void updateEntryStatus() {
         Library library = currentUser.getLibrary();
         System.out.println("""
@@ -229,6 +248,9 @@ public class MainDriver {
         }
     }
  
+    /**
+     * lets the user rate and/or review a completed media entry
+     */
     public static void rateReviewMedia() {
         Library library = currentUser.getLibrary();
         System.out.println("""
@@ -252,10 +274,12 @@ public class MainDriver {
                     break;
                 }
                 int animeChoice = readRateReviewChoice();
+                // choice 1 = rate only, 3 = both, so either triggers rating
                 if (animeChoice == 1 || animeChoice == 3) {
                     System.out.println("Enter Rating (1-10) : ");
                     anime.rate(readValidInt());
                 }
+                // choice 2 = review only, 3 = both, so either triggers review
                 if (animeChoice == 2 || animeChoice == 3) {
                     System.out.println("Enter Review : ");
                     anime.review(readString());
@@ -340,6 +364,9 @@ public class MainDriver {
         }
     }
  
+    /**
+     * displays library entries with optional filtering by status or type
+     */
     public static void displayEntries() {
         Library library = currentUser.getLibrary();
         boolean running = true;
@@ -372,6 +399,7 @@ public class MainDriver {
                         6. Go back
                         """);
                     int type = readValidInt();
+                    // nested switch to filter entries by the selected media type
                     switch (type) {
                         case 1:
                             library.filterByType("Anime");
@@ -403,10 +431,14 @@ public class MainDriver {
         }
     }
  
+    /**
+     * lets the user manage individual episodes or tracks within a media entry
+     */
     public static void manageEpisodesOrTracks() {
         Library library = currentUser.getLibrary();
         boolean running = true;
 
+        // outer loop picks the media type
         while (running) {
             System.out.println("""
 
@@ -426,6 +458,7 @@ public class MainDriver {
                         System.out.println("Anime '" + animeTitle + "' not found.");
                         break;
                     }
+                    // inner loop manages episodes for the selected anime
                     boolean animeRunning = true;
                     while (animeRunning) {
                         System.out.println("""
@@ -477,6 +510,7 @@ public class MainDriver {
                         System.out.println("TV Series '" + tvTitle + "' not found.");
                         break;
                     }
+                    // inner loop manages episodes for the selected tv series
                     boolean tvRunning = true;
                     while (tvRunning) {
                         System.out.println("""
@@ -528,32 +562,37 @@ public class MainDriver {
                         System.out.println("Music Album '" + maTitle + "' not found.");
                         break;
                     }
+                    // inner loop manages tracks for the selected album
                     boolean albumRunning = true;
                     while (albumRunning) {
                         System.out.println("""
-                            1. Update progress
-                            2. Rate a track
-                            3. Favorite/unfavorite a track
-                            4. Go back
+                            1. Display tracks
+                            2. Update progress
+                            3. Rate a track
+                            4. Favorite/unfavorite a track
+                            5. Go back
                             """);
                         int albumChoice = readValidInt();
                         switch (albumChoice) {
                             case 1:
+                                musicAlbum.displayTracks();
+                                break;
+                            case 2:
                                 System.out.println("Enter track number listened up to : ");
                                 musicAlbum.updateProgress(readValidInt());
                                 break;
-                            case 2:
+                            case 3:
                                 System.out.println("Enter track number : ");
                                 int trackNum = readValidInt();
                                 System.out.println("Enter Rating (1-10) : ");
                                 int trackRating = readValidInt();
                                 musicAlbum.rateTrack(trackNum, trackRating);
                                 break;
-                            case 3:
+                            case 4:
                                 System.out.println("Enter track number : ");
                                 musicAlbum.favoriteTrack(readValidInt());
                                 break;
-                            case 4:
+                            case 5:
                                 albumRunning = false;
                                 break;
                             default:
@@ -562,6 +601,7 @@ public class MainDriver {
                     }
                     break;
                 case 4:
+                    running = false;
                     break;
                 default:
                     System.out.println(type + " is an invalid choice.");
@@ -600,6 +640,7 @@ public class MainDriver {
     }
     
     public static int readValidInt() {
+        // keeps looping and discarding non-integer input until a valid int is found
         while (!sc.hasNextInt()) {
             sc.nextLine();
             System.out.println("Enter a valid number.");

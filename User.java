@@ -1,9 +1,15 @@
+/**
+ * represents a user account with login credentials and a media library
+ */
 public class User {
     private String username;
     private String email;
     private String password;
     private Library library;
 
+    /**
+     * creates a new user with an empty library
+     */
     public User () {
         this.library = new Library();
     }
@@ -32,7 +38,11 @@ public class User {
         password = input;
     }
 
+    /**
+     * registers the user with the given credentials
+     */
     public void register(String username, String email, String password) {
+        // reject if any field is null or blank
         if (username == null || username.isBlank() || email == null || email.isBlank()
            || password == null || password.isBlank()) {
             System.out.println("Invalid registration details.");
@@ -46,12 +56,16 @@ public class User {
         
     }
 
+    /**
+     * attempts to log in with the given username and password
+     */
     public boolean login(String username, String password) {
         if (this.username == null || this.username.isBlank()) { // only checks one since user details are initialized simultaneously
             System.out.println("User has not registered yet.");
             return false;
         } 
         else {
+            // match input credentials against stored values
             if (this.username.equals(username) && this.password.equals(password)) {
                 System.out.println("Login Successful!");
                 return true;

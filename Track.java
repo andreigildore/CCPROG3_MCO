@@ -1,9 +1,15 @@
+/**
+ * represents a single track in a music album
+ */
 public class Track {
     private final int trackNumber;
     private int rating;
     private boolean isFavorite;
     private boolean isListenedTo;
 
+    /**
+     * creates a new unlistened, unrated track
+     */
     public Track(int trackNumber) {
         this.trackNumber = trackNumber;
         this.rating = 0;
@@ -27,12 +33,19 @@ public class Track {
         return isListenedTo;
     }
 
+    /**
+     * marks this track as listened to
+     */
     public void markListened() {
         isListenedTo = true;
     }
 
+    /**
+     * rates the track from 1-10
+     */
     public void rate (int rating) {
         if (rating >= 1 && rating  <= 10) {
+            // must be listened to before rating
             if (isListenedTo) {
                 this.rating = rating;
                 System.out.println("Track rated successfully.");
@@ -49,6 +62,9 @@ public class Track {
         System.out.println(isFavorite ? "Track marked as favorite." : "Track removed from favorites.");
     }
 
+    /**
+     * returns a formatted string of the track's details
+     */
     public String displayInfo() {
         return String.format("""
         Track %-3d Listened : %3s Favorite : %3s Rating : %s
