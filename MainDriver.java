@@ -48,8 +48,8 @@ public class MainDriver {
     }
     
     private static void setupUser() {
-        currentUser.register("jdjdsb", "jdjdsb64@email.com", "jdjdsb!@#1234");
-        currentUser.login("jdjdsb", "jdjdsb!@#1234");
+        currentUser.register("jdjdsbgad", "jdjdsbgad64@email.com", "jdjdsbgad!@#1234");
+        currentUser.login("jdjdsbgad", "jdjdsbgad!@#1234");
     }
 
     private static void printMenu() {
