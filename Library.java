@@ -103,45 +103,53 @@ public class Library {
         return videoGames;
     }
 
-    public void updateStatus(String mediaTitle, int newStatus) {
-        for (Anime anime : animes) {
-            if (anime.getTitle().equalsIgnoreCase(mediaTitle)) { 
-                anime.updateStatus(newStatus); 
-                System.out.println("Status updated."); 
-                return; 
+    public void updateStatus(String type, String mediaTitle, int newStatus) {
+        if (type.equalsIgnoreCase("Anime")) {
+            for (Anime anime : animes) {
+                if (anime.getTitle().equalsIgnoreCase(mediaTitle)) { 
+                    anime.updateStatus(newStatus); 
+                    System.out.println("Status updated."); 
+                    return; 
+                }
             }
-        }
-        for (TVSeries tvS : tvSeries) {
-            if (tvS.getTitle().equalsIgnoreCase(mediaTitle)) { 
-                tvS.updateStatus(newStatus); 
-                System.out.println("Status updated."); 
-                return; 
+        } else if (type.equalsIgnoreCase("TVSeries")) {
+            for (TVSeries tvS : tvSeries) {
+                if (tvS.getTitle().equalsIgnoreCase(mediaTitle)) { 
+                    tvS.updateStatus(newStatus); 
+                    System.out.println("Status updated."); 
+                    return; 
+                }
             }
-        }
-        for (MusicSingle musicSingle : musicSingles) {
-            if (musicSingle.getTitle().equalsIgnoreCase(mediaTitle)) { 
-                musicSingle.updateStatus(newStatus); 
-                System.out.println("Status updated."); 
-                return; 
+        } else if (type.equalsIgnoreCase("MusicSingle")) {
+            for (MusicSingle musicSingle : musicSingles) {
+                if (musicSingle.getTitle().equalsIgnoreCase(mediaTitle)) { 
+                    musicSingle.updateStatus(newStatus); 
+                    System.out.println("Status updated."); 
+                    return; 
+                }
             }
-        }
-        for (MusicAlbum musicAlbum : musicAlbums) {
-            if (musicAlbum.getTitle().equalsIgnoreCase(mediaTitle)) { 
-                musicAlbum.updateStatus(newStatus); 
-                System.out.println("Status updated."); 
-                return; 
+        } else if (type.equalsIgnoreCase("MusicAlbum")) {
+            for (MusicAlbum musicAlbum : musicAlbums) {
+                if (musicAlbum.getTitle().equalsIgnoreCase(mediaTitle)) { 
+                    musicAlbum.updateStatus(newStatus); 
+                    System.out.println("Status updated."); 
+                    return; 
+                }
             }
-        }
-        for (VideoGame videoGame : videoGames) {
-            if (videoGame.getTitle().equalsIgnoreCase(mediaTitle)) { 
-                videoGame.updateStatus(newStatus); 
-                System.out.println("Status updated."); 
-                return; 
+        } else if (type.equalsIgnoreCase("VideoGame")) {
+            for (VideoGame videoGame : videoGames) {
+                if (videoGame.getTitle().equalsIgnoreCase(mediaTitle)) { 
+                    videoGame.updateStatus(newStatus); 
+                    System.out.println("Status updated."); 
+                    return; 
+                }
             }
+        } else {
+            System.out.println("Invalid media type.");
+            return;
         }
-        System.out.println("Error: '" + mediaTitle + "' not found in your library.");
+        System.out.println("Error: '" + mediaTitle + "' not found in your " + type + " library.");
     }
-
     public void displayAllEntries() {
         System.out.println("\n--- Your Media Library ---");
         for (Anime anime : animes)                   System.out.println(anime.displayInfo());

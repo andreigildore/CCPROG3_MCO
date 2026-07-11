@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public class Anime {
     private String title;
-    private LocalDate dateAdded;
     private String genre;
     private int status; 
     private int rating;
@@ -14,9 +13,8 @@ public class Anime {
     private int noOfEpisodes;
     private boolean isSubbed;
 
-    public Anime(String title, LocalDate dateAdded, String genre, String animationStudio, String creator, int noOfEpisodes, boolean isSubbed) {
+    public Anime(String title, String genre, String animationStudio, String creator, int noOfEpisodes, boolean isSubbed) {
         this.title = title;
-        this.dateAdded = dateAdded;
         this.genre = genre;
         this.animationStudio = animationStudio;
         this.creator = creator;
@@ -81,6 +79,14 @@ public class Anime {
             System.out.println(episode.displayInfo());
     }
 
+    public void favoriteEpisode(int episodeNumber) {
+        Episode episode = findEpisode(episodeNumber);
+        if (episode != null) {
+            episode.toggleFavorite();
+        }
+        else
+            System.out.println("Episode " + episodeNumber + " not found in" + title + ".");
+    }
 
     public void rate(int rating) {
         if (rating >= 1 && rating  <= 10) {

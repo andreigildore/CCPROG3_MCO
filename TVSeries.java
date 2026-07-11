@@ -1,9 +1,7 @@
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TVSeries {
     private String title;
-    private LocalDate dateAdded;
     private String genre;
     private int status;
     private int rating;
@@ -13,9 +11,8 @@ public class TVSeries {
     private int noOfEpisodes;
     private boolean isRealityTV;
 
-    public TVSeries(String title, LocalDate dateAdded, String genre, String creator, int noOfEpisodes, boolean isRealityTV) {
+    public TVSeries(String title, String genre, String creator, int noOfEpisodes, boolean isRealityTV) {
         this.title = title;
-        this.dateAdded = dateAdded;
         this.genre = genre;
         this.creator = creator;
         this.isRealityTV = isRealityTV;
@@ -71,6 +68,11 @@ public class TVSeries {
 
     public void favoriteEpisode(int episodeNumber) {
         Episode episode = findEpisode(episodeNumber);
+        if (episode != null) {
+            episode.toggleFavorite();
+        }
+        else
+            System.out.println("Episode " + episodeNumber + "not found in " + title + ".");
     }
 
     public void displayEpisodes() {

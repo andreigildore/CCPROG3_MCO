@@ -1,8 +1,5 @@
-import java.time.LocalDate;
-
 public class VideoGame {
     private String title;
-    private LocalDate dateAdded;
     private String genre;
     private int gameMode;
     private int status;
@@ -12,9 +9,8 @@ public class VideoGame {
     private String developer;
     private String platform;
 
-    public VideoGame(String title, LocalDate dateAdded, String genre, int gameMode, String developer, String platform) {
+    public VideoGame(String title, String genre, int gameMode, String developer, String platform) {
         this.title = title;
-        this.dateAdded = dateAdded;
         this.genre = genre;
         this.gameMode = gameMode;
         this.developer = developer;

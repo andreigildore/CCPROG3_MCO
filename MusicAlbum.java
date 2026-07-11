@@ -1,9 +1,7 @@
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class MusicAlbum {
     private String title;
-    private LocalDate dateAdded;
     private String genre;
     private int status;
     private int rating;
@@ -13,12 +11,13 @@ public class MusicAlbum {
     private ArrayList<Track> tracks;
     private int noOfTracks;
 
-    public MusicAlbum(String title, LocalDate dateAdded, String genre, String artist, String recordLabel) {
+    public MusicAlbum(String title, int noOfTracks, String genre, String artist, String recordLabel) {
         this.title = title;
         this.genre = genre;
         this.artist = artist;
         this.recordLabel = recordLabel;
         this.status = 0;
+        this.tracks = new ArrayList<>();
         for (int i = 1; i <= noOfTracks; i++) {
             Track track = new Track(i);
             tracks.add(track);
@@ -49,6 +48,34 @@ public class MusicAlbum {
         for (Track track : tracks) {
             if (track.getTrackNumber() <= trackInput)
                 track.markListened();
+        }
+    }
+
+    public Track findTrack(int trackNumber) {
+        for (Track track : tracks) {
+            if (track.getTrackNumber() == trackNumber)
+                return track;
+        }
+        return null;
+    }
+
+    public void rateTrack(int trackNumber, int rating) {
+        Track track = findTrack(trackNumber);
+        if (track != null) {
+            track.rate(rating);
+        }
+        else {
+            System.out.println("Track " + trackNumber + " not found in " + title + ".");
+        }
+    }
+
+    public void favoriteTrack(int trackNumber) {
+        Track track = findTrack(trackNumber);
+        if (track != null) {
+            track.toggleFavorite();
+        }
+        else {
+            System.out.println("Track " + trackNumber + " not found in " + title + ".");
         }
     }
 
@@ -95,8 +122,5 @@ public class MusicAlbum {
         StatusMapper.getStatus(status)
         );
     }
-    
-    
-
     
 }
