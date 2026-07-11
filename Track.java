@@ -85,7 +85,7 @@ public class Track {
      */
     public String displayInfo() {
         return String.format("""
-        Track %-3d Listened : %3s Favorite : %3s Rating : %s
+        Track %-3d | Listened : %3s | Favorite : %3s | Rating : %s
         """,
         trackNumber,
         isListenedTo ? "Yes" : "No",
