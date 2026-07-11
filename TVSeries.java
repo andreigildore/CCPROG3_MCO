@@ -18,10 +18,14 @@ public class TVSeries {
         this.dateAdded = dateAdded;
         this.genre = genre;
         this.creator = creator;
-        this.noOfEpisodes = noOfEpisodes;
         this.isRealityTV = isRealityTV;
         this.status = 0; // Default to Planned
         this.episodes = new ArrayList<>();
+        for (int i = 1; i <= noOfEpisodes; i++) {
+            Episode episode = new episode(i);
+            episodes.add(episode);
+        }
+        this.noOfEpisodes = episodes.size();
     }
 
     public void updateStatus(int newStatus) {
@@ -31,11 +35,48 @@ public class TVSeries {
             System.out.println("Invalid status.");
     }
 
-    public void updateProgress(int n) {
+    public void updateProgress(int episodeInput) {
+        for (Episode episode: episodes) {
+            if (episode.episodeNumber() <= episodeInput)
+                episode.markWatched();
+        }
+        System.out.println("Updated watched episodes to episode " + episodeInput);
     }
 
-    public void trackCurrentSeason() {
-        System.out.println("Tracking current season for the TV Series...");
+    public Episode findEpisode(int episodeNumber) {
+        for (Episode episode : episodes) {
+            if (episode.getEpisodeNumber() == episodeNumber)
+                return episode;
+        }
+        return null;
+    }
+
+    public void rateEpisode(int episodeNumber, int rating) {
+        Episode episode = findEpisode(episodeNumber);
+        if (episode != null)
+            episode.rate(rating);
+        else
+            System.out.println("Episode " + episodeNumber + " not found in" + title + ".");
+    }
+
+    public void markEpisodeWatched(int episodeNumber) {
+        Episode episode = findEpisode(episodeNumber);
+        if (episode != null) {
+            episode.markWatched();
+            System.out.println("Marked episode " + episodeNumber + " as watched.");
+        }
+        else
+            System.out.println("Episode " + episodeNumber + " not found in" + title + ".");
+    }
+
+    public void favoriteEpisode(int episodeNumber) {
+        Episode episode = findEpisode(episodeNumber);
+    }
+
+    public void displayEpisodes() {
+        System.out.println("Episodes for " + title + "\n\n");
+        for (Episode episodes) 
+            System.out.println(episode.displayInfo);
     }
 
     public void rate(int rating) {

@@ -20,10 +20,14 @@ public class Anime {
         this.genre = genre;
         this.animationStudio = animationStudio;
         this.creator = creator;
-        this.noOfEpisodes = noOfEpisodes;
         this.isSubbed = isSubbed;
         this.status = 0;
         this.episodes = new ArrayList<>();
+        for (int i = 1; i <= noOfEpisodes; i++) {
+            Episode episode = new episode(i);
+            episodes.add(episode);
+        }
+        this.noOfEpisodes = episodes.size();
     }
 
     public void updateStatus(int newStatus) {
@@ -33,9 +37,46 @@ public class Anime {
             System.out.println("Invalid status.");
     }
 
-    public void updateProgress(int n) {
-        
+    public void updateProgress(int episodeInput) {
+        for (Episode episode: episodes) {
+            if (episode.episodeNumber() <= episodeInput)
+                episode.markWatched();
+        }
+        System.out.println("Updated watched episodes to episode " + episodeInput);
     }
+
+    public Episode findEpisode(int episodeNumber) {
+        for (Episode episode : episodes) {
+            if (episode.getEpisodeNumber() == episodeNumber)
+                return episode;
+        }
+        return null;
+    }
+
+    public void rateEpisode(int episodeNumber, int rating) {
+        Episode episode = findEpisode(episodeNumber);
+        if (episode != null)
+            episode.rate(rating);
+        else
+            System.out.println("Episode " + episodeNumber + " not found in" + title + ".");
+    }
+
+    public void markEpisodeWatched(int episodeNumber) {
+        Episode episode = findEpisode(episodeNumber);
+        if (episode != null) {
+            episode.markWatched();
+            System.out.println("Marked episode " + episodeNumber + " as watched.");
+        }
+        else
+            System.out.println("Episode " + episodeNumber + " not found in" + title + ".");
+    }
+
+    public void displayEpisodes() {
+        System.out.println("Episodes for " + title + "\n\n");
+        for (Episode episodes) 
+            System.out.println(episode.displayInfo);
+    }
+
 
     public void rate(int rating) {
         if (rating >= 0 && rating  <= 10) {
