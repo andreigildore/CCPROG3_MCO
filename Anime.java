@@ -88,7 +88,7 @@ public class Anime {
             episode.toggleFavorite();
         }
         else
-            System.out.println("Episode " + episodeNumber + " not found in" + title + ".");
+            System.out.println("Episode " + episodeNumber + " not found in " + title + ".");
     }
 
     public void rate(int rating) {

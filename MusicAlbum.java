@@ -102,7 +102,7 @@ public class MusicAlbum {
                 this.review = text;
                 System.out.println("Review saved successfully.");
             } else {
-                System.out.println("Cannot rate an unfinished album.");
+                System.out.println("Cannot review an unfinished album.");
             }
         }
         else

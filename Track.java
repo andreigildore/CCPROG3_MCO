@@ -35,7 +35,7 @@ public class Track {
         if (rating >= 1 && rating  <= 10) {
             if (isListenedTo) {
                 this.rating = rating;
-                System.out.println("Track rated succesfully.");
+                System.out.println("Track rated successfully.");
             }
             else
                 System.out.println("Track has not been listened to.");

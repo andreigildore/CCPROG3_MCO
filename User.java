@@ -52,8 +52,14 @@ public class User {
             return false;
         } 
         else {
-            System.out.println("Login Successful!");
-            return this.username.equals(username) && this.password.equals(password);
+            if (this.username.equals(username) && this.password.equals(password)) {
+                System.out.println("Login Successful!");
+                return true;
+            }
+            else {
+                System.out.println("Invalid credentials.");
+                return false;
+            }
         }
     }
 }
