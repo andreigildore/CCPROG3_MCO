@@ -41,6 +41,7 @@ public class User {
             setUsername(username);
             setEmail(email);
             setPassword(password);
+            System.out.printf("Successfully Registered with username %s!\n", this.username);
         }
         
     }
@@ -51,6 +52,7 @@ public class User {
             return false;
         } 
         else {
+            System.out.println("Login Successful!");
             return this.username.equals(username) && this.password.equals(password);
         }
     }

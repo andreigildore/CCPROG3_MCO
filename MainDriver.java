@@ -11,7 +11,17 @@ public class MainDriver {
             """);
         System.out.println("Use sample user details? (y/n)");
         if (readYesOrNo())
-            setupUser();   
+            setupUser();
+        else {
+            System.out.println("Enter Username : ");
+            String username = readString();
+            System.out.println("Enter Email : ");
+            String email = readString();
+            System.out.println("Enter Password : ");
+            String password = readString();
+            currentUser.register(username, email, password);
+            currentUser.login(username, password);
+        }
         boolean programRuns = true;
 
         while (programRuns) {
@@ -467,7 +477,7 @@ public class MainDriver {
                 boolean tvRunning = true;
                 while (tvRunning) {
                     System.out.println("""
-                        
+
                         1. Display episodes
                         2. Update progress
                         3. Mark an episode watched
