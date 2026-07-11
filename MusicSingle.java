@@ -25,8 +25,12 @@ public class MusicSingle {
 
     public void rate(int rating) {
         if (rating >= 0 && rating  <= 10) {
-            this.rating = rating;
-            System.out.println("Rating saved successfully.");
+            if (this.status == 2) {
+                this.rating = rating;
+                System.out.println("Rating saved successfully.");
+            }
+            else
+                System.out.println("Cannot rate an unfinished song");
         }
         else
             System.out.println("Invalid rating input");
@@ -34,8 +38,12 @@ public class MusicSingle {
 
      public void review(String text) {
         if (text != null && !text.isBlank()) {
-            this.review = text;
-            System.out.println("Review saved successfully.");
+            if (this.status == 2) {
+                this.review = text;
+                System.out.println("Review saved successfully.");
+            }
+            else
+                System.out.println("Cannot review an unfinished song.");    
         }
         else
             System.out.println("Review has no content or is null");
@@ -59,6 +67,10 @@ public class MusicSingle {
 
     public int getStatus() {
         return this.status;
+    }
+
+    public int getRating() {
+        return this.rating;
     }
 
     public void updateStatus(int newStatus) {

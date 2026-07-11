@@ -16,24 +16,49 @@ public class Library {
 	}
 
     /* adding methods */
-    public void addAnime(Anime input) {
-        animes.add(input);
-    }
-    
-    public void addTVSeries(TVSeries input) {
-        tvSeries.add(input);
-    }
-
-    public void addMusicSingle(MusicSingle input) {
-        musicSingles.add(input);
+    public void addAnime(Anime input, int initialStatus) {
+        if (initialStatus == 0 || initialStatus == 1) {
+            input.updateStatus(initialStatus);
+            animes.add(input);
+        } else {
+            System.out.println("Invalid initial status. New entries must be Planned or In Progress.");
+        }
     }
 
-    public void addMusicAlbum(MusicAlbum input) {
-        musicAlbums.add(input);
+    public void addTVSeries(TVSeries input, int initialStatus) {
+        if (initialStatus == 0 || initialStatus == 1) {
+            input.updateStatus(initialStatus);
+            tvSeries.add(input);
+        } else {
+            System.out.println("Invalid initial status. New entries must be Planned or In Progress.");
+        }
     }
 
-    public void addVideoGame(VideoGame input) {
-        videoGames.add(input);
+    public void addMusicSingle(MusicSingle input, int initialStatus) {
+        if (initialStatus == 0 || initialStatus == 1) {
+            input.updateStatus(initialStatus);
+            musicSingles.add(input);
+        } else {
+            System.out.println("Invalid initial status. New entries must be Planned or In Progress.");
+        }
+    }
+
+    public void addMusicAlbum(MusicAlbum input, int initialStatus) {
+        if (initialStatus == 0 || initialStatus == 1) {
+            input.updateStatus(initialStatus);
+            musicAlbums.add(input);
+        } else {
+            System.out.println("Invalid initial status. New entries must be Planned or In Progress.");
+        }
+    }
+
+    public void addVideoGame(VideoGame input, int initialStatus) {
+        if (initialStatus == 0 || initialStatus == 1) {
+            input.updateStatus(initialStatus);
+            videoGames.add(input);
+        } else {
+            System.out.println("Invalid initial status. New entries must be Planned or In Progress.");
+        }
     }
 
     /* removal methods */
@@ -169,13 +194,95 @@ public class Library {
 
     public void displaySummary() {
         int total = animes.size() + tvSeries.size() + musicSingles.size() + musicAlbums.size() + videoGames.size();
-        System.out.println("\n=== Library Summary ===");
-        System.out.println("Total Entries: " + total);
-        System.out.println("Anime: " + animes.size());
-        System.out.println("Video Games: " + videoGames.size());
-        System.out.println("TV Series: " + tvSeries.size());
-        System.out.println("Music Singles: " + musicSingles.size());
-        System.out.println("Music Albums: " + musicAlbums.size());
-        System.out.println("=======================");
+
+        int planned = 0, inProgress = 0, completed = 0;
+        int ratedCount = 0;
+        int ratingSum = 0;
+
+        for (Anime anime : animes) {
+            if (anime.getStatus() == 0) planned++;
+            else if (anime.getStatus() == 1) inProgress++;
+            else if (anime.getStatus() == 2) { 
+                completed++; 
+                if (anime.getRating() > 0) { 
+                    ratingSum += anime.getRating(); 
+                    ratedCount++; } 
+                }
+        }
+
+        for (TVSeries tvS : tvSeries) {
+            if (tvS.getStatus() == 0) planned++;
+            else if (tvS.getStatus() == 1) inProgress++;
+            else if (tvS.getStatus() == 2) { 
+                completed++; 
+                if (tvS.getRating() > 0) { 
+                    ratingSum += tvS.getRating(); 
+                    ratedCount++; } 
+                }
+        }
+
+        for (MusicSingle musicSingle : musicSingles) {
+            if (musicSingle.getStatus() == 0) planned++;
+            else if (musicSingle.getStatus() == 1) inProgress++;
+            else if (musicSingle.getStatus() == 2) { 
+                completed++; 
+                if (musicSingle.getRating() > 0) { 
+                    ratingSum += musicSingle.getRating(); 
+                    ratedCount++; } 
+                }
+        }
+
+        for (MusicAlbum musicAlbum : musicAlbums) {
+            if (musicAlbum.getStatus() == 0) planned++;
+            else if (musicAlbum.getStatus() == 1) inProgress++;
+            else if (musicAlbum.getStatus() == 2) { 
+                completed++; 
+                if (musicAlbum.getRating() > 0) { 
+                    ratingSum += musicAlbum.getRating(); 
+                    ratedCount++; } 
+                }
+        }
+        
+        for (VideoGame videoGame : videoGames) {
+            if (videoGame.getStatus() == 0) planned++;
+            else if (videoGame.getStatus() == 1) inProgress++;
+            else if (videoGame.getStatus() == 2) { 
+                completed++; 
+                if (videoGame.getRating() > 0) { 
+                    ratingSum += videoGame.getRating(); 
+                    ratedCount++; } 
+                }
+        }
+
+        String avgRatingText = ratedCount == 0 ? "N/A" : String.format("%.2f", (double) ratingSum / ratedCount);
+
+        System.out.println(String.format("""
+
+            Library Summary 
+        Total Entries   : %d
+        Anime           : %d
+        Video Games     : %d
+        TV Series       : %d
+        Music Singles   : %d
+        Music Albums    : %d
+        ------------------------
+        Planned         : %d
+        In Progress     : %d
+        Completed       : %d
+        ------------------------
+        Avg Rating (Completed) : %s
+        
+        """,
+        total,
+        animes.size(),
+        videoGames.size(),
+        tvSeries.size(),
+        musicSingles.size(),
+        musicAlbums.size(),
+        planned,
+        inProgress,
+        completed,
+        avgRatingText
+        ));
     }
 }

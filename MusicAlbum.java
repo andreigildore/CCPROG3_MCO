@@ -77,6 +77,10 @@ public class MusicAlbum {
         return this.status;
     }
 
+    public int getRating() {
+        return this.rating;
+    }
+
     public void updateStatus(int newStatus) {
         if(newStatus >= 0 && newStatus <= 2)
             status = newStatus;
