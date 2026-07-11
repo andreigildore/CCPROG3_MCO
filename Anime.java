@@ -31,6 +31,10 @@ public class Anime {
         return this.rating;
     }
 
+    public String getReview() {
+        return this.review;
+    }
+
     public void updateStatus(int newStatus) {
         if(newStatus >= 0 && newStatus <= 2)
             status = newStatus;
@@ -116,13 +120,17 @@ public class Anime {
     public String displayInfo() {
         return String.format("""
         Anime  : %s
+        Creator : %s 
         Studio : %s
+        Genre : %s
         Subbed : %b
         No. Of Episodes : %d
         Status : %s
         """,
         title,
+        creator,
         animationStudio,
+        genre,
         isSubbed,
         noOfEpisodes,
         StatusMapper.getStatus(status)

@@ -25,6 +25,22 @@ public class TVSeries {
         this.noOfEpisodes = episodes.size();
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
+    public int getStatus() {
+        return this.status;
+    }
+
+    public int getRating() {
+        return this.rating;
+    }
+
+    public String getReview() {
+        return this.review;
+    }
+
     public void updateStatus(int newStatus) {
         if(newStatus >= 0 && newStatus <= 2)
             status = newStatus;
@@ -111,27 +127,17 @@ public class TVSeries {
         return String.format("""
         TV Series  : %s
         Creator : %s
+        Genre : %s
         Reality Tv : %s
         No. Of Episodes : %d
         Status : %s
         """,
         title,
         creator,
+        genre,
         isRealityTV ? "Yes" : "No",
         noOfEpisodes,
         StatusMapper.getStatus(status)
         );
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public int getStatus() {
-        return this.status;
-    }
-
-    public int getRating() {
-        return this.rating;
     }
 }

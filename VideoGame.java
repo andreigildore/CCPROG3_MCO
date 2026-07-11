@@ -8,7 +8,7 @@ public class VideoGame {
     private String developer;
     private String platform;
 
-    public VideoGame(String title, String genre, int playtime String developer, String platform) {
+    public VideoGame(String title, String genre, int playtime, String developer, String platform) {
         this.title = title;
         this.genre = genre;
         this.playtime = playtime;
@@ -18,6 +18,22 @@ public class VideoGame {
         this.playtime = 0;
     }
 
+    public String getTitle() {
+        return this.title;
+    }
+
+    public int getStatus() {
+        return this.status;
+    }
+
+    public int getRating() {
+        return this.rating;
+    }
+
+    public String getReview() {
+        return this.review;
+    }
+    
     public void updateStatus(int newStatus) {
         if(newStatus >= 0 && newStatus <= 2)
             status = newStatus;
@@ -60,26 +76,17 @@ public class VideoGame {
         Video Game : %s
         Developer : %s
         Platform : %s
+        Genre : %s
         Playtime : %d hrs
         Status : %s
         """,
         title,
         developer,
         platform,
+        genre,
         playtime,
         StatusMapper.getStatus(status)
         );
     }
 
-    public String getTitle() {
-        return this.title;
-    }
-
-    public int getStatus() {
-        return this.status;
-    }
-
-    public int getRating() {
-        return this.rating;
-    }
 }

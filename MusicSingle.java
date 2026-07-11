@@ -1,5 +1,3 @@
-import java.time.LocalDate;
-
 public class MusicSingle {
     private String title;
     private String genre;
@@ -27,6 +25,10 @@ public class MusicSingle {
 
     public int getRating() {
         return this.rating;
+    }
+
+    public String getReview() {
+        return this.review;
     }
 
     public void updateStatus(int newStatus) {
