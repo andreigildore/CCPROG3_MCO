@@ -1,5 +1,5 @@
 /**
- * represents a single track in a music album
+ * Represents a single track in a music album.
  */
 public class Track {
     private final int trackNumber;
@@ -34,14 +34,22 @@ public class Track {
     }
 
     /**
-     * marks this track as listened to
+     * 
+     * Marks this track as listened to.
+     * 
+     * Pre-condition: None.
+     * Post-condition: isListenedTo is set to true.
      */
     public void markListened() {
         isListenedTo = true;
     }
 
     /**
-     * rates the track from 1-10
+     * Rates the track from 1-10.
+     * 
+     * @param rating the rating score to assign
+     * Pre-condition: rating must be between 1 and 10, and the track must have been listened to.
+     * Post-condition: The track rating is updated if conditions are met.
      */
     public void rate (int rating) {
         if (rating >= 1 && rating  <= 10) {
@@ -57,13 +65,23 @@ public class Track {
             System.out.println("Invalid rating score");
     }
 
+    /**
+     * Toggles the favorite status of the track.
+     * 
+     * Pre-condition: None.
+     * Post-condition: isFavorite is set between true and false, depending on its state beforehand.
+     */
     public void toggleFavorite() {
         isFavorite = !isFavorite;
         System.out.println(isFavorite ? "Track marked as favorite." : "Track removed from favorites.");
     }
 
     /**
-     * returns a formatted string of the track's details
+     * Returns a formatted string of the track's details.
+     * 
+     * @return a formatted string containing all details of the track
+     * Pre-condition: None.
+     * Post-condition: Returns the formatted string.
      */
     public String displayInfo() {
         return String.format("""

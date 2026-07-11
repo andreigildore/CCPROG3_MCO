@@ -1,5 +1,5 @@
 /**
- * represents a music single entry in the user's library
+ * Represents a music single entry in the user's library.
  */
 public class MusicSingle {
     private String title;
@@ -11,7 +11,14 @@ public class MusicSingle {
     private int status;
 
     /**
-     * creates a new music single with default status of 0 (planned)
+     * Creates a new music single with default status of 0 (planned).
+     * 
+     * @param title the title of the music single
+     * @param genre the genre of the music single
+     * @param artist the artist of the music single
+     * @param recordLabel the record label of the music single
+     * Pre-condition: None.
+     * Post-condition: A new MusicSingle object is created with a planned status.
      */
     public MusicSingle(String title, String genre, String artist, String recordLabel) {
         this.title = title;
@@ -38,7 +45,11 @@ public class MusicSingle {
     }
 
     /**
-     * updates the status if the new value is within valid range
+     * Updates the status if the new value is within valid range.
+     * 
+     * @param newStatus the new status to be set
+     * Pre-condition: newStatus is between 0 and 2.
+     * Post-condition: The status is updated to newStatus if valid, otherwise an error message is printed.
      */
     public void updateStatus(int newStatus) {
         if (newStatus >= 0 && newStatus <= 2)
@@ -48,11 +59,15 @@ public class MusicSingle {
     }
 
     /**
-     * rates the music single from 1-10
+     * Rates the music single from 1-10.
+     * 
+     * @param rating the rating score from 1 to 10
+     * Pre-condition: The rating must be between 1 and 10, and the status must be completed (2).
+     * Post-condition: The rating is saved if valid, otherwise an error message is printed.
      */
     public void rate(int rating) {
         if (rating >= 1 && rating  <= 10) {
-            // only completed media can be rated
+            // Only completed media can be rated.
             if (this.status == 2) {
                 this.rating = rating;
                 System.out.println("Rating saved successfully.");
@@ -65,7 +80,11 @@ public class MusicSingle {
     }
 
     /**
-     * adds a text review if the song is completed
+     * Adds a text review if the song is completed.
+     * 
+     * @param text the review text
+     * Pre-condition: The text must not be null or blank, and the status must be completed (2).
+     * Post-condition: The review is saved if valid, otherwise an error message is printed.
      */
      public void review(String text) {
         if (text != null && !text.isBlank()) {
@@ -81,7 +100,11 @@ public class MusicSingle {
     }
 
     /**
-     * returns a formatted string of the music single's details
+     * Formats and returns a string including the MusicSingle's details.
+     * 
+     * @return a formatted string containing the music single's details
+     * Pre-condition: None.
+     * Post-condition: A formatted string representation of the music single is returned.
      */
     public String displayInfo() {
         String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";

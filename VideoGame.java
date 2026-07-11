@@ -1,5 +1,5 @@
 /**
- * represents a video game entry in the user's library
+ * Represents a video game entry in the user's library.
  */
 public class VideoGame {
     private String title;
@@ -12,7 +12,15 @@ public class VideoGame {
     private String platform;
 
     /**
-     * creates a new video game with default status of 0 (planned)
+     * Creates a new video game with default status of 0 (planned).
+     * 
+     * @param title the title of the video game
+     * @param genre the genre of the video game
+     * @param playtime the playtime of the video game in hours
+     * @param developer the developer/developer team of the video game
+     * @param platform the platform of the video game
+     * Pre-condition: None.
+     * Post-condition: A new VideoGame object is created with a planned status.
      */
     public VideoGame(String title, String genre, int playtime, String developer, String platform) {
         this.title = title;
@@ -40,7 +48,11 @@ public class VideoGame {
     }
     
     /**
-     * updates the status if the new value is within valid range
+     * Updates the status if the new value is within valid range.
+     * 
+     * @param newStatus the new status to be set
+     * Pre-condition: newStatus is between 0 and 2.
+     * Post-condition: The status is updated to newStatus if valid, otherwise an error message is printed.
      */
     public void updateStatus(int newStatus) {
         if(newStatus >= 0 && newStatus <= 2)
@@ -50,11 +62,15 @@ public class VideoGame {
     }
 
     /**
-     * rates the video game from 1-10
+     * Rates the video game from 1-10.
+     * 
+     * @param rating the rating score from 1 to 10
+     * Pre-condition: The rating must be between 1 and 10, and the status must be completed (2).
+     * Post-condition: The rating is saved if valid, otherwise an error message is printed.
      */
     public void rate(int rating) {
         if (rating >= 1 && rating <= 10) {
-            // only completed media can be rated
+            // Only completed media can be rated.
             if (this.status == 2) {
                 this.rating = rating;
                 System.out.println("Rating saved successfully.");
@@ -67,7 +83,11 @@ public class VideoGame {
     }
 
     /**
-     * adds a text review if the game is completed
+     * Adds a text review if the game is completed.
+     * 
+     * @param text the review text
+     * Pre-condition: The text must not be null or blank, and the status must be completed (2).
+     * Post-condition: The review is saved if valid, otherwise an error message is printed.
      */
     public void review(String text) {
         if (text != null && !text.isBlank()) {
@@ -83,7 +103,11 @@ public class VideoGame {
     }
 
     /**
-     * adds hours to the total playtime
+     * Adds hours to the total playtime.
+     * 
+     * @param additionalPlaytime the additional playtime in hours
+     * Pre-condition: The additionalPlaytime must be greater than 0.
+     * Post-condition: The total playtime is increased by the additionalPlaytime.
      */
     public void addPlaytime(int additionalPlaytime) {
         if (additionalPlaytime > 0) {
@@ -93,8 +117,13 @@ public class VideoGame {
             System.out.println("Invalid playtime amount.");
         }
     }
+
     /**
-     * returns a formatted string of the video game's details
+     * Returns a formatted string of the video game's details.
+     * 
+     * @return a formatted string containing the video game's details
+     * Pre-condition: None.
+     * Post-condition: A formatted string representation of the video game is returned.
      */
     public String displayInfo() {
         String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";

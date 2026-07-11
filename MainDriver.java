@@ -1,14 +1,18 @@
 import java.util.Scanner;
 
 /**
- * handles all user interaction and drives the media vault program
+ * Handles all user interaction and drives the media vault program.
  */
 public class MainDriver {
     private static final Scanner sc = new Scanner(System.in);
-    private static final User currentUser = new User(); // assume only one user for the program
+    private static final User currentUser = new User(); // Assume only one user for the program.
 
     /**
-     * entry point - sets up the user then loops the main menu until exit
+     * The main function of the program, enables all the classes/objects in the program
+     * 
+     * @param args the command line arguments
+     * Pre-condition: None.
+     * Post-condition: The program executes and exits when the user chooses to.
      */
     public static void main(String args[]) {
         System.out.println("""
@@ -30,7 +34,7 @@ public class MainDriver {
         }
         boolean programRuns = true;
 
-        // main loop - keeps showing the menu until the user picks exit
+        // Main loop keeps showing the menu until the user picks exit.
         while (programRuns) {
             printMenu();
             System.out.println("Enter Input (1-7) : ");
@@ -66,7 +70,10 @@ public class MainDriver {
     }
     
     /**
-     * registers and logs in a sample user for quick testing
+     * Registers and logs in a sample user for quick testing.
+     * 
+     * Pre-condition: None.
+     * Post-condition: A sample user is registered and logged in.
      */
     private static void setupUser() {
         currentUser.register("jdjdsbgad", "jdjdsbgad64@email.com", "jdjdsbgad!@#1234");
@@ -74,7 +81,10 @@ public class MainDriver {
     }
 
     /**
-     * prints the main menu options to the console
+     * Prints the main menu options to the console.
+     * 
+     * Pre-condition: None.
+     * Post-condition: The main menu is displayed on the console.
      */
     private static void printMenu() {
         System.out.println("""
@@ -90,9 +100,13 @@ public class MainDriver {
                         """);
     }
 
-    /* menu methods */
+    /* Menu methods. */
+
     /**
-     * prompts the user to pick a media type and collects details to add a new entry
+     * Tells the user to pick a media type and collects details to add a new entry.
+     * 
+     * Pre-condition: The user is logged in.
+     * Post-condition: A new media entry is added to the user's library if valid input is provided.
      */
     public static void addNewMedia() {
         Library library = currentUser.getLibrary();
@@ -109,7 +123,7 @@ public class MainDriver {
                                 6. Go back
                                 """);
             int type = readValidInt();
-            switch (type) { // block inside asks the user's input based on the type, then adds the entry
+            switch (type) { // Block inside asks the user's input based on the type, then adds the entry.
                 case 1:
                     System.out.println("Enter anime Title : ");
                     String title = readString();
@@ -195,7 +209,10 @@ public class MainDriver {
     }
 
     /**
-     * lets the user pick a media entry by type and title, then update its status
+     * Lets the user pick a media entry by type and title, then update its status.
+     * 
+     * Pre-condition: User is logged in.
+     * Post-condition: The status of the selected media entry is updated if found and a valid status is provided.
      */
     public static void updateEntryStatus() {
         Library library = currentUser.getLibrary();
@@ -249,7 +266,10 @@ public class MainDriver {
     }
  
     /**
-     * lets the user rate and/or review a completed media entry
+     * Lets the user rate and/or review a completed media entry.
+     * 
+     * Pre-condition: The user is logged in and the selected media entry must exist.
+     * Post-condition: The rating and/or review is applied to the selected media entry if it is completed.
      */
     public static void rateReviewMedia() {
         Library library = currentUser.getLibrary();
@@ -274,12 +294,12 @@ public class MainDriver {
                     break;
                 }
                 int animeChoice = readRateReviewChoice();
-                // choice 1 = rate only, 3 = both, so either triggers rating
+                // Choice 1 = rate only, 3 = both, thus either triggers rating.
                 if (animeChoice == 1 || animeChoice == 3) {
                     System.out.println("Enter Rating (1-10) : ");
                     anime.rate(readValidInt());
                 }
-                // choice 2 = review only, 3 = both, so either triggers review
+                // Choice 2 = review only, 3 = both, thus either triggers review.
                 if (animeChoice == 2 || animeChoice == 3) {
                     System.out.println("Enter Review : ");
                     anime.review(readString());
@@ -365,7 +385,10 @@ public class MainDriver {
     }
  
     /**
-     * displays library entries with optional filtering by status or type
+     * Displays library entries with optional filtering by status or type.
+     * 
+     * Pre-condition: The user is logged in.
+     * Post-condition: The requested entries are displayed to the console.
      */
     public static void displayEntries() {
         Library library = currentUser.getLibrary();
@@ -399,7 +422,7 @@ public class MainDriver {
                         6. Go back
                         """);
                     int type = readValidInt();
-                    // nested switch to filter entries by the selected media type
+                    // Nested switch to filter entries by the selected media type.
                     switch (type) {
                         case 1:
                             library.filterByType("Anime");
@@ -432,13 +455,16 @@ public class MainDriver {
     }
  
     /**
-     * lets the user manage individual episodes or tracks within a media entry
+     * Lets the user manage individual episodes or tracks within a media entry.
+     * 
+     * Pre-condition: The user is logged in.
+     * Post-condition: The episodes or tracks of the selected media entry are updated based on user input.
      */
     public static void manageEpisodesOrTracks() {
         Library library = currentUser.getLibrary();
         boolean running = true;
 
-        // outer loop picks the media type
+        // Outer loop picks the media type.
         while (running) {
             System.out.println("""
 
@@ -458,7 +484,7 @@ public class MainDriver {
                         System.out.println("Anime '" + animeTitle + "' not found.");
                         break;
                     }
-                    // inner loop manages episodes for the selected anime
+                    // Inner loop manages episodes for the selected anime.
                     boolean animeRunning = true;
                     while (animeRunning) {
                         System.out.println("""
@@ -510,7 +536,7 @@ public class MainDriver {
                         System.out.println("TV Series '" + tvTitle + "' not found.");
                         break;
                     }
-                    // inner loop manages episodes for the selected tv series
+                    // Inner loop manages episodes for the selected TV series.
                     boolean tvRunning = true;
                     while (tvRunning) {
                         System.out.println("""
@@ -562,7 +588,7 @@ public class MainDriver {
                         System.out.println("Music Album '" + maTitle + "' not found.");
                         break;
                     }
-                    // inner loop manages tracks for the selected album
+                    // Inner loop manages tracks for the selected album.
                     boolean albumRunning = true;
                     while (albumRunning) {
                         System.out.println("""
@@ -610,7 +636,15 @@ public class MainDriver {
         
     }
  
-    /* input reader helper methods */
+    /* Input reader helper methods. */
+
+    /**
+     * Prompts the user to enter an initial status and reads the input.
+     * 
+     * @return the initial status entered by the user
+     * Pre-condition: None.
+     * Post-condition: A valid integer representing the initial status is returned.
+     */
     public static int readInitialStatus() {
         System.out.println("""
                         Enter initial status:
@@ -620,6 +654,13 @@ public class MainDriver {
         return readValidInt();
     }
  
+    /**
+     * Prompts the user to enter a new status and reads the input.
+     * 
+     * @return the new status entered by the user
+     * Pre-condition: None.
+     * Post-condition: A valid integer representing the new status is returned.
+     */
     public static int readNewStatus() {
         System.out.println("""
                         Enter status:
@@ -630,6 +671,13 @@ public class MainDriver {
         return readValidInt();
     }
  
+    /**
+     * Prompts the user to enter a rate or review choice and reads the input.
+     * 
+     * @return the rate or review choice entered by the user
+     * Pre-condition: None.
+     * Post-condition: A valid integer representing the rate or review choice is returned.
+     */
     public static int readRateReviewChoice() {
         System.out.println("""
                         1 = Rate
@@ -639,8 +687,15 @@ public class MainDriver {
         return readValidInt();
     }
     
+    /**
+     * Reads a valid integer from the user input.
+     * 
+     * @return a valid integer read from the console
+     * Pre-condition: None.
+     * Post-condition: A valid integer is returned, and any invalid non-integer inputs are discarded.
+     */
     public static int readValidInt() {
-        // keeps looping and discarding non-integer input until a valid int is found
+        // Keeps looping and discarding non-integer input until a valid int is found.
         while (!sc.hasNextInt()) {
             sc.nextLine();
             System.out.println("Enter a valid number.");
@@ -650,12 +705,26 @@ public class MainDriver {
         return input;
     }
 
+    /**
+     * Reads a string from the user input.
+     * 
+     * @return the trimmed string read from the console
+     * Pre-condition: None.
+     * Post-condition: A trimmed string is returned.
+     */
     public static String readString() {
         String input = "";
         input = sc.nextLine().trim();
         return input;
     }
 
+    /**
+     * Reads a yes or no answer from the user input.
+     * 
+     * @return true if the user enters "y" or "yes", false otherwise
+     * Pre-condition: readString() works as intended.
+     * Post-condition: A boolean representing the user's choice is returned.
+     */
     public static boolean readYesOrNo() {
         String input = readString();
         return input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes");

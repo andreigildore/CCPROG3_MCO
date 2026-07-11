@@ -1,5 +1,5 @@
 /**
- * represents a user account with login credentials and a media library
+ * Represents a user account with login credentials and a media library.
  */
 public class User {
     private String username;
@@ -8,7 +8,7 @@ public class User {
     private Library library;
 
     /**
-     * creates a new user with an empty library
+     * Creates a new user with an empty library.
      */
     public User () {
         this.library = new Library();
@@ -39,10 +39,16 @@ public class User {
     }
 
     /**
-     * registers the user with the given credentials
+     * Registers the user with the given credentials.
+     * 
+     * @param username the chosen username
+     * @param email the user's email address
+     * @param password the chosen password
+     * Pre-condition: ALl parameters must be non-null and not blank, they must also reflect the user's valid details.
+     * Post-condition: The user's fields are set to the given parameters.
      */
     public void register(String username, String email, String password) {
-        // reject if any field is null or blank
+        // Reject if any field is null or blank.
         if (username == null || username.isBlank() || email == null || email.isBlank()
            || password == null || password.isBlank()) {
             System.out.println("Invalid registration details.");
@@ -57,15 +63,21 @@ public class User {
     }
 
     /**
-     * attempts to log in with the given username and password
+     * Logs in the user given the password and the username.
+     * 
+     * @param username the username to check
+     * @param password the password to check
+     * @return true if credentials match the stored ones, false otherwise
+     * Pre-condition: The user must be registered (username not null/blank).
+     * Post-condition: Returns the result of the login (logs in = true/ does not log in = false).
      */
     public boolean login(String username, String password) {
-        if (this.username == null || this.username.isBlank()) { // only checks one since user details are initialized simultaneously
+        if (this.username == null || this.username.isBlank()) { // Only checks one since user details are initialized simultaneously.
             System.out.println("User has not registered yet.");
             return false;
         } 
         else {
-            // match input credentials against stored values
+            // Match input credentials against stored values.
             if (this.username.equals(username) && this.password.equals(password)) {
                 System.out.println("Login Successful!");
                 return true;

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * stores and manages all media entries in the user's library
+ * Stores and manages all media entries in the user's library.
  */
 public class Library {
     private ArrayList<Anime> animes;
@@ -18,7 +18,16 @@ public class Library {
         this.videoGames = new ArrayList<>();
 	}
 
-    /* adding methods */
+    /* Adding methods. */
+
+    /**
+     * Adds an Anime to the library.
+     * 
+     * @param input the Anime object to add
+     * @param initialStatus the starting status (0=Planned, 1=In Progress)
+     * Pre-condition: Input is a valid Anime object, initialStatus is 0 or 1.
+     * Post-condition: The anime is added to the library with the specified status.
+     */
     public void addAnime(Anime input, int initialStatus) {
         if (initialStatus == 0 || initialStatus == 1) {
             input.updateStatus(initialStatus);
@@ -30,6 +39,14 @@ public class Library {
         }
     }
 
+    /**
+     * Adds a TVSeries to the library.
+     * 
+     * @param input the TVSeries object to add
+     * @param initialStatus the starting status (0=Planned, 1=In Progress)
+     * Pre-condition: Input is a valid TVSeries object, initialStatus is 0 or 1.
+     * Post-condition: The TV series is added to the library with the specified status.
+     */
     public void addTVSeries(TVSeries input, int initialStatus) {
         if (initialStatus == 0 || initialStatus == 1) {
             input.updateStatus(initialStatus);
@@ -41,6 +58,14 @@ public class Library {
         }
     }
 
+    /**
+     * Adds a MusicSingle to the library.
+     * 
+     * @param input the MusicSingle object to add
+     * @param initialStatus the starting status (0=Planned, 1=In Progress)
+     * Pre-condition: Input is a valid MusicSingle object, initialStatus is 0 or 1.
+     * Post-condition: The music single is added to the library with the specified status.
+     */
     public void addMusicSingle(MusicSingle input, int initialStatus) {
         if (initialStatus == 0 || initialStatus == 1) {
             input.updateStatus(initialStatus);
@@ -52,6 +77,14 @@ public class Library {
         }
     }
 
+    /**
+     * Adds a MusicAlbum to the library.
+     * 
+     * @param input the MusicAlbum object to add
+     * @param initialStatus the starting status (0=Planned, 1=In Progress)
+     * Pre-condition: Input is a valid MusicAlbum object, initialStatus is 0 or 1.
+     * Post-condition: The music album is added to the library with the specified status.
+     */
     public void addMusicAlbum(MusicAlbum input, int initialStatus) {
         if (initialStatus == 0 || initialStatus == 1) {
             input.updateStatus(initialStatus);
@@ -63,6 +96,14 @@ public class Library {
         }
     }
 
+    /**
+     * Adds a VideoGame to the library.
+     * 
+     * @param input the VideoGame object to add
+     * @param initialStatus the starting status (0=Planned, 1=In Progress)
+     * Pre-condition: Input is a valid VideoGame object, initialStatus is 0 or 1.
+     * Post-condition: The video game is added to the library with the specified status.
+     */
     public void addVideoGame(VideoGame input, int initialStatus) {
         if (initialStatus == 0 || initialStatus == 1) {
             input.updateStatus(initialStatus);
@@ -74,50 +115,130 @@ public class Library {
         }
     }
 
-    /* removal methods */
+    /* Removal methods. */
+
+    /**
+     * Removes an Anime from the library.
+     *
+     * @param input the Anime object to remove
+     * Pre-condition: Input is a valid Anime object present in the library.
+     * Post-condition: The anime is removed from the library.
+     */
     public void removeAnime(Anime input) {
         animes.remove(input);
     }
 
+    /**
+     * Removes a TVSeries from the library.
+     *
+     * @param input the TVSeries object to remove
+     * Pre-condition: Input is a valid TVSeries object present in the library.
+     * Post-condition: The TV series is removed from the library.
+     */
     public void removeTVSeries(TVSeries input) {
         tvSeries.remove(input);
     }
 
+    /**
+     * Removes a MusicSingle from the library.
+     *
+     * @param input the MusicSingle object to remove
+     * Pre-condition: Input is a valid MusicSingle object present in the library.
+     * Post-condition: The music single is removed from the library.
+     */
     public void removeMusicSingle(MusicSingle input) {
         musicSingles.remove(input);
     }
 
+    /**
+     * Removes a MusicAlbum from the library.
+     *
+     * @param input the MusicAlbum object to remove
+     * Pre-condition: Input is a valid MusicAlbum object present in the library.
+     * Post-condition: The music album is removed from the library.
+     */
     public void removeMusicAlbum(MusicAlbum input) {
         musicAlbums.remove(input);
     }
 
+    /**
+     * Removes a VideoGame from the library.
+     *
+     * @param input the VideoGame object to remove
+     * Pre-condition: Input is a valid VideoGame object present in the library.
+     * Post-condition: The video game is removed from the library.
+     */
     public void removeVideoGame(VideoGame input) {
         videoGames.remove(input);
     }
 
-    /* retrieval methods */
+    /* Retrieval methods. */
+
+    /**
+     * Retrieves the list of animes in the library.
+     *
+     * @return the list of Anime objects
+     * Pre-condition: The library has been initialized.
+     * Post-condition: The list of animes is returned.
+     */
     public ArrayList<Anime> getAnimes() {
         return animes;
     }
 
+    /**
+     * Retrieves the list of TV series in the library.
+     *
+     * @return the list of TVSeries objects
+     * Pre-condition: The library has been initialized.
+     * Post-condition: The list of TV series is returned.
+     */
     public ArrayList<TVSeries> getTVSeries() {
         return tvSeries;
     }
 
+    /**
+     * Retrieves the list of music singles in the library.
+     *
+     * @return the list of MusicSingle objects
+     * Pre-condition: The library has been initialized.
+     * Post-condition: The list of music singles is returned.
+     */
     public ArrayList<MusicSingle> getMusicSingles() {
         return musicSingles;
     }
 
+    /**
+     * Retrieves the list of music albums in the library.
+     *
+     * @return the list of MusicAlbum objects
+     * Pre-condition: The library has been initialized.
+     * Post-condition: The list of music albums is returned.
+     */
     public ArrayList<MusicAlbum> getMusicAlbums() {
         return musicAlbums;
     }
 
+    /**
+     * Retrieves the list of video games in the library.
+     *
+     * @return the list of VideoGame objects
+     * Pre-condition: The library has been initialized.
+     * Post-condition: The list of video games is returned.
+     */
     public ArrayList<VideoGame> getVideoGames() {
         return videoGames;
     }
 
-    /* search specific object in list methods */
+    /* Search specific object in list methods. */
 
+    /**
+     * Searches for an Anime by its title.
+     *
+     * @param title the title of the anime to search for
+     * @return the Anime object if found, otherwise null
+     * Pre-condition: The title is a valid string.
+     * Post-condition: The matching Anime object is returned, or null if not found.
+     */
     public Anime getAnimeByTitle(String title) {
         for (Anime anime : animes) {
             if (anime.getTitle().equalsIgnoreCase(title))
@@ -126,6 +247,14 @@ public class Library {
         return null;
     }
 
+    /**
+     * Searches for a TVSeries by its title.
+     *
+     * @param title the title of the TV series to search for
+     * @return the TVSeries object if found, otherwise null
+     * Pre-condition: The title is a valid string.
+     * Post-condition: The matching TVSeries object is returned, or null if not found.
+     */
     public TVSeries getTVSeriesByTitle(String title) {
         for (TVSeries tvS : tvSeries) {
             if (tvS.getTitle().equalsIgnoreCase(title))
@@ -134,6 +263,14 @@ public class Library {
         return null;
     }
 
+    /**
+     * Searches for a VideoGame by its title.
+     *
+     * @param title the title of the video game to search for
+     * @return the VideoGame object if found, otherwise null
+     * Pre-condition: The title is a valid string.
+     * Post-condition: The matching VideoGame object is returned, or null if not found.
+     */
     public VideoGame getVideoGameByTitle(String title) {
         for (VideoGame videoGame : videoGames) {
             if (videoGame.getTitle().equalsIgnoreCase(title))
@@ -142,6 +279,14 @@ public class Library {
         return null;
     }
 
+    /**
+     * Searches for a MusicAlbum by its title.
+     *
+     * @param title the title of the music album to search for
+     * @return the MusicAlbum object if found, otherwise null
+     * Pre-condition: The title is a valid string.
+     * Post-condition: The matching MusicAlbum object is returned, or null if not found.
+     */
     public MusicAlbum getMusicAlbumByTitle(String title) {
         for (MusicAlbum musicAlbum : musicAlbums) {
             if (musicAlbum.getTitle().equalsIgnoreCase(title))
@@ -150,6 +295,14 @@ public class Library {
         return null;
     }
 
+    /**
+     * Searches for a MusicSingle by its title.
+     *
+     * @param title the title of the music single to search for
+     * @return the MusicSingle object if found, otherwise null
+     * Pre-condition: The title is a valid string.
+     * Post-condition: The matching MusicSingle object is returned, or null if not found.
+     */
     public MusicSingle getMusicSingleByTitle(String title) {
         for (MusicSingle musicSingle : musicSingles) {
             if (musicSingle.getTitle().equalsIgnoreCase(title))
@@ -159,10 +312,16 @@ public class Library {
     }
 
     /**
-     * finds a media entry by type and title, then updates its status
+     * Finds a media entry by type and title, then updates its status.
+     * 
+     * @param type the type of media to search for
+     * @param mediaTitle the title of the media to update
+     * @param newStatus the new status to set
+     * Pre-condition: The type and mediaTitle are valid strings, newStatus is a valid status integer.
+     * Post-condition: The status of the matching media entry is updated if found.
      */
     public void updateStatus(String type, String mediaTitle, int newStatus) {
-        // search the matching type list for the title, update if found
+        // Search the matching type list for the title, update if found.
         if (type.equalsIgnoreCase("Anime")) {
             for (Anime anime : animes) {
                 if (anime.getTitle().equalsIgnoreCase(mediaTitle)) { 
@@ -220,11 +379,14 @@ public class Library {
         System.out.println("Error: '" + mediaTitle + "' not found in your " + type + " library.");
     }
     /**
-     * displays all entries across every media type
+     * Displays all entries across every media type.
+     * 
+     * Pre-condition: The library has been initialized.
+     * Post-condition: All entries in the library are printed to the console.
      */
     public void displayAllEntries() {
         int total = animes.size() + tvSeries.size() + musicSingles.size() + musicAlbums.size() + videoGames.size();
-        // skip display if library has no entries at all
+        // Skip display if library has no entries at all.
         if (total == 0) {
             System.out.println("\nYour library is empty. Add some media to get started!");
             return;
@@ -238,7 +400,11 @@ public class Library {
     }
 
     /**
-     * displays only entries that match the given status
+     * Displays only entries that match the given status.
+     *
+     * @param status the status to filter by
+     * Pre-condition: The status is a valid status integer.
+     * Post-condition: All matching entries are printed to the console.
      */
     public void filterByStatus(int status) {
         System.out.println("\n--- Filtering by Status: " + StatusMapper.getStatus(status) + " ---");
@@ -265,7 +431,11 @@ public class Library {
     }
 
     /**
-     * displays only entries of the given media type
+     * Displays only entries of the given media type.
+     *
+     * @param type the type of media to filter by
+     * Pre-condition: The type is a valid string.
+     * Post-condition: All matching entries are printed to the console.
      */
     public void filterByType(String type) {
         System.out.println("\n--- Filtering by Type: " + type + " ---");
@@ -290,13 +460,16 @@ public class Library {
     }
 
     /**
-     * prints a summary of library stats including counts and average rating
+     * Prints a summary of library stats including counts and average rating.
+     *
+     * Pre-condition: The library has been initialized.
+     * Post-condition: A summary of the library is printed to the console.
      */
     public void displaySummary() {
         int total = animes.size() + tvSeries.size() + musicSingles.size() + musicAlbums.size() + videoGames.size();
 
         int planned = 0, inProgress = 0, completed = 0;
-        // tracks how many completed entries have a rating and their total sum
+        // Tracks how many completed entries have a rating and their total sum.
         int ratedCount = 0;
         int ratingSum = 0;
 
@@ -355,7 +528,7 @@ public class Library {
                 }
         }
 
-        // average rating only from completed entries that have been rated
+        // Average rating only from completed entries that have been rated.
         String avgRatingText = ratedCount == 0 ? "N/A" : String.format("%.2f", (double) ratingSum / ratedCount);
 
         System.out.println(String.format("""

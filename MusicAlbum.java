@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * represents a music album entry in the user's media list
+ * Represents a music album entry in the user's media list.
  */
 public class MusicAlbum {
     private String title;
@@ -15,7 +15,15 @@ public class MusicAlbum {
     private int noOfTracks;
 
     /**
-     * creates a music album with its details and generates track objects
+     * Creates an album with its details and generates track objects.
+     * 
+     * @param title the title of the album
+     * @param noOfTracks the total number of tracks
+     * @param genre the genre of the album
+     * @param artist the artist of the album
+     * @param recordLabel the record label of the album
+     * Pre-condition: Title, genre, artist, and recordLabel are valid strings. noOfTracks is a positive integer.
+     * Post-condition: A MusicAlbum object is created with the specified details, and track objects are generated.
      */
     public MusicAlbum(String title, int noOfTracks, String genre, String artist, String recordLabel) {
         this.title = title;
@@ -24,7 +32,7 @@ public class MusicAlbum {
         this.recordLabel = recordLabel;
         this.status = 0;
         this.tracks = new ArrayList<>();
-        // generate track objects numbered 1 to noOfTracks
+        // Generate track objects numbered 1 to noOfTracks.
         for (int i = 1; i <= noOfTracks; i++) {
             Track track = new Track(i);
             tracks.add(track);
@@ -49,7 +57,11 @@ public class MusicAlbum {
     }
 
     /**
-     * updates the listening status of the album
+     * Updates the listening status of the album.
+     * 
+     * @param newStatus the new status code
+     * Pre-condition: newStatus should ideally be between 0 and 2.
+     * Post-condition: The status is updated if valid, otherwise an error message is printed.
      */
     public void updateStatus(int newStatus) {
         if(newStatus >= 0 && newStatus <= 2)
@@ -59,10 +71,14 @@ public class MusicAlbum {
     }
 
     /**
-     * marks all tracks up to the given track number as listened
+     * Marks all tracks up to the given track number as listened.
+     * 
+     * @param trackInput the track number up to which to mark as listened
+     * Pre-condition: trackInput is a valid track number.
+     * Post-condition: Tracks from 1 to trackInput are marked as listened.
      */
     public void updateProgress(int trackInput) {
-        // mark all tracks from 1 up to trackInput as listened
+        // Mark all tracks from 1 up to trackInput as listened.
         for (Track track : tracks) {
             if (track.getTrackNumber() <= trackInput)
                 track.markListened();
@@ -71,7 +87,10 @@ public class MusicAlbum {
     }
 
     /**
-     * prints all tracks and their details
+     * Prints all tracks and their details.
+     * 
+     * Pre-condition: The album has a list of tracks.
+     * Post-condition: The details of all tracks are printed to the console.
      */
     public void displayTracks() {
         System.out.println("Tracks for " + title + "\n\n");
@@ -80,7 +99,12 @@ public class MusicAlbum {
     }
 
     /**
-     * finds and returns a track by its number, or null if not found
+     * Finds and returns a track by its number, or null if not found.
+     * 
+     * @param trackNumber the number of the track to find
+     * @return the Track object if found, or null if not found
+     * Pre-condition: trackNumber is a valid integer.
+     * Post-condition: The corresponding Track object is returned, or null if it does not exist.
      */
     public Track findTrack(int trackNumber) {
         for (Track track : tracks) {
@@ -91,7 +115,12 @@ public class MusicAlbum {
     }
 
     /**
-     * rates a specific track by its number
+     * Rates a specific track by its number.
+     * 
+     * @param trackNumber the number of the track to rate
+     * @param rating the rating to assign to the track
+     * Pre-condition: trackNumber corresponds to an existing track.
+     * Post-condition: The specified track is rated if it exists.
      */
     public void rateTrack(int trackNumber, int rating) {
         Track track = findTrack(trackNumber);
@@ -104,7 +133,11 @@ public class MusicAlbum {
     }
 
     /**
-     * toggles the favorite status of a specific track
+     * Toggles the favorite status of a specific track.
+     * 
+     * @param trackNumber the number of the track to favorite or unfavorite
+     * Pre-condition: trackNumber corresponds to an existing track.
+     * Post-condition: The favorite status of the specified track is toggled.
      */
     public void favoriteTrack(int trackNumber) {
         Track track = findTrack(trackNumber);
@@ -117,11 +150,15 @@ public class MusicAlbum {
     }
 
     /**
-     * rates the album from 1-10, only if completed
+     * Rates the album from 1 to 10, only if completed.
+     * 
+     * @param rating the rating score to assign
+     * Pre-condition: The album status must be 2 (Completed), and rating must be between 1 and 10.
+     * Post-condition: The rating is saved successfully if conditions are met.
      */
     public void rate(int rating) {
         if (rating >= 1 && rating  <= 10) {
-            // only completed media can be rated
+            // Only completed media can be rated.
             if (this.status == 2) {
                 this.rating = rating;
                 System.out.println("Rating saved successfully.");
@@ -134,11 +171,15 @@ public class MusicAlbum {
     }
 
     /**
-     * adds a text review for the album, only if completed
+     * Adds a text review for the album, only if completed and left unblanked.
+     * 
+     * @param text the review content
+     * Pre-condition: The album status must be 2 (Completed), and the text must not be null or blank.
+     * Post-condition: The review is saved successfully if conditions are met.
      */
     public void review(String text) {
         if (text != null && !text.isBlank()){
-            // only completed media can be reviewed
+            // Only completed media can be reviewed.
             if (this.status == 2) {
                 this.review = text;
                 System.out.println("Review saved successfully.");
@@ -151,7 +192,11 @@ public class MusicAlbum {
     }
 
     /**
-     * returns a formatted string of all album details
+     * Formats and returns a string containing details of the album
+     * 
+     * @return a formatted string containing the album's details
+     * Pre-condition: None.
+     * Post-condition: A string with the album's information is returned.
      */
     public String displayInfo() {
         String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * represents an anime entry in the user's media list
+ * Represents an anime entry in the user's media list.
  */
 public class Anime {
     private String title;
@@ -16,7 +16,16 @@ public class Anime {
     private boolean isSubbed;
 
     /**
-     * creates an anime with its details and generates episode objects
+     * Creates an anime with its details and generates episode objects.
+     * 
+     * @param title the title of the anime
+     * @param genre the genre of the anime
+     * @param animationStudio the studio that animated the anime
+     * @param creator the creator/writer of the anime
+     * @param noOfEpisodes the total number of episodes
+     * @param isSubbed whether the anime is subbed or dubbed
+     * Pre-condition: Title, genre, animationStudio, and creator are valid strings. noOfEpisodes is a positive integer.
+     * Post-condition: An Anime object is created with the specified details, and episode objects are generated.
      */
     public Anime(String title, String genre, String animationStudio, String creator, int noOfEpisodes, boolean isSubbed) {
         this.title = title;
@@ -26,7 +35,7 @@ public class Anime {
         this.isSubbed = isSubbed;
         this.status = 0;
         this.episodes = new ArrayList<>();
-        // generate episode objects numbered 1 to noOfEpisodes
+        // Generate episode objects numbered 1 to noOfEpisodes.
         for (int i = 1; i <= noOfEpisodes; i++) {
             Episode episode = new Episode(i);
             episodes.add(episode);
@@ -43,7 +52,11 @@ public class Anime {
     }
 
     /**
-     * updates the watching status of the anime
+     * Updates the watching status of the anime.
+     * 
+     * @param newStatus the new status code
+     * Pre-condition: newStatus should ideally be between 0 and 2.
+     * Post-condition: The status is updated if valid, otherwise an error message is printed.
      */
     public void updateStatus(int newStatus) {
         if(newStatus >= 0 && newStatus <= 2)
@@ -53,10 +66,14 @@ public class Anime {
     }
 
     /**
-     * marks all episodes up to the given episode number as watched
+     * Marks all episodes up to the given episode number as watched.
+     * 
+     * @param episodeInput the episode number up to which to mark as watched
+     * Pre-condition: episodeInput is a valid episode number.
+     * Post-condition: Episodes from 1 to episodeInput are marked as watched.
      */
     public void updateProgress(int episodeInput) {
-        // mark all episodes from 1 up to episodeInput as watched
+        // Mark all episodes from 1 up to episodeInput as watched.
         for (Episode episode: episodes) {
             if (episode.getEpisodeNumber() <= episodeInput)
                 episode.markWatched();
@@ -65,7 +82,12 @@ public class Anime {
     }
 
     /**
-     * finds and returns an episode by its number, or null if not found
+     * Finds and returns an episode by its number, or null if not found.
+     * 
+     * @param episodeNumber the number of the episode to find
+     * @return the Episode object if found, or null if not found
+     * Pre-condition: episodeNumber is a valid integer.
+     * Post-condition: The corresponding Episode object is returned, or null if it does not exist.
      */
     public Episode findEpisode(int episodeNumber) {
         for (Episode episode : episodes) {
@@ -76,7 +98,12 @@ public class Anime {
     }
 
     /**
-     * rates a specific episode by its number
+     * Rates a specific episode by its number.
+     * 
+     * @param episodeNumber the number of the episode to rate
+     * @param rating the rating to assign to the episode
+     * Pre-condition: episodeNumber corresponds to an existing episode.
+     * Post-condition: The specified episode is rated if it exists.
      */
     public void rateEpisode(int episodeNumber, int rating) {
         Episode episode = findEpisode(episodeNumber);
@@ -87,7 +114,11 @@ public class Anime {
     }
 
     /**
-     * marks a specific episode as watched
+     * Marks a specific episode as watched.
+     * 
+     * @param episodeNumber the number of the episode to mark as watched
+     * Pre-condition: episodeNumber corresponds to an existing episode.
+     * Post-condition: The specified episode is marked as watched if it exists.
      */
     public void markEpisodeWatched(int episodeNumber) {
         Episode episode = findEpisode(episodeNumber);
@@ -100,7 +131,10 @@ public class Anime {
     }
 
     /**
-     * prints all episodes and their details
+     * Prints all episodes and their details.
+     * 
+     * Pre-condition: The anime has a list of episodes.
+     * Post-condition: The details of all episodes are printed to the console.
      */
     public void displayEpisodes() {
         System.out.println("Episodes for " + title + "\n\n");
@@ -109,7 +143,11 @@ public class Anime {
     }
 
     /**
-     * toggles the favorite status of a specific episode
+     * Toggles the favorite status of a specific episode.
+     * 
+     * @param episodeNumber the number of the episode to favorite or unfavorite
+     * Pre-condition: episodeNumber corresponds to an existing episode.
+     * Post-condition: The favorite status of the specified episode is toggled.
      */
     public void favoriteEpisode(int episodeNumber) {
         Episode episode = findEpisode(episodeNumber);
@@ -121,11 +159,15 @@ public class Anime {
     }
 
     /**
-     * rates the anime from 1-10, only if completed
+     * Rates the anime from 1 to 10, only if completed.
+     * 
+     * @param rating the rating score to assign
+     * Pre-condition: The anime status must be 2 (Completed), and rating must be between 1 and 10.
+     * Post-condition: The rating is saved successfully if conditions are met.
      */
     public void rate(int rating) {
         if (rating >= 1 && rating  <= 10) {
-            // only completed media can be rated
+            // Only completed media can be rated.
             if (this.status == 2) {
                 this.rating = rating;
                 System.out.println("Rating saved successfully.");
@@ -138,11 +180,15 @@ public class Anime {
     }
 
     /**
-     * adds a text review for the anime, only if completed
+     * Adds a text review for the anime, only if completed.
+     * 
+     * @param text the review content
+     * Pre-condition: The anime status must be 2 (Completed), and the text must not be null or blank.
+     * Post-condition: The review is saved successfully if conditions are met.
      */
     public void review(String text) {
         if (text != null && !text.isBlank()){
-            // only completed media can be reviewed
+            // Only completed media can be reviewed.
             if (this.status == 2) {
                 this.review = text;
                 System.out.println("Review saved successfully.");
@@ -155,7 +201,11 @@ public class Anime {
     }
 
     /**
-     * returns a formatted string of all anime details
+     * Returns a formatted string of all anime details.
+     * 
+     * @return a formatted string containing the anime's details
+     * Pre-condition: None.
+     * Post-condition: A string with the anime's information is returned.
      */
     public String displayInfo() {
         String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * represents a tv series entry in the user's media list
+ * Represents a TV series entry in the user's media list.
  */
 public class TVSeries {
     private String title;
@@ -15,16 +15,24 @@ public class TVSeries {
     private boolean isRealityTV;
 
     /**
-     * creates a tv series with its details and generates episode objects
+     * Creates a TV series with its details and generates episode objects.
+     * 
+     * @param title the title of the TV series
+     * @param genre the genre of the TV series
+     * @param creator the creator/writer/director of the TV series
+     * @param noOfEpisodes the total number of episodes
+     * @param isRealityTV whether the series is reality TV
+     * Pre-condition: Title, genre, and creator are valid strings. noOfEpisodes is a positive integer.
+     * Post-condition: A TVSeries object is created with the specified details, and episode objects are generated.
      */
     public TVSeries(String title, String genre, String creator, int noOfEpisodes, boolean isRealityTV) {
         this.title = title;
         this.genre = genre;
         this.creator = creator;
         this.isRealityTV = isRealityTV;
-        this.status = 0; // Default to Planned
+        this.status = 0; // Default to planned.
         this.episodes = new ArrayList<>();
-        // generate episode objects numbered 1 to noOfEpisodes
+        // Generate episode objects numbered 1 to noOfEpisodes.
         for (int i = 1; i <= noOfEpisodes; i++) {
             Episode episode = new Episode(i);
             episodes.add(episode);
@@ -49,7 +57,11 @@ public class TVSeries {
     }
 
     /**
-     * updates the watching status of the tv series
+     * Updates the watching status of the TV series.
+     * 
+     * @param newStatus the new status code
+     * Pre-condition: newStatus should ideally be between 0 and 2.
+     * Post-condition: The status is updated if valid, otherwise an error message is printed.
      */
     public void updateStatus(int newStatus) {
         if(newStatus >= 0 && newStatus <= 2)
@@ -59,10 +71,14 @@ public class TVSeries {
     }
 
     /**
-     * marks all episodes up to the given episode number as watched
+     * Marks all episodes up to the given episode number as watched.
+     * 
+     * @param episodeInput the episode number up to which to mark as watched
+     * Pre-condition: episodeInput is a valid episode number.
+     * Post-condition: Episodes from 1 to episodeInput are marked as watched.
      */
     public void updateProgress(int episodeInput) {
-        // mark all episodes from 1 up to episodeInput as watched
+        // Mark all episodes from 1 up to episodeInput as watched.
         for (Episode episode: episodes) {
             if (episode.getEpisodeNumber() <= episodeInput)
                 episode.markWatched();
@@ -71,7 +87,12 @@ public class TVSeries {
     }
 
     /**
-     * finds and returns an episode by its number, or null if not found
+     * Finds and returns an episode by its number, or null if not found.
+     * 
+     * @param episodeNumber the number of the episode to find
+     * @return the Episode object if found, or null if not found
+     * Pre-condition: episodeNumber is a valid integer.
+     * Post-condition: The corresponding Episode object is returned, or null if it does not exist.
      */
     public Episode findEpisode(int episodeNumber) {
         for (Episode episode : episodes) {
@@ -82,7 +103,12 @@ public class TVSeries {
     }
 
     /**
-     * rates a specific episode by its number
+     * Rates a specific episode by its number.
+     * 
+     * @param episodeNumber the number of the episode to rate
+     * @param rating the rating to assign to the episode
+     * Pre-condition: episodeNumber corresponds to an existing episode.
+     * Post-condition: The specified episode is rated if it exists.
      */
     public void rateEpisode(int episodeNumber, int rating) {
         Episode episode = findEpisode(episodeNumber);
@@ -93,7 +119,11 @@ public class TVSeries {
     }
 
     /**
-     * marks a specific episode as watched
+     * Marks a specific episode as watched.
+     * 
+     * @param episodeNumber the number of the episode to mark as watched
+     * Pre-condition: episodeNumber corresponds to an existing episode.
+     * Post-condition: The specified episode is marked as watched if it exists.
      */
     public void markEpisodeWatched(int episodeNumber) {
         Episode episode = findEpisode(episodeNumber);
@@ -106,7 +136,11 @@ public class TVSeries {
     }
 
     /**
-     * toggles the favorite status of a specific episode
+     * Toggles the favorite status of a specific episode.
+     * 
+     * @param episodeNumber the number of the episode to favorite or unfavorite
+     * Pre-condition: episodeNumber corresponds to an existing episode.
+     * Post-condition: The favorite status of the specified episode is toggled.
      */
     public void favoriteEpisode(int episodeNumber) {
         Episode episode = findEpisode(episodeNumber);
@@ -118,7 +152,10 @@ public class TVSeries {
     }
 
     /**
-     * prints all episodes and their details
+     * Prints all episodes and their details.
+     * 
+     * Pre-condition: The TV series has a list of episodes.
+     * Post-condition: The details of all episodes are printed to the console.
      */
     public void displayEpisodes() {
         System.out.println("Episodes for " + title + "\n\n");
@@ -127,11 +164,15 @@ public class TVSeries {
     }
 
     /**
-     * rates the tv series from 1-10, only if completed
+     * Rates the TV series from 1 to 10, only if completed.
+     * 
+     * @param rating the rating score to assign
+     * Pre-condition: The TV series status must be 2 (Completed), and rating must be between 1 and 10.
+     * Post-condition: The rating is saved successfully if conditions are met.
      */
     public void rate(int rating) {
         if (rating >= 1 && rating <= 10) {
-            // only completed media can be rated
+            // Only completed media can be rated.
             if (this.status == 2) {
                 this.rating = rating;
                 System.out.println("Rating saved successfully.");
@@ -144,11 +185,15 @@ public class TVSeries {
     }
 
     /**
-     * adds a text review for the tv series, only if completed
+     * Adds a text review for the TV series, only if completed.
+     * 
+     * @param text the review content
+     * Pre-condition: The TV series status must be 2 (Completed), and the text must not be null or blank.
+     * Post-condition: The review is saved successfully if conditions are met.
      */
     public void review(String text) {
         if (text != null && !text.isBlank()) {
-            // only completed media can be reviewed
+            // Only completed media can be reviewed.
             if (this.status == 2) {
                 this.review = text;
                 System.out.println("Review saved successfully.");
@@ -161,7 +206,11 @@ public class TVSeries {
     }
 
     /**
-     * returns a formatted string of all tv series details
+     * Returns a formatted string of all TV series details.
+     * 
+     * @return a formatted string containing the TV series's details
+     * Pre-condition: None.
+     * Post-condition: A string with the TV series's information is returned.
      */
     public String displayInfo() {
         String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
