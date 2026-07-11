@@ -18,11 +18,38 @@ public class MusicAlbum {
         this.genre = genre;
         this.artist = artist;
         this.recordLabel = recordLabel;
-        this.dateAdded = dateAdded;
+        this.status = 0;
+        for (int i = 1; i <= noOfTracks; i++) {
+            Track track = new Track(i);
+            tracks.add(track);
+        }
+        this.noOfTracks = tracks.size();
     }
 
     public String getTitle() {
         return this.title;
+    }
+
+    public int getStatus() {
+        return this.status;
+    }
+
+    public int getRating() {
+        return this.rating;
+    }
+
+    public void updateStatus(int newStatus) {
+        if(newStatus >= 0 && newStatus <= 2)
+            status = newStatus;
+        else
+            System.out.println("Invalid status.");
+    }
+
+    public void updateProgress(int trackInput) {
+        for (Track track : tracks) {
+            if (track.getTrackNumber() <= trackInput)
+                track.markListened();
+        }
     }
 
     public void rate(int rating) {
@@ -35,7 +62,7 @@ public class MusicAlbum {
             }
         }
         else
-            System.out.println("Invalid rating input");
+            System.out.println("Invalid rating score");
     }
 
     public void review(String text) {
@@ -69,22 +96,7 @@ public class MusicAlbum {
         );
     }
     
-    public void updateProgress() {
+    
 
-    }
-
-    public int getStatus() {
-        return this.status;
-    }
-
-    public int getRating() {
-        return this.rating;
-    }
-
-    public void updateStatus(int newStatus) {
-        if(newStatus >= 0 && newStatus <= 2)
-            status = newStatus;
-        else
-            System.out.println("Invalid status.");
-    }
+    
 }

@@ -1,5 +1,5 @@
 public class Episode {
-    private int episodeNumber;
+    private final int episodeNumber;
     private int rating;
     private boolean isFavorite;
     private boolean isWatched;
@@ -16,12 +16,16 @@ public class Episode {
     }
  
     public void rate(int rating) {
-        if (rating >= 0 && rating <= 10) {
-            this.rating = rating;
-            System.out.println("Episode rated successfully.");
+        if (rating >= 1 && rating <= 10) {
+            if (isWatched) {
+                this.rating = rating;
+                System.out.println("Episode rated successfully.");
+            }
+            else
+                System.out.println("Episode has not been watched yet.");
         }
         else
-            System.out.println("Invalid rating input");
+            System.out.println("Invalid rating score");
     }
  
     public int getRating() {
@@ -47,12 +51,12 @@ public class Episode {
  
     public String displayInfo() {
         return String.format("""
-        Episode %-4d Watched: %s Favorite : %s Rating : %s
+        Episode %-4d Watched: %3s Favorite : %3s Rating : %s
         """,
         episodeNumber,
         isWatched ? "Yes" : "No",
         isFavorite  ? "Yes" : "No",
-        rating > 0 ? rating + "/10" : "Not rated"
+        rating >= 1 ? rating + "/10" : "Not rated"
         );
     }
 }

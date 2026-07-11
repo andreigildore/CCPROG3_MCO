@@ -3,7 +3,7 @@ public class StatusMapper {
 
     public static String getStatus(int status) {
         if (status < 0 || status >= STATUSES.length) {
-            return "Invalid Status"; // Or throw an IllegalArgumentException
+            return "Invalid Status";
         }
         return STATUSES[status];
     }

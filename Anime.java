@@ -24,10 +24,14 @@ public class Anime {
         this.status = 0;
         this.episodes = new ArrayList<>();
         for (int i = 1; i <= noOfEpisodes; i++) {
-            Episode episode = new episode(i);
+            Episode episode = new Episode(i);
             episodes.add(episode);
         }
         this.noOfEpisodes = episodes.size();
+    }
+
+    public int getRating() {
+        return this.rating;
     }
 
     public void updateStatus(int newStatus) {
@@ -39,7 +43,7 @@ public class Anime {
 
     public void updateProgress(int episodeInput) {
         for (Episode episode: episodes) {
-            if (episode.episodeNumber() <= episodeInput)
+            if (episode.getEpisodeNumber() <= episodeInput)
                 episode.markWatched();
         }
         System.out.println("Updated watched episodes to episode " + episodeInput);
@@ -73,13 +77,13 @@ public class Anime {
 
     public void displayEpisodes() {
         System.out.println("Episodes for " + title + "\n\n");
-        for (Episode episodes) 
-            System.out.println(episode.displayInfo);
+        for (Episode episode : episodes)
+            System.out.println(episode.displayInfo());
     }
 
 
     public void rate(int rating) {
-        if (rating >= 0 && rating  <= 10) {
+        if (rating >= 1 && rating  <= 10) {
             if (this.status == 2) {
                 this.rating = rating;
                 System.out.println("Rating saved successfully.");
@@ -88,7 +92,7 @@ public class Anime {
             }
         }
         else
-            System.out.println("Invalid rating input");
+            System.out.println("Invalid rating score");
     }
 
     public void review(String text) {

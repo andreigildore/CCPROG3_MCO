@@ -79,4 +79,8 @@ public class VideoGame {
     public int getStatus() {
         return this.status;
     }
+
+    public int getRating() {
+        return this.rating;
+    }
 }
