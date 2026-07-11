@@ -8,7 +8,6 @@ public class MainDriver {
         System.out.println("""
             
             Welcome to the Media Vault!
-
             """);
         System.out.println("Use sample user details? (y/n)");
         if (readYesOrNo())
@@ -56,15 +55,16 @@ public class MainDriver {
 
     private static void printMenu() {
         System.out.println("""
-            MAIN MENU
-            1. Add new media entry
-            2. Update status of an entry
-            3. Rate and/or Review a completed media
-            4. Display Entries
-            5. Display library Summary
-            6. Manage episodes/tracks
-            7. Exit
-            """);
+
+                        MAIN MENU
+                        1. Add new media entry
+                        2. Update status of an entry
+                        3. Rate and/or Review a completed media
+                        4. Display Entries
+                        5. Display library Summary
+                        6. Manage episodes/tracks
+                        7. Exit
+                        """);
     }
 
     /* menu methods */
@@ -73,14 +73,15 @@ public class MainDriver {
         boolean running = true;
         while (running) {
             System.out.println("""
-                Select the media type of the entry to be added:
-                1. Anime
-                2. TV Series
-                3. Video Game
-                4. Music Single
-                5. Music Album
-                6. Go back
-                """);
+
+                                Select the media type of the entry to be added:
+                                1. Anime
+                                2. TV Series
+                                3. Video Game
+                                4. Music Single
+                                5. Music Album
+                                6. Go back
+                                """);
             int type = readValidInt();
             switch (type) { // block inside asks the user's input based on the type, then adds the entry
                 case 1:
@@ -170,6 +171,7 @@ public class MainDriver {
     public static void updateEntryStatus() {
         Library library = currentUser.getLibrary();
         System.out.println("""
+
             Select media type:
             1. Anime
             2. TV Series
@@ -220,6 +222,7 @@ public class MainDriver {
     public static void rateReviewMedia() {
         Library library = currentUser.getLibrary();
         System.out.println("""
+
             Select media type:
             1. Anime
             2. TV Series
@@ -332,6 +335,7 @@ public class MainDriver {
         boolean running = true;
         while (running) {
             System.out.println("""
+
                 1. Display all entries
                 2. Filter by status
                 3. Filter by type
@@ -348,6 +352,7 @@ public class MainDriver {
                     break;
                 case 3:
                     System.out.println("""
+
                         Select media type:
                         1. Anime
                         2. TV Series
@@ -391,6 +396,7 @@ public class MainDriver {
     public static void manageEpisodesOrTracks() {
         Library library = currentUser.getLibrary();
         System.out.println("""
+
             Select media type:
             1. Anime
             2. TV Series
@@ -410,6 +416,7 @@ public class MainDriver {
                 boolean animeRunning = true;
                 while (animeRunning) {
                     System.out.println("""
+
                         1. Display episodes
                         2. Update progress
                         3. Mark an episode watched
@@ -460,6 +467,7 @@ public class MainDriver {
                 boolean tvRunning = true;
                 while (tvRunning) {
                     System.out.println("""
+                        
                         1. Display episodes
                         2. Update progress
                         3. Mark an episode watched
