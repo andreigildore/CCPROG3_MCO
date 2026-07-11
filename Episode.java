@@ -88,7 +88,7 @@ public class Episode {
      */
     public String displayInfo() { // assumes episode number will only reach 3 digits
         return String.format("""
-        Episode %-4d Watched: %3s Favorite : %3s Rating : %s 
+        Episode %-4d | Watched: %3s | Favorite : %3s | Rating : %s 
         """,
         episodeNumber,
         isWatched ? "Yes" : "No",
