@@ -405,7 +405,10 @@ public class MainDriver {
  
     public static void manageEpisodesOrTracks() {
         Library library = currentUser.getLibrary();
-        System.out.println("""
+        boolean running = true;
+
+        while (running) {
+            System.out.println("""
 
             Select media type:
             1. Anime
@@ -413,156 +416,158 @@ public class MainDriver {
             3. Music Album
             4. Go back
             """);
-        int type = readValidInt();
-        switch (type) {
-            case 1:
-                System.out.println("Enter Anime Title : ");
-                String animeTitle = readString();
-                Anime anime = library.getAnimeByTitle(animeTitle);
-                if (anime == null) {
-                    System.out.println("Anime '" + animeTitle + "' not found.");
-                    break;
-                }
-                boolean animeRunning = true;
-                while (animeRunning) {
-                    System.out.println("""
+            int type = readValidInt();
+            switch (type) {
+                case 1:
+                    System.out.println("Enter Anime Title : ");
+                    String animeTitle = readString();
+                    Anime anime = library.getAnimeByTitle(animeTitle);
+                    if (anime == null) {
+                        System.out.println("Anime '" + animeTitle + "' not found.");
+                        break;
+                    }
+                    boolean animeRunning = true;
+                    while (animeRunning) {
+                        System.out.println("""
 
-                        1. Display episodes
-                        2. Update progress
-                        3. Mark an episode watched
-                        4. Rate an episode
-                        5. Favorite/unfavorite an episode
-                        6. Go back
-                        """);
-                    int animeChoice = readValidInt();
-                    switch (animeChoice) {
-                        case 1:
-                            anime.displayEpisodes();
-                            break;
-                        case 2:
-                            System.out.println("Enter episode number watched up to : ");
-                            anime.updateProgress(readValidInt());
-                            break;
-                        case 3:
-                            System.out.println("Enter episode number : ");
-                            anime.markEpisodeWatched(readValidInt());
-                            break;
-                        case 4:
-                            System.out.println("Enter episode number : ");
-                            int animeEpNum = readValidInt();
-                            System.out.println("Enter Rating (1-10) : ");
-                            int animeEpRating = readValidInt();
-                            anime.rateEpisode(animeEpNum, animeEpRating);
-                            break;
-                        case 5:
-                            System.out.println("Enter episode number : ");
-                            anime.favoriteEpisode(readValidInt());
-                            break;
-                        case 6:
-                            animeRunning = false;
-                            break;
-                        default:
-                            System.out.println(animeChoice + " is an invalid choice. Try again.");
+                            1. Display episodes
+                            2. Update progress
+                            3. Mark an episode watched
+                            4. Rate an episode
+                            5. Favorite/unfavorite an episode
+                            6. Go back
+                            """);
+                        int animeChoice = readValidInt();
+                        switch (animeChoice) {
+                            case 1:
+                                anime.displayEpisodes();
+                                break;
+                            case 2:
+                                System.out.println("Enter episode number watched up to : ");
+                                anime.updateProgress(readValidInt());
+                                break;
+                            case 3:
+                                System.out.println("Enter episode number : ");
+                                anime.markEpisodeWatched(readValidInt());
+                                break;
+                            case 4:
+                                System.out.println("Enter episode number : ");
+                                int animeEpNum = readValidInt();
+                                System.out.println("Enter Rating (1-10) : ");
+                                int animeEpRating = readValidInt();
+                                anime.rateEpisode(animeEpNum, animeEpRating);
+                                break;
+                            case 5:
+                                System.out.println("Enter episode number : ");
+                                anime.favoriteEpisode(readValidInt());
+                                break;
+                            case 6:
+                                animeRunning = false;
+                                break;
+                            default:
+                                System.out.println(animeChoice + " is an invalid choice. Try again.");
+                        }
                     }
-                }
-                break;
-            case 2:
-                System.out.println("Enter TV Series Title : ");
-                String tvTitle = readString();
-                TVSeries tvSeries = library.getTVSeriesByTitle(tvTitle);
-                if (tvSeries == null) {
-                    System.out.println("TV Series '" + tvTitle + "' not found.");
                     break;
-                }
-                boolean tvRunning = true;
-                while (tvRunning) {
-                    System.out.println("""
+                case 2:
+                    System.out.println("Enter TV Series Title : ");
+                    String tvTitle = readString();
+                    TVSeries tvSeries = library.getTVSeriesByTitle(tvTitle);
+                    if (tvSeries == null) {
+                        System.out.println("TV Series '" + tvTitle + "' not found.");
+                        break;
+                    }
+                    boolean tvRunning = true;
+                    while (tvRunning) {
+                        System.out.println("""
 
-                        1. Display episodes
-                        2. Update progress
-                        3. Mark an episode watched
-                        4. Rate an episode
-                        5. Favorite/unfavorite an episode
-                        6. Go back
-                        """);
-                    int tvChoice = readValidInt();
-                    switch (tvChoice) {
-                        case 1:
-                            tvSeries.displayEpisodes();
-                            break;
-                        case 2:
-                            System.out.println("Enter episode number watched up to : ");
-                            tvSeries.updateProgress(readValidInt());
-                            break;
-                        case 3:
-                            System.out.println("Enter episode number : ");
-                            tvSeries.markEpisodeWatched(readValidInt());
-                            break;
-                        case 4:
-                            System.out.println("Enter episode number : ");
-                            int tvEpNum = readValidInt();
-                            System.out.println("Enter Rating (1-10) : ");
-                            int tvEpRating = readValidInt();
-                            tvSeries.rateEpisode(tvEpNum, tvEpRating);
-                            break;
-                        case 5:
-                            System.out.println("Enter episode number : ");
-                            tvSeries.favoriteEpisode(readValidInt());
-                            break;
-                        case 6:
-                            tvRunning = false;
-                            break;
-                        default:
-                            System.out.println(tvChoice + " is an invalid choice. Try again.");
+                            1. Display episodes
+                            2. Update progress
+                            3. Mark an episode watched
+                            4. Rate an episode
+                            5. Favorite/unfavorite an episode
+                            6. Go back
+                            """);
+                        int tvChoice = readValidInt();
+                        switch (tvChoice) {
+                            case 1:
+                                tvSeries.displayEpisodes();
+                                break;
+                            case 2:
+                                System.out.println("Enter episode number watched up to : ");
+                                tvSeries.updateProgress(readValidInt());
+                                break;
+                            case 3:
+                                System.out.println("Enter episode number : ");
+                                tvSeries.markEpisodeWatched(readValidInt());
+                                break;
+                            case 4:
+                                System.out.println("Enter episode number : ");
+                                int tvEpNum = readValidInt();
+                                System.out.println("Enter Rating (1-10) : ");
+                                int tvEpRating = readValidInt();
+                                tvSeries.rateEpisode(tvEpNum, tvEpRating);
+                                break;
+                            case 5:
+                                System.out.println("Enter episode number : ");
+                                tvSeries.favoriteEpisode(readValidInt());
+                                break;
+                            case 6:
+                                tvRunning = false;
+                                break;
+                            default:
+                                System.out.println(tvChoice + " is an invalid choice. Try again.");
+                        }
                     }
-                }
-                break;
-            case 3:
-                System.out.println("Enter Album Title : ");
-                String maTitle = readString();
-                MusicAlbum musicAlbum = library.getMusicAlbumByTitle(maTitle);
-                if (musicAlbum == null) {
-                    System.out.println("Music Album '" + maTitle + "' not found.");
                     break;
-                }
-                boolean albumRunning = true;
-                while (albumRunning) {
-                    System.out.println("""
-                        1. Update progress
-                        2. Rate a track
-                        3. Favorite/unfavorite a track
-                        4. Go back
-                        """);
-                    int albumChoice = readValidInt();
-                    switch (albumChoice) {
-                        case 1:
-                            System.out.println("Enter track number listened up to : ");
-                            musicAlbum.updateProgress(readValidInt());
-                            break;
-                        case 2:
-                            System.out.println("Enter track number : ");
-                            int trackNum = readValidInt();
-                            System.out.println("Enter Rating (1-10) : ");
-                            int trackRating = readValidInt();
-                            musicAlbum.rateTrack(trackNum, trackRating);
-                            break;
-                        case 3:
-                            System.out.println("Enter track number : ");
-                            musicAlbum.favoriteTrack(readValidInt());
-                            break;
-                        case 4:
-                            albumRunning = false;
-                            break;
-                        default:
-                            System.out.println(albumChoice + " is an invalid choice. Try again.");
+                case 3:
+                    System.out.println("Enter Album Title : ");
+                    String maTitle = readString();
+                    MusicAlbum musicAlbum = library.getMusicAlbumByTitle(maTitle);
+                    if (musicAlbum == null) {
+                        System.out.println("Music Album '" + maTitle + "' not found.");
+                        break;
                     }
-                }
-                break;
-            case 4:
-                break;
-            default:
-                System.out.println(type + " is an invalid choice.");
+                    boolean albumRunning = true;
+                    while (albumRunning) {
+                        System.out.println("""
+                            1. Update progress
+                            2. Rate a track
+                            3. Favorite/unfavorite a track
+                            4. Go back
+                            """);
+                        int albumChoice = readValidInt();
+                        switch (albumChoice) {
+                            case 1:
+                                System.out.println("Enter track number listened up to : ");
+                                musicAlbum.updateProgress(readValidInt());
+                                break;
+                            case 2:
+                                System.out.println("Enter track number : ");
+                                int trackNum = readValidInt();
+                                System.out.println("Enter Rating (1-10) : ");
+                                int trackRating = readValidInt();
+                                musicAlbum.rateTrack(trackNum, trackRating);
+                                break;
+                            case 3:
+                                System.out.println("Enter track number : ");
+                                musicAlbum.favoriteTrack(readValidInt());
+                                break;
+                            case 4:
+                                albumRunning = false;
+                                break;
+                            default:
+                                System.out.println(albumChoice + " is an invalid choice. Try again.");
+                        }
+                    }
+                    break;
+                case 4:
+                    break;
+                default:
+                    System.out.println(type + " is an invalid choice.");
+            }
         }
+        
     }
  
     /* input reader helper methods */
