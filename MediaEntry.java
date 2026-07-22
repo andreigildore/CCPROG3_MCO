@@ -34,6 +34,13 @@ public abstract class MediaEntry {
         return review;
     }
 
+    /**
+     * Updates the watching status of the media entry.
+     * 
+     * @param newStatus the new status code
+     * Pre-condition: newStatus should ideally be between 0 and 2.
+     * Post-condition: The status is updated if valid, otherwise an error message is printed.
+     */
     public boolean updateStatus(int newStatus) {
         if(newStatus < 0 && newStatus > 2) 
             return false;
@@ -44,6 +51,13 @@ public abstract class MediaEntry {
             
     }
 
+    /**
+     * Rates the media entry from 1 to 10, only if completed.
+     * 
+     * @param rating the rating score to assign
+     * Pre-condition: The media entry's status must be 2 (Completed), and rating must be between 1 and 10.
+     * Post-condition: The rating is saved successfully if conditions are met.
+     */
     public boolean rate(int rating) {
         if (rating < 1 || rating > 10 || status != 2)
             return false;
@@ -53,6 +67,13 @@ public abstract class MediaEntry {
         }
     }
 
+    /**
+     * Adds a text review for the media entry, only if completed.
+     * 
+     * @param text the review content
+     * Pre-condition: The media entry's status must be 2 (Completed), and the text must not be null or blank.
+     * Post-condition: The review is saved successfully if conditions are met.
+     */
     public boolean review(String text) {
         if (text == null || text.isBlank()) 
             return false;
