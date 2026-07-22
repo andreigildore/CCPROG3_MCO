@@ -325,7 +325,7 @@ public class Library {
         if (type.equalsIgnoreCase("Anime")) {
             for (Anime anime : animes) {
                 if (anime.getTitle().equalsIgnoreCase(mediaTitle)) { 
-                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatus(anime.getStatus()));
+                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatusString(anime.getStatus()));
                     anime.updateStatus(newStatus); 
                     System.out.println("Status updated."); 
                     return; 
@@ -335,7 +335,7 @@ public class Library {
         else if (type.equalsIgnoreCase("TVSeries")) {
             for (TVSeries tvS : tvSeries) {
                 if (tvS.getTitle().equalsIgnoreCase(mediaTitle)) { 
-                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatus(tvS.getStatus()));
+                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatusString(tvS.getStatus()));
                     tvS.updateStatus(newStatus); 
                     System.out.println("Status updated."); 
                     return; 
@@ -345,7 +345,7 @@ public class Library {
         else if (type.equalsIgnoreCase("MusicSingle")) {
             for (MusicSingle musicSingle : musicSingles) {
                 if (musicSingle.getTitle().equalsIgnoreCase(mediaTitle)) { 
-                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatus(musicSingle.getStatus()));
+                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatusString(musicSingle.getStatus()));
                     musicSingle.updateStatus(newStatus); 
                     System.out.println("Status updated."); 
                     return; 
@@ -355,7 +355,7 @@ public class Library {
         else if (type.equalsIgnoreCase("MusicAlbum")) {
             for (MusicAlbum musicAlbum : musicAlbums) {
                 if (musicAlbum.getTitle().equalsIgnoreCase(mediaTitle)) { 
-                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatus(musicAlbum.getStatus()));
+                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatusString(musicAlbum.getStatus()));
                     musicAlbum.updateStatus(newStatus); 
                     System.out.println("Status updated."); 
                     return; 
@@ -365,7 +365,7 @@ public class Library {
         else if (type.equalsIgnoreCase("VideoGame")) {
             for (VideoGame videoGame : videoGames) {
                 if (videoGame.getTitle().equalsIgnoreCase(mediaTitle)) { 
-                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatus(videoGame.getStatus()));
+                    System.out.println("Current status of " + mediaTitle + ": " + StatusMapper.getStatusString(videoGame.getStatus()));
                     videoGame.updateStatus(newStatus); 
                     System.out.println("Status updated."); 
                     return; 
@@ -407,7 +407,7 @@ public class Library {
      * Post-condition: All matching entries are printed to the console.
      */
     public void filterByStatus(int status) {
-        System.out.println("\n--- Filtering by Status: " + StatusMapper.getStatus(status) + " ---");
+        System.out.println("\n--- Filtering by Status: " + StatusMapper.getStatusString(status) + " ---");
         for (Anime anime : animes) { 
             if (anime.getStatus() == status) 
                 System.out.println(anime.displayInfo()); 

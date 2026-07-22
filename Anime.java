@@ -227,7 +227,7 @@ public class Anime {
         genre,
         isSubbed,
         noOfEpisodes,
-        StatusMapper.getStatus(status),
+        StatusMapper.getStatusString(status),
         ratingStr,
         reviewStr
         );
