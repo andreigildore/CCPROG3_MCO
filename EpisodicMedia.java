@@ -3,12 +3,16 @@ import java.util.ArrayList;
 public abstract class EpisodicMedia extends MediaEntry{
     protected ArrayList<Segment> segments;
     protected int noOfSegments;
+    protected String segmentType;
 
+    // add javadoc
     public EpisodicMedia(String title, String genre, int initialStatus, int noOfSegments, String segmentType) {
         super(title, genre, initialStatus);
+        this.segmentType = segmentType;
         segments = new ArrayList<>();
         for (int i = 1; i <= noOfSegments; i++) {
-            segments.add(new Segment(i, segmentType));
+            Segment segment = new Segment(i, segmentType);
+            segments.add(segment);
         }
     }
 
@@ -100,6 +104,15 @@ public abstract class EpisodicMedia extends MediaEntry{
                 flag = segment.toggleFavorite();
         }
         return flag;
+    }
+
+    public int getConsumedCount() {
+        int count = 0;
+        for (Segment segment : segments) {
+            if (segment.isConsumed()) 
+                count++;
+        }
+        return count;
     }
 
     /** WIP!
