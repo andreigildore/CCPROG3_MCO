@@ -13,7 +13,7 @@ public class StatusMapper {
      * Pre-condition: None.
      * Post-condition: Returns the corresponding status string.
      */
-    public static String getStatus(int status) {
+    public static String getStatusString(int status) {
         if (status < 0 || status >= STATUSES.length) {
             return "Invalid Status";
         }
