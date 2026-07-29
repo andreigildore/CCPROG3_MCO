@@ -21,6 +21,10 @@ public class Segment {
         return rating;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public boolean rate(int rating) {
         if (rating < 1 || rating > 10 || isConsumed == false)
             return false;
@@ -51,14 +55,4 @@ public class Segment {
         return isFavorite;
     }
 
-    public String displayInfo() {
-        return String.format("""
-                %s %-3d | Consumed : %3s | Favorite : %3s | Rating : %s
-                """,
-                type,
-                segmentNumber,
-                isConsumed ? "Yes" : "No",
-                isFavorite ? "Yes" : "No",
-                rating >= 1 ? rating + "/10" : "Not rated");
-    }
 }

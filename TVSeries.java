@@ -22,36 +22,11 @@ public class TVSeries extends EpisodicMedia {
         this.isRealityTV = isRealityTV;
     }
 
-    @Override
-    /**
-     * Returns a formatted string of all TV series details.
-     * 
-     * @return a formatted string containing the TV series's details
-     * Pre-condition: None.
-     * Post-condition: A string with the TV series's information is returned.
-     */
-    public String displayInfo() {
-        int rating = getRating();
-        String review = getReview();
-        String ratingStr = rating >= 1 ? rating + "/10" : "Not Rated";
-        String reviewStr = (review != null && !review.isBlank()) ? review : "No Review";
-        return String.format("""
-            TV Series : %s
-            Creator : %s
-            Genre : %s
-            Reality TV : %s
-            No. Of Episodes : %d
-            Status : %s
-            Rating : %s
-            Review : %s
-            """,
-            getTitle(),
-            creator,
-            getGenre(),
-            isRealityTV ? "Yes" : "No",
-            segments.size(),
-            StatusMapper.getStatusString(getStatus()),
-            ratingStr,
-            reviewStr);
+    public String getCreator() {
+        return creator;
+    }
+
+    public boolean getIsRealityTV() {
+        return isRealityTV;
     }
 }

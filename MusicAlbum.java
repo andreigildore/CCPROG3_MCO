@@ -22,43 +22,11 @@ public class MusicAlbum extends EpisodicMedia{
         this.recordLabel = recordLabel;
     }
 
-    @Override
-    /**
-     * Formats and returns a string containing details of the album
-     * 
-     * @return a formatted string containing the album's details
-     * Pre-condition: None.
-     * Post-condition: A string with the album's information is returned.
-     */
-    public String displayInfo() {
-        int rating = getRating();
-        String review = getReview();
-        String ratingStr = rating >= 1 ? rating + "/10" : "Not Rated";
-        String reviewStr = (review != null && !review.isBlank()) ? review : "No Review";
-        /* 
-        String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
-        String reviewStr = (review != null && !review.isBlank()) ? review : "No review";
-        return String.format("""
-        Title  : %s
-        Artist : %s
-        Record Label : %s
-        Genre: %s
-        No. Of Tracks : %d
-        Status : %s
-        Rating : %s
-        Review : %s
-        """,
-        title,
-        artist,
-        recordLabel,
-        genre,
-        noOfTracks,
-        StatusMapper.getStatus(status),
-        ratingStr,
-        reviewStr
-        );
-        */
-       return "";
+    public String getArtist() {
+        return artist;
     }
-    
+
+    public String getRecordLabel() {
+        return recordLabel;
+    }
 }

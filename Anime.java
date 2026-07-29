@@ -25,44 +25,15 @@ public class Anime extends EpisodicMedia{
         this.isSubbed = isSubbed;
     }
     
-    @Override
-    /**
-     * Returns a formatted string of all anime details.
-     * 
-     * @return a formatted string containing the anime's details
-     * Pre-condition: None.
-     * Post-condition: A string with the anime's information is returned.
-     */
-    public String displayInfo() {
-        int rating = getRating();
-        String review = getReview();
-        String ratingStr = rating >= 1 ? rating + "/10" : "Not Rated";
-        String reviewStr = (review != null && !review.isBlank()) ? review : "No Review";
-        /* 
-        String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
-        String reviewStr = (review != null && !review.isBlank()) ? review : "No review";
-        return String.format("""
-        Anime  : %s
-        Creator : %s 
-        Studio : %s
-        Genre : %s
-        Subbed : %b
-        No. Of Episodes : %d
-        Status : %s
-        Rating : %s
-        Review : %s
-        """,
-        title,
-        creator,
-        animationStudio,
-        genre,
-        isSubbed,
-        noOfEpisodes,
-        StatusMapper.getStatusString(status),
-        ratingStr,
-        reviewStr
-        );
-        */
-        return "";
+    public String getAnimationStudio() {
+        return animationStudio;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public boolean getIsSubbed() {
+        return isSubbed;
     }
 }

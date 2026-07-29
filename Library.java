@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 /**
  * Stores and manages all media entries in the user's library.
  */
@@ -62,42 +61,31 @@ public class Library {
     }
     
     /**
-     * Displays all entries across every media type.
-     * 
-     * Pre-condition: The library has been initialized.
-     * Post-condition: All entries in the library are printed to the console.
+     * edit
      */
-    public void displayAllEntries() {
-        for (MediaEntry entry : entries) 
-            System.out.println(entry.displayInfo());
+    public ArrayList<MediaEntry> getEntries() {
+        return entries;
     }
 
     /**
-     * Displays only entries that match the given status.
-     *
-     * @param status the status to filter by
-     * Pre-condition: The status is a valid status integer.
-     * Post-condition: All matching entries are printed to the console.
+     * edit
      */
-    public void filterByStatus(int status) {
+    public ArrayList<MediaEntry> getEntriesByStatus(int status) {
+        ArrayList<MediaEntry> ans = new ArrayList<>();
         for (MediaEntry entry : entries) {
-            if (entry.getStatus() == status)
-                System.out.println(entry.displayInfo());
+            if (entry.getStatus() == status) {
+                ans.add(entry);
+            }
         }
+        return ans;
     }
 
     /**
-     * Displays only entries of the given media type.
-     *
-     * @param type the type of media to filter by
-     * Pre-condition: The type is a valid string.
-     * Post-condition: All matching entries are printed to the console.
+     * edit
      */
-    public void filterByType(String type) {
-        for (MediaEntry entry : entries) {
-            if (entry.getClass().getSimpleName().equals(type)) 
-                System.out.println(entry.displayInfo());
-        }
+    public ArrayList<MediaEntry> getEntriesByType(String type) {
+        ArrayList<MediaEntry> ans = new ArrayList<>();
+        return ans;
     }
 
     /**
@@ -106,32 +94,41 @@ public class Library {
      * Pre-condition: The library has been initialized.
      * Post-condition: A summary of the library is printed to the console.
      */
-    public void displaySummary() {
-        int total =  entries.size();
-        int planned = 0; 
-        int inProgress = 0;
-        int completed = 0;
+    public LibrarySummary getSummary() {
+        LibrarySummary summary = new LibrarySummary();
         int ratedCount = 0;
         double ratingSum = 0;
 
         for (MediaEntry entry : entries) {
+            summary.total++;
             switch(entry.getStatus()) {
                 case 0:
-                    planned++;
+                    summary.planned++;
                     break;
                 case 1:
-                    inProgress++;
+                    summary.inProgress++;
                     break;
                 case 2:
-                    completed++;
+                    summary.completed++;
                     if (entry.getRating() > 0) {
                         ratedCount++;
                         ratingSum += entry.getRating();
                     }
-                    break;
             }
+            if (entry instanceof Anime)
+                summary.animeCount++;
+            else if (entry instanceof TVSeries) 
+                summary.tvSeriesCount++;
+            else if (entry instanceof VideoGame)
+                summary.videoGameCount++;
+            else if (entry instanceof MusicSingle)
+                summary.musicSingleCount++;
+            else if (entry instanceof MusicAlbum)
+                summary.musicAlbumCount++;
         }
 
+        summary.averageRating = (ratedCount > 0) ? ratingSum / ratedCount : 0.0;
+        return summary;
     }
 }
 

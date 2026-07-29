@@ -40,42 +40,11 @@ public class VideoGame extends MediaEntry {
             return -1;
     }
 
-    /**
-     * Returns a formatted string of the video game's details.
-     * 
-     * @return a formatted string containing the video game's details
-     * Pre-condition: None.
-     * Post-condition: A formatted string representation of the video game is returned.
-     */
-    public String displayInfo() {
-        int rating = getRating();
-        String review = getReview();
-        String ratingStr = rating >= 1 ? rating + "/10" : "Not Rated";
-        String reviewStr = (review != null && !review.isBlank()) ? review : "No Review";
-        /* 
-        String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
-        String reviewStr = (review != null && !review.isBlank()) ? review : "No review";
-        return String.format("""
-        Video Game : %s
-        Developer : %s
-        Platform : %s
-        Genre : %s
-        Playtime : %d hrs
-        Status : %s
-        Rating : %s
-        Review : %s
-        """,
-        title,
-        developer,
-        platform,
-        genre,
-        playtime,
-        StatusMapper.getStatus(status),
-        ratingStr,
-        reviewStr
-        );
-        */
-       return "";
+    public String getDeveloper() {
+        return developer;
     }
 
+    public String getPlatform() {
+        return platform;
+    }
 }

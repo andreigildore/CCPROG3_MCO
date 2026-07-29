@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public abstract class EpisodicMedia extends MediaEntry{
+public abstract class EpisodicMedia extends MediaEntry {
     protected ArrayList<Segment> segments;
     protected int noOfSegments;
     protected String segmentType;
@@ -115,19 +115,7 @@ public abstract class EpisodicMedia extends MediaEntry{
         return count;
     }
 
-    /** WIP!
-     * Prints all segments and their details.
-     * 
-     * Pre-condition: the media entry has a list of segments.
-     * Post-condition: The details of all segments are printed to the console.
-     */
-    public String displaySegments() {
-        String output = "";
-        
-        for(Segment segment : segments) {
-            segment.displayInfo();
-        }
-
-        return output;
+    public ArrayList<Segment> getSegments() {
+        return segments;
     }
 }

@@ -81,6 +81,4 @@ public abstract class MediaEntry {
             return true;
         }
     }
-
-    public abstract String displayInfo();
 }
