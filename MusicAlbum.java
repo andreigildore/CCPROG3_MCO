@@ -16,8 +16,8 @@ public class MusicAlbum extends EpisodicMedia{
      * Pre-condition: Title, genre, artist, and recordLabel are valid strings. noOfTracks is a positive integer.
      * Post-condition: A MusicAlbum object is created with the specified details, and track objects are generated.
      */
-    public MusicAlbum(String title, int noOfTracks, String genre, int initialstatus, String artist, String recordLabel) {
-        super(title, genre, initialstatus, noOfTracks, "Track");
+    public MusicAlbum(String title, String genre, int initialStatus, String artist, String recordLabel, int noOfTracks) {
+        super(title, genre, initialStatus, noOfTracks, "Track");
         this.artist = artist;
         this.recordLabel = recordLabel;
     }
@@ -31,6 +31,10 @@ public class MusicAlbum extends EpisodicMedia{
      * Post-condition: A string with the album's information is returned.
      */
     public String displayInfo() {
+        int rating = getRating();
+        String review = getReview();
+        String ratingStr = rating >= 1 ? rating + "/10" : "Not Rated";
+        String reviewStr = (review != null && !review.isBlank()) ? review : "No Review";
         /* 
         String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
         String reviewStr = (review != null && !review.isBlank()) ? review : "No review";

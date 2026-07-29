@@ -59,6 +59,6 @@ public class Segment {
                 segmentNumber,
                 isConsumed ? "Yes" : "No",
                 isFavorite ? "Yes" : "No",
-                rating);
+                rating >= 1 ? rating + "/10" : "Not rated");
     }
 }

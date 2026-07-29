@@ -48,6 +48,10 @@ public class VideoGame extends MediaEntry {
      * Post-condition: A formatted string representation of the video game is returned.
      */
     public String displayInfo() {
+        int rating = getRating();
+        String review = getReview();
+        String ratingStr = rating >= 1 ? rating + "/10" : "Not Rated";
+        String reviewStr = (review != null && !review.isBlank()) ? review : "No Review";
         /* 
         String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
         String reviewStr = (review != null && !review.isBlank()) ? review : "No review";

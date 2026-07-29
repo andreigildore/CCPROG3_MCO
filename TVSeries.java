@@ -22,6 +22,7 @@ public class TVSeries extends EpisodicMedia {
         this.isRealityTV = isRealityTV;
     }
 
+    @Override
     /**
      * Returns a formatted string of all TV series details.
      * 
@@ -32,8 +33,8 @@ public class TVSeries extends EpisodicMedia {
     public String displayInfo() {
         int rating = getRating();
         String review = getReview();
-        String ratingStr = rating > 10 ? rating + "/10" : "Not Rated";
-        String reviewStr = (review != null && review.isBlank()) ? review : "No Review";
+        String ratingStr = rating >= 1 ? rating + "/10" : "Not Rated";
+        String reviewStr = (review != null && !review.isBlank()) ? review : "No Review";
         return String.format("""
             TV Series : %s
             Creator : %s

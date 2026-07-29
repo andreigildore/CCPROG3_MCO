@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Represents an anime entry in the user's media list.
  */
@@ -36,6 +34,10 @@ public class Anime extends EpisodicMedia{
      * Post-condition: A string with the anime's information is returned.
      */
     public String displayInfo() {
+        int rating = getRating();
+        String review = getReview();
+        String ratingStr = rating >= 1 ? rating + "/10" : "Not Rated";
+        String reviewStr = (review != null && !review.isBlank()) ? review : "No Review";
         /* 
         String ratingStr = (rating > 0) ? rating + "/10" : "NotRated";
         String reviewStr = (review != null && !review.isBlank()) ? review : "No review";

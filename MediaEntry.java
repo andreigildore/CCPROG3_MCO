@@ -6,12 +6,11 @@ public abstract class MediaEntry {
     private String review;
 
     protected MediaEntry(String title, String genre, int initialStatus) {
+        if (initialStatus != 0 && initialStatus != 1) 
+            throw new IllegalArgumentException("New entries must start as Planned (0) or in Progress (1)");
         this.title = title;
         this.genre = genre;
-        if (initialStatus == 0 || initialStatus == 1) 
-            this.status = initialStatus;
-        else
-            System.out.println("New entries must start as planned (0) or in Progress (1).");
+        this.status = initialStatus;            
     }
 
     public String getTitle() {
@@ -42,7 +41,7 @@ public abstract class MediaEntry {
      * Post-condition: The status is updated if valid, otherwise an error message is printed.
      */
     public boolean updateStatus(int newStatus) {
-        if(newStatus < 0 && newStatus > 2) 
+        if(newStatus < 0 || newStatus > 2) 
             return false;
         else {
             status = newStatus;
