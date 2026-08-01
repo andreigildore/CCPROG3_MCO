@@ -1,3 +1,4 @@
+package model;
 /**
  * Represents an anime entry in the user's media list.
  */
@@ -33,7 +34,12 @@ public class Anime extends EpisodicMedia{
         return creator;
     }
 
-    public boolean getIsSubbed() {
+    public boolean IsSubbed() {
         return isSubbed;
+    }
+
+    @Override
+    public String getTypeLabel() {
+        return "Anime";
     }
 }

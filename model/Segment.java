@@ -1,3 +1,5 @@
+package model;
+
 public class Segment {
     private final int segmentNumber;
     private final String type; //   Can be episode or track

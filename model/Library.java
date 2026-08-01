@@ -1,4 +1,8 @@
+package model;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Stores and manages all media entries in the user's library.
  */
@@ -35,11 +39,10 @@ public class Library {
     /**
      * edit
      */
-    public MediaEntry getMediaEntryByTitle(String title) {
+    public MediaEntry getMediaEntryByTitleAndType(String title, String type) {
         for (MediaEntry entry : entries) {
-            if (entry.getTitle().equalsIgnoreCase(title)) {
+            if (entry.getTitle().equalsIgnoreCase(title) && entry.getTypeLabel().equalsIgnoreCase(type)) 
                 return entry;
-            }
         }
         return null;
     }
@@ -54,7 +57,7 @@ public class Library {
      * Post-condition: The status of the matching media entry is updated if found.
      */
     public boolean updateEntryStatus(String type, String mediaTitle, int newStatus) {
-        MediaEntry entry = getMediaEntryByTitle(mediaTitle);
+        MediaEntry entry = getMediaEntryByTitleAndType(mediaTitle, type);
         if (entry == null)
             return false;
         return entry.updateStatus(newStatus);
@@ -63,8 +66,8 @@ public class Library {
     /**
      * edit
      */
-    public ArrayList<MediaEntry> getEntries() {
-        return entries;
+    public List<MediaEntry> getEntries() {
+        return Collections.unmodifiableList(entries);
     }
 
     /**
@@ -85,6 +88,10 @@ public class Library {
      */
     public ArrayList<MediaEntry> getEntriesByType(String type) {
         ArrayList<MediaEntry> ans = new ArrayList<>();
+        for (MediaEntry entry : entries) {
+            if (entry.getTypeLabel().equalsIgnoreCase(type))
+                ans.add(entry);
+        }
         return ans;
     }
 

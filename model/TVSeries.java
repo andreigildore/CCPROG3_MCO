@@ -1,3 +1,5 @@
+package model;
+
 /**
  * Represents a TV series entry in the user's media list.
  */
@@ -26,7 +28,12 @@ public class TVSeries extends EpisodicMedia {
         return creator;
     }
 
-    public boolean getIsRealityTV() {
+    public boolean IsRealityTV() {
         return isRealityTV;
+    }
+
+    @Override
+    public String getTypeLabel() {
+        return "TV Series";
     }
 }

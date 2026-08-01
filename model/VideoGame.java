@@ -1,3 +1,5 @@
+package model;
+
 /**
  * Represents a video game entry in the user's library.
  */
@@ -46,5 +48,10 @@ public class VideoGame extends MediaEntry {
 
     public String getPlatform() {
         return platform;
+    }
+
+    @Override
+    public String getTypeLabel() {
+        return "Video Game";
     }
 }

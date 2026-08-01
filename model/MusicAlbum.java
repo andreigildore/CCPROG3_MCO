@@ -1,3 +1,5 @@
+package model;
+
 /**
  * Represents a music album entry in the user's media list.
  */
@@ -28,5 +30,10 @@ public class MusicAlbum extends EpisodicMedia{
 
     public String getRecordLabel() {
         return recordLabel;
+    }
+
+    @Override
+    public String getTypeLabel() {
+        return "Music Album";
     }
 }

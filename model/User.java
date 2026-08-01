@@ -1,3 +1,5 @@
+package model;
+
 /**
  * Represents a user account with login credentials and a media library.
  */
@@ -44,22 +46,22 @@ public class User {
      * @param username the chosen username
      * @param email the user's email address
      * @param password the chosen password
+     * @return the registered username
      * Pre-condition: ALl parameters must be non-null and not blank, they must also reflect the user's valid details.
      * Post-condition: The user's fields are set to the given parameters.
      */
-    public void register(String username, String email, String password) {
+    public boolean register(String username, String email, String password) {
         // Reject if any field is null or blank.
         if (username == null || username.isBlank() || email == null || email.isBlank()
            || password == null || password.isBlank()) {
-            System.out.println("Invalid registration details.");
+            return false;
         }
         else {
             setUsername(username);
             setEmail(email);
             setPassword(password);
-            System.out.printf("Successfully Registered with username %s!\n", this.username);
+            return true;
         }
-        
     }
 
     /**

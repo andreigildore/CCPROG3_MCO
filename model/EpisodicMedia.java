@@ -1,8 +1,10 @@
+package model;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class EpisodicMedia extends MediaEntry {
     protected ArrayList<Segment> segments;
-    protected int noOfSegments;
     protected String segmentType;
 
     // add javadoc
@@ -63,13 +65,12 @@ public abstract class EpisodicMedia extends MediaEntry {
      * Post-condition: The specified segment is rated if it exists.
      */
     public boolean rateSegment(int segmentNumber, int rating) {
-        boolean flag = false;
-        for (Segment segment: segments) {
-            if (segment.getSegmentNumber() == segmentNumber) {
-                flag = segment.rate(rating);
-            }
+        Segment segment = findSegment(segmentNumber);
+        if (segment != null) {
+            return segment.rate(rating);
         }
-        return flag;
+        else
+            return false;
     }
 
     /**
@@ -115,7 +116,7 @@ public abstract class EpisodicMedia extends MediaEntry {
         return count;
     }
 
-    public ArrayList<Segment> getSegments() {
-        return segments;
+    public List<Segment> getSegments() {
+        return Collections.unmodifiableList(segments);
     }
 }

@@ -1,3 +1,5 @@
+package model;
+
 public abstract class MediaEntry {
     private String title;
     private String genre;
@@ -32,6 +34,8 @@ public abstract class MediaEntry {
     public String getReview() {
         return review;
     }
+
+    public abstract String getTypeLabel();
 
     /**
      * Updates the watching status of the media entry.

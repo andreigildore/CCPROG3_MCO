@@ -1,3 +1,5 @@
+package model;
+
 /**
  * Represents a music single entry in the user's library.
  */
@@ -27,5 +29,10 @@ public class MusicSingle extends MediaEntry{
 
     public String getRecordLabel() {
         return recordLabel;
+    }
+
+    @Override
+    public String getTypeLabel() {
+        return "Music Single";
     }
 }

@@ -1,3 +1,5 @@
+package model;
+
 /**
  * Maps integer status codes to readable status strings.
  */
