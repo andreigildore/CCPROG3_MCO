@@ -10,6 +10,7 @@ public class LibraryController {
         this.library = library;
     }
     
+    // add entry split into seperate data types
     public boolean addVideoGame(String title, String genre, int initialStatus, int playtime, String developer, String platform) {
         VideoGame game = new VideoGame(title, genre, initialStatus, playtime, developer, platform);
         return library.addMedia(game);
@@ -34,51 +35,41 @@ public class LibraryController {
         MusicSingle single = new MusicSingle(title, genre, initialStatus, artist, recordLabel);
         return library.addMedia(single);
     } 
-    public boolean removeEntry(String title, String type) {
-        MediaEntry entry = library.getMediaEntryByTitleAndType(title, type);
-        if (entry != null) {
-            return library.removeMedia(entry);
-        }
-        return false;
+    
+    public boolean removeEntry(MediaEntry entry) {
+        return library.removeMedia(entry);
     }
 
-    public boolean updateStatus(String title, String type, int newStatus) {
-        return library.updateEntryStatus(type, title, newStatus);
+    public boolean updateStatus(MediaEntry entry, int newStatus) {
+        return entry.updateStatus(newStatus);
     }
 
-    public boolean rate(String title, String type, int rating) {
-        MediaEntry entry = library.getMediaEntryByTitleAndType(title, type);
-        if (entry != null) 
-            return entry.rate(rating);
-        return false;
+    public boolean rate(MediaEntry entry, int rating) {
+        return entry.rate(rating);
     }
 
-    public boolean review(String title, String type, String reviewText) {
-        MediaEntry entry = library.getMediaEntryByTitleAndType(title, type);
-        if (entry != null) {
-            return entry.review(reviewText);
-        }
-        return false;
+    public boolean review(MediaEntry entry, String reviewText) {
+        return entry.review(reviewText);
     }
 
-    public int addPlaytime(String title, String type, int hours) {
-        MediaEntry entry = library.getMediaEntryByTitleAndType(title, type);
-        if (entry instanceof VideoGame) {
-            return ((VideoGame) entry).addPlaytime(hours);
-        }
-        return -1;
+    public int addPlaytime(VideoGame game, int hours) {
+        return game.addPlaytime(hours);
     }
 
-    public int updateProgress(String title, String type, int segmentInput) {
-        MediaEntry entry = library.getMediaEntryByTitleAndType(title, type);
-        if (entry instanceof EpisodicMedia) {
-            return ((EpisodicMedia) entry).updateProgress(segmentInput);
-        }
-        return -1;
+    public int updateProgress(EpisodicMedia media, int segmentInput) {
+        return media.updateProgress(segmentInput); 
     }
 
     public List<MediaEntry> getAllEntries() {
         return library.getEntries();
+    }
+
+    public List<MediaEntry> filterByStatus(int status) {
+        return library.getEntriesByStatus(status);
+    }
+ 
+    public List<MediaEntry> filterByType(String type) {
+        return library.getEntriesByType(type);
     }
 
     public Library.LibrarySummary getSummary() {
