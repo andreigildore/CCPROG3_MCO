@@ -50,6 +50,10 @@ public class LibraryController {
         entry.setReview(review);
     }
 
+    public void rateEpisode(Episodic entry, int episodeIndex, int rating) {
+        entry.setEpisodeRating(episodeIndex, rating);
+    }
+
     public void saveLibraryData() {
         FileHandler.saveLibrary(library.getAllEntries());
     }
@@ -63,7 +67,6 @@ public class LibraryController {
         }
     }
 
-    // --- NEW: Export Report Bridge ---
     public boolean exportDashboardReport() {
         return FileHandler.exportSummaryReport(getSummary());
     }
