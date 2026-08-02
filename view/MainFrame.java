@@ -35,9 +35,9 @@ public class MainFrame extends JFrame {
         tabbedPane.addTab("Add Media", createAddMediaPanel());
         tabbedPane.addTab("Dashboard", createDashboardPanel());
 
-        tabbedPane.setMnemonicAt(0, KeyEvent.VK_L); // Alt + L
-        tabbedPane.setMnemonicAt(1, KeyEvent.VK_A); // Alt + A
-        tabbedPane.setMnemonicAt(2, KeyEvent.VK_D); // Alt + D
+        tabbedPane.setMnemonicAt(0, KeyEvent.VK_L); 
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_A); 
+        tabbedPane.setMnemonicAt(2, KeyEvent.VK_D); 
 
         add(tabbedPane, BorderLayout.CENTER);
 
@@ -96,7 +96,6 @@ public class MainFrame extends JFrame {
                 String status = (String) value;
                 
                 if (!isSelected) {
-                    // --- NEW: Zebra Striping ---
                     c.setBackground(row % 2 == 0 ? new Color(245, 245, 250) : Color.WHITE);
                     
                     if ("Completed".equals(status)) {
@@ -124,10 +123,6 @@ public class MainFrame extends JFrame {
         JButton btnUpdateStatus = new JButton("Update Status / Rate");
         JButton btnDelete = new JButton("Delete Selected");
 
-        btnLoadSample.setToolTipText("Instantly load sample media to test the library.");
-        btnUpdateStatus.setToolTipText("Change status or add a rating/review (Double-click a row to quick-access).");
-        btnDelete.setToolTipText("Permanently remove the selected entry from your vault.");
-
         buttonPanel.add(btnLoadSample);
         buttonPanel.add(btnUpdateStatus);
         buttonPanel.add(btnDelete);
@@ -154,7 +149,6 @@ public class MainFrame extends JFrame {
         btnDelete.addActionListener(e -> {
             int selectedRow = libraryTable.getSelectedRow();
             if (selectedRow >= 0) {
-                // --- NEW: Deletion Confirmation Dialog ---
                 int confirm = JOptionPane.showConfirmDialog(
                     this, 
                     "Are you sure you want to permanently delete this media entry?", 
@@ -206,11 +200,25 @@ public class MainFrame extends JFrame {
                 }
             });
 
-            Object[] dialogContent = {
-                "Update Status for: " + entry.getTitle(), statusCombo,
-                "Rating (1-10) [Completed Only]:", ratingField,
-                "Review [Completed Only]:", new JScrollPane(reviewArea)
-            };
+            Object[] dialogContent;
+            
+            if (entry instanceof model.Episodic) {
+                JButton btnRateEpisodes = new JButton("Rate Individual Episodes");
+                btnRateEpisodes.addActionListener(ev -> openEpisodicRatingDialog((model.Episodic) entry));
+                
+                dialogContent = new Object[] {
+                    "Update Status for: " + entry.getTitle(), statusCombo,
+                    "Overall Rating (1-10) [Completed Only]:", ratingField,
+                    "Review [Completed Only]:", new JScrollPane(reviewArea),
+                    " ", btnRateEpisodes 
+                };
+            } else {
+                dialogContent = new Object[] {
+                    "Update Status for: " + entry.getTitle(), statusCombo,
+                    "Rating (1-10) [Completed Only]:", ratingField,
+                    "Review [Completed Only]:", new JScrollPane(reviewArea)
+                };
+            }
 
             if (JOptionPane.showConfirmDialog(this, dialogContent, "Update Media", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
                 int newStatus = statusCombo.getSelectedIndex();
@@ -233,6 +241,57 @@ public class MainFrame extends JFrame {
         });
 
         return panel;
+    }
+
+    private void openEpisodicRatingDialog(model.Episodic media) {
+        JDialog dialog = new JDialog(this, "Rate Episodes", true);
+        dialog.setSize(350, 450);
+        dialog.setLocationRelativeTo(this);
+
+        String[] cols = {"Episode Number", "Rating (1-10)"};
+        int epCount = media.getEpisodeCount();
+        int[] ratings = media.getEpisodeRatings();
+
+        DefaultTableModel epModel = new DefaultTableModel(cols, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 1; 
+            }
+        };
+
+        for (int i = 0; i < epCount; i++) {
+            String existingRating = (ratings[i] > 0) ? String.valueOf(ratings[i]) : "";
+            epModel.addRow(new Object[]{"Episode " + (i + 1), existingRating});
+        }
+
+        JTable epTable = new JTable(epModel);
+        epTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE); 
+        dialog.add(new JScrollPane(epTable), BorderLayout.CENTER);
+
+        JButton btnSave = new JButton("Save Episode Ratings");
+        btnSave.addActionListener(e -> {
+            if (epTable.isEditing()) {
+                epTable.getCellEditor().stopCellEditing(); 
+            }
+            for (int i = 0; i < epCount; i++) {
+                Object val = epModel.getValueAt(i, 1);
+                if (val != null && !val.toString().trim().isEmpty()) {
+                    try {
+                        int r = Integer.parseInt(val.toString().trim());
+                        controller.rateEpisode(media, i, r);
+                    } catch (NumberFormatException ex) {
+                        // Ignores bad input
+                    }
+                } else {
+                    controller.rateEpisode(media, i, 0); 
+                }
+            }
+            dialog.dispose();
+            refreshTable();
+        });
+
+        dialog.add(btnSave, BorderLayout.SOUTH);
+        dialog.setVisible(true);
     }
 
     private JPanel createAddMediaPanel() {
@@ -351,10 +410,8 @@ public class MainFrame extends JFrame {
         statsArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
         statsArea.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Initial Load
         updateDashboardText(statsArea);
 
-        // --- NEW: Export Report Button Setup ---
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         JButton btnRefreshStats = new JButton("Refresh Statistics");
         JButton btnExportStats = new JButton("Export Report to TXT");
