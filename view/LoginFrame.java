@@ -68,7 +68,10 @@ public class LoginFrame extends JFrame {
             if (!success) {
                 JOptionPane.showMessageDialog(this, "Invalid registration details.\nCheck console for details.", "Registration Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Registration simulated successfully! You can now login.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Registration successful!\n\nPlease re-enter your password and click 'Login' to access your vault.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                
+                // Strictly enforce manual login by clearing the password field
+                passField.setText(""); 
             }
         });
 
