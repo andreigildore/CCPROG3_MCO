@@ -1,88 +1,47 @@
 package model;
 
-public abstract class MediaEntry {
+import java.io.Serializable;
+
+public abstract class MediaEntry implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String title;
     private String genre;
-    private int status;
+    private int status; // 0 = Planned, 1 = In Progress, 2 = Completed
     private int rating;
     private String review;
 
-    protected MediaEntry(String title, String genre, int initialStatus) {
-        if (initialStatus != 0 && initialStatus != 1) 
-            throw new IllegalArgumentException("New entries must start as Planned (0) or in Progress (1)");
+    public MediaEntry(String title, String genre, int status) {
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be empty.");
+        }
+        if (status == 2) {
+            throw new IllegalArgumentException("New entries must start as Planned (0) or In Progress (1).");
+        }
+        
         this.title = title;
         this.genre = genre;
-        this.status = initialStatus;            
+        this.status = status;
+        this.rating = 0;
+        this.review = "";
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitle() { return title; }
+    public String getGenre() { return genre; }
+    public int getStatus() { return status; }
+    public void setStatus(int status) { this.status = status; }
+    
+    public int getRating() { return rating; }
+    public void setRating(int rating) { 
+        if (this.status != 2) throw new IllegalStateException("Can only rate completed media.");
+        this.rating = rating; 
     }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public String getReview() {
-        return review;
+    
+    public String getReview() { return review; }
+    public void setReview(String review) { 
+        if (this.status != 2) throw new IllegalStateException("Can only review completed media.");
+        this.review = review; 
     }
 
     public abstract String getTypeLabel();
-
-    /**
-     * Updates the watching status of the media entry.
-     * 
-     * @param newStatus the new status code
-     * Pre-condition: newStatus should ideally be between 0 and 2.
-     * Post-condition: The status is updated if valid, otherwise an error message is printed.
-     */
-    public boolean updateStatus(int newStatus) {
-        if(newStatus < 0 || newStatus > 2) 
-            return false;
-        else {
-            status = newStatus;
-            return true;
-        }
-            
-    }
-
-    /**
-     * Rates the media entry from 1 to 10, only if completed.
-     * 
-     * @param rating the rating score to assign
-     * Pre-condition: The media entry's status must be 2 (Completed), and rating must be between 1 and 10.
-     * Post-condition: The rating is saved successfully if conditions are met.
-     */
-    public boolean rate(int rating) {
-        if (rating < 1 || rating > 10 || status != 2)
-            return false;
-        else {
-            this.rating = rating;
-            return true;
-        }
-    }
-
-    /**
-     * Adds a text review for the media entry, only if completed.
-     * 
-     * @param text the review content
-     * Pre-condition: The media entry's status must be 2 (Completed), and the text must not be null or blank.
-     * Post-condition: The review is saved successfully if conditions are met.
-     */
-    public boolean review(String text) {
-        if (text == null || text.isBlank()) 
-            return false;
-        else {
-            review = text;
-            return true;
-        }
-    }
 }
