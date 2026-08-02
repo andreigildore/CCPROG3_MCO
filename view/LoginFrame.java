@@ -1,19 +1,18 @@
 package view;
 
-import model.User;
+import controller.UserController;
 import controller.LibraryController;
-import model.Library;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class LoginFrame extends JFrame {
-    private final User systemUser;
+    private final UserController userController;
     private final JTextField userField;
     private final JPasswordField passField;
 
     public LoginFrame() {
-        systemUser = new User(); 
+        userController = new UserController(); 
 
         setTitle("Media Vault - Login");
         setSize(400, 250);
@@ -54,7 +53,7 @@ public class LoginFrame extends JFrame {
         // --- BUTTON ACTIONS ---
 
         btnSample.addActionListener(e -> {
-            systemUser.register("john", "j@j.com", "123");
+            userController.register("john", "j@j.com", "123");
             userField.setText("john");
             passField.setText("123");
         });
@@ -64,9 +63,9 @@ public class LoginFrame extends JFrame {
             String p = new String(passField.getPassword());
             String usernameToRegister = u.isEmpty() ? null : u; 
             
-            systemUser.register(usernameToRegister, "user@domain.com", p);
+            boolean success = userController.register(usernameToRegister, "user@domain.com", p);
             
-            if (usernameToRegister == null || p.isEmpty()) {
+            if (!success) {
                 JOptionPane.showMessageDialog(this, "Invalid registration details.\nCheck console for details.", "Registration Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Registration simulated successfully! You can now login.", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -77,16 +76,15 @@ public class LoginFrame extends JFrame {
             String u = userField.getText();
             String p = new String(passField.getPassword());
 
-            if (systemUser.login(u, p)) {
+            if (userController.login(u, p)) {
                 this.dispose(); 
                 
-                // Launch Main Application
-                Library library = new Library();
-                LibraryController controller = new LibraryController(library);
-                MainFrame mainFrame = new MainFrame(controller);
+                // Launch Main Application using the User's specific library
+                LibraryController libraryController = new LibraryController(userController.getLibrary());
+                MainFrame mainFrame = new MainFrame(libraryController);
                 mainFrame.setVisible(true);
             } else {
-                if (systemUser.getUsername() == null) {
+                if (userController.getUser().getUsername() == null) {
                     JOptionPane.showMessageDialog(this, "User has not registered yet.\nCheck console for details.", "Login Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Incorrect credentials.\nCheck console for details.", "Login Error", JOptionPane.ERROR_MESSAGE);
