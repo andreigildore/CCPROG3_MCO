@@ -3,11 +3,25 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Represents an abstract media entry that contains segments (e.g., episodes or tracks).
+ * Provides common functionality for managing, rating, and tracking segment-based media.
+ */
 public abstract class EpisodicMedia extends MediaEntry {
     protected ArrayList<Segment> segments;
     protected String segmentType;
 
-    // add javadoc
+    /**
+     * Creates a new episodic media entry with the given number of segments.
+     * 
+     * @param title the title of the media entry
+     * @param genre the genre of the media entry
+     * @param initialStatus the initial status of the media entry (0 = Planned, 1 = In Progress)
+     * @param noOfSegments the total number of segments in the media entry
+     * @param segmentType the type label for each segment (e.g., "Episode", "Track")
+     * Pre-condition: All parameters must be valid. noOfSegments must be greater than 0.
+     * Post-condition: A new EpisodicMedia is created with the specified number of Segment objects.
+     */
     public EpisodicMedia(String title, String genre, int initialStatus, int noOfSegments, String segmentType) {
         super(title, genre, initialStatus);
         this.segmentType = segmentType;
@@ -77,6 +91,7 @@ public abstract class EpisodicMedia extends MediaEntry {
      * Marks a specific segment as consumed.
      * 
      * @param segmentNumber the number of the segment to mark as consumed
+     * @return true if the segment was found and marked, false otherwise
      * Pre-condition: segmentNumber corresponds to an existing segment.
      * Post-condition: The specified segment is marked as consumed if it exists.
      */
@@ -95,6 +110,7 @@ public abstract class EpisodicMedia extends MediaEntry {
      * Toggles the favorite status of a specific segment.
      * 
      * @param segmentNumber the number of the segment to favorite or unfavorite
+     * @return true if the toggle was successful, false otherwise
      * Pre-condition: segmentNumber corresponds to an existing segment.
      * Post-condition: The favorite status of the specified segment is toggled.
      */

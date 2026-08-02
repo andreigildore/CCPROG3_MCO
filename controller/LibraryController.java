@@ -3,6 +3,10 @@ package controller;
 import model.*;
 import java.util.List;
 
+/**
+ * Handles all library-related operations as the intermediary between the view and the model.
+ * Provides methods for adding, removing, updating, and persisting media entries.
+ */
 public class LibraryController {
     private final Library library;
 
@@ -58,6 +62,12 @@ public class LibraryController {
         FileHandler.saveLibrary(library.getAllEntries());
     }
 
+    /**
+     * Loads previously saved library data from file and adds all entries to the current library.
+     * 
+     * Pre-condition: The data file, if it exists, must contain valid serialized MediaEntry objects.
+     * Post-condition: All loaded entries are added to the library. If no file exists, the library remains unchanged.
+     */
     public void loadLibraryData() {
         List<MediaEntry> savedData = FileHandler.loadLibrary();
         if (savedData != null) {
@@ -71,6 +81,13 @@ public class LibraryController {
         return FileHandler.exportSummaryReport(getSummary());
     }
 
+    /**
+     * Computes and returns a summary of the library's current statistics.
+     * 
+     * @return a LibrarySummary containing counts by status and media type, and the average rating of completed entries
+     * Pre-condition: The library must be initialized.
+     * Post-condition: A new LibrarySummary object is returned with all fields populated.
+     */
     public LibrarySummary getSummary() {
         LibrarySummary summary = new LibrarySummary();
         List<MediaEntry> entries = library.getAllEntries();
@@ -79,17 +96,21 @@ public class LibraryController {
         int totalRating = 0;
         int ratedItems = 0;
 
+        // Single pass through all entries to tally status counts, media type counts, and ratings
         for (MediaEntry e : entries) {
+            // Count entries by status
             if (e.getStatus() == 0) summary.planned++;
             else if (e.getStatus() == 1) summary.inProgress++;
             else if (e.getStatus() == 2) {
                 summary.completed++;
+                // Only include rated completed entries in the average calculation
                 if (e.getRating() > 0) {
                     totalRating += e.getRating();
                     ratedItems++;
                 }
             }
 
+            // Count entries by media type using instanceof checks
             if (e instanceof Anime) summary.animeCount++;
             else if (e instanceof TVSeries) summary.tvSeriesCount++;
             else if (e instanceof VideoGame) summary.videoGameCount++;
@@ -97,6 +118,7 @@ public class LibraryController {
             else if (e instanceof MusicSingle) summary.musicSingleCount++;
         }
         
+        // Avoid division by zero when no items have been rated
         summary.averageRating = ratedItems > 0 ? (double) totalRating / ratedItems : 0.0;
         return summary;
     }

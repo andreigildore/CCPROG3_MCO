@@ -6,12 +6,16 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import java.awt.Font;
 
+/**
+ * Entry point for the Media Vault application.
+ * Initializes the system look, creates the library and controller, and launches the GUI.
+ */
 public class Main {
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             
-            // --- NEW: Global Font Modernization ---
+            // Override every registered font in the UIManager with a modern SansSerif font.
             Font modernFont = new Font("SansSerif", Font.PLAIN, 13);
             java.util.Enumeration<Object> keys = UIManager.getDefaults().keys();
             while (keys.hasMoreElements()) {

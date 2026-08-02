@@ -46,8 +46,8 @@ public class User {
      * @param username the chosen username
      * @param email the user's email address
      * @param password the chosen password
-     * @return the registered username
-     * Pre-condition: ALl parameters must be non-null and not blank, they must also reflect the user's valid details.
+     * @return true if registration was successful, false if any field is null or blank
+     * Pre-condition: All parameters must be non-null and not blank, they must also reflect the user's valid details.
      * Post-condition: The user's fields are set to the given parameters.
      */
     public boolean register(String username, String email, String password) {

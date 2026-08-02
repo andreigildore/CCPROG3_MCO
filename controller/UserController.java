@@ -2,6 +2,9 @@ package controller;
 
 import model.*;
 
+/**
+ * Handles user-related operations such as registration and login.
+ */
 public class UserController {
     private User user;
 

@@ -17,6 +17,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+/**
+ * The main GUI frame for the Media Vault application.
+ * Contains tabbed panels for the library view, media addition form, and dashboard statistics.
+ */
 public class MainFrame extends JFrame {
     private final LibraryController controller;
     private DefaultTableModel tableModel;
@@ -41,9 +45,11 @@ public class MainFrame extends JFrame {
 
         add(tabbedPane, BorderLayout.CENTER);
 
+        // Load any previously saved entries from file into the library
         controller.loadLibraryData();
         refreshTable();
 
+        // Auto-save the library to file when the user closes the window
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -63,6 +69,7 @@ public class MainFrame extends JFrame {
         panel.add(searchPanel, BorderLayout.NORTH);
 
         String[] columnNames = {"Type", "Title", "Genre", "Status", "Rating"};
+        // Override isCellEditable to prevent users from directly editing table cells
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) { return false; }
@@ -72,14 +79,16 @@ public class MainFrame extends JFrame {
         libraryTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         libraryTable.getTableHeader().setReorderingAllowed(false);
         
+        // TableRowSorter enables column sorting and row filtering on the table
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tableModel);
         libraryTable.setRowSorter(sorter);
         
+        // Live search: listens for every keystroke and filters table rows in real-time.
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             private void updateFilter() {
                 String text = searchField.getText();
                 if (text.trim().length() == 0) {
-                    sorter.setRowFilter(null);
+                    sorter.setRowFilter(null); // Show all rows when search is empty
                 } else {
                     sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text)); 
                 }
@@ -89,6 +98,9 @@ public class MainFrame extends JFrame {
             @Override public void changedUpdate(DocumentEvent e) { updateFilter(); }
         });
 
+        // Custom cell renderer for the "Status" column (index 3).
+        // Color-codes the status text: green for Completed, orange for In Progress, gray for Planned.
+        // Alternates row background colors for readability.
         libraryTable.getColumnModel().getColumn(3).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -96,16 +108,16 @@ public class MainFrame extends JFrame {
                 String status = (String) value;
                 
                 if (!isSelected) {
-                    c.setBackground(row % 2 == 0 ? new Color(245, 245, 250) : Color.WHITE);
+                    c.setBackground(row % 2 == 0 ? new Color(245, 245, 250) : Color.WHITE); // Alternating row colors
                     
                     if ("Completed".equals(status)) {
-                        c.setForeground(new Color(34, 139, 34)); 
+                        c.setForeground(new Color(34, 139, 34)); // Green
                         c.setFont(c.getFont().deriveFont(Font.BOLD));
                     } else if ("In Progress".equals(status)) {
-                        c.setForeground(new Color(204, 102, 0)); 
+                        c.setForeground(new Color(204, 102, 0)); // Orange
                         c.setFont(c.getFont().deriveFont(Font.BOLD));
                     } else {
-                        c.setForeground(Color.GRAY);
+                        c.setForeground(Color.GRAY); // Planned
                         c.setFont(c.getFont().deriveFont(Font.PLAIN));
                     }
                 } else {
@@ -128,6 +140,7 @@ public class MainFrame extends JFrame {
         buttonPanel.add(btnDelete);
         panel.add(buttonPanel, BorderLayout.SOUTH);
 
+        // Double-clicking a row triggers the "Update Status / Rate" dialog
         libraryTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -158,6 +171,7 @@ public class MainFrame extends JFrame {
                 );
                 
                 if (confirm == JOptionPane.YES_OPTION) {
+                    // Convert the visual row index to the model index (they differ when sorted/filtered)
                     int modelRow = libraryTable.convertRowIndexToModel(selectedRow);
                     MediaEntry selectedEntry = controller.getAllEntries().get(modelRow);
                     controller.removeEntry(selectedEntry);
@@ -175,6 +189,7 @@ public class MainFrame extends JFrame {
                 return;
             }
             
+            // Convert visual row to model row to get the correct entry despite sorting/filtering
             int modelRow = libraryTable.convertRowIndexToModel(selectedRow);
             MediaEntry entry = controller.getAllEntries().get(modelRow);
 
@@ -186,6 +201,8 @@ public class MainFrame extends JFrame {
             JTextArea reviewArea = new JTextArea(4, 20);
             reviewArea.setText(entry.getReview() != null ? entry.getReview() : "");
             
+            // Rating and review fields are only enabled when status is "Completed".
+            // Dynamically toggle them when the user changes the status dropdown.
             boolean isCompleted = entry.getStatus() == 2;
             ratingField.setEnabled(isCompleted);
             reviewArea.setEnabled(isCompleted);
@@ -195,11 +212,13 @@ public class MainFrame extends JFrame {
                 ratingField.setEnabled(completedSelected);
                 reviewArea.setEnabled(completedSelected);
                 if (!completedSelected) {
-                    ratingField.setText("");
+                    ratingField.setText(""); // Clear rating/review if status changed away from Completed
                     reviewArea.setText("");
                 }
             });
 
+            // Build the dialog content array. Episodic media (Anime, TV Series) gets
+            // an extra button to open a separate per-episode rating dialog.
             Object[] dialogContent;
             
             if (entry instanceof model.Episodic) {
@@ -224,6 +243,8 @@ public class MainFrame extends JFrame {
                 int newStatus = statusCombo.getSelectedIndex();
                 controller.updateStatus(entry, newStatus); 
 
+                // Only save rating and review if the entry is being marked as Completed.
+                // Status must be set first so setRating/setReview precondition checks pass.
                 if (newStatus == 2) {
                     try {
                         if (!ratingField.getText().trim().isEmpty()) {
@@ -252,6 +273,7 @@ public class MainFrame extends JFrame {
         int epCount = media.getEpisodeCount();
         int[] ratings = media.getEpisodeRatings();
 
+        // Only the "Rating" column (index 1) is editable; episode numbers are read-only
         DefaultTableModel epModel = new DefaultTableModel(cols, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -265,11 +287,12 @@ public class MainFrame extends JFrame {
         }
 
         JTable epTable = new JTable(epModel);
-        epTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE); 
+        epTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE); // Commit edits when clicking away from a cell
         dialog.add(new JScrollPane(epTable), BorderLayout.CENTER);
 
         JButton btnSave = new JButton("Save Episode Ratings");
         btnSave.addActionListener(e -> {
+            // Force-commit any cell that is still being edited when the user clicks Save
             if (epTable.isEditing()) {
                 epTable.getCellEditor().stopCellEditing(); 
             }
@@ -312,6 +335,8 @@ public class MainFrame extends JFrame {
 
         panel.add(topPanel, BorderLayout.NORTH);
 
+        // CardLayout stacks multiple panels (one per media type) and shows only the active one.
+        // Each card is registered with its media type name as the key.
         JPanel dynamicCards = new JPanel(new CardLayout());
 
         JPanel gameCard = new JPanel(new GridLayout(3, 2, 10, 10));
@@ -361,6 +386,7 @@ public class MainFrame extends JFrame {
 
         panel.add(dynamicCards, BorderLayout.CENTER);
 
+        // Switch the visible card panel when the user selects a different media type
         typeCombo.addActionListener(e -> {
             CardLayout cl = (CardLayout) (dynamicCards.getLayout());
             cl.show(dynamicCards, (String) typeCombo.getSelectedItem());
@@ -458,7 +484,7 @@ public class MainFrame extends JFrame {
     }
 
     public void refreshTable() {
-        tableModel.setRowCount(0); 
+        tableModel.setRowCount(0); // Clear all existing rows before re-populating
         List<MediaEntry> entries = controller.getAllEntries();
 
         for (MediaEntry entry : entries) {
