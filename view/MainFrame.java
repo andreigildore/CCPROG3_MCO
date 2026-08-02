@@ -98,8 +98,6 @@ public class MainFrame extends JFrame {
         });
 
         // Custom cell renderer for the "Status" column (index 3).
-        // Color-codes the status text: green for Completed, orange for In Progress, gray for Planned.
-        // Alternates row background colors for readability.
         libraryTable.getColumnModel().getColumn(3).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
