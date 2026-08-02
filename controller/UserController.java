@@ -12,7 +12,7 @@ public class UserController {
         user = new User();
     }
 
-    public boolean register(String username, String email,  String password) {
+    public boolean register(String username, String email, String password) {
         return user.register(username, email, password);
     }
 
