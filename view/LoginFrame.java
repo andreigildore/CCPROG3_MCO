@@ -79,8 +79,9 @@ public class LoginFrame extends JFrame {
             if (userController.login(u, p)) {
                 this.dispose(); 
                 
-                // Launch Main Application using the User's specific library
-                LibraryController libraryController = new LibraryController(userController.getLibrary());
+                // Launch Main Application using the User's specific library AND username
+                String loggedInUser = userController.getUser().getUsername();
+                LibraryController libraryController = new LibraryController(userController.getLibrary(), loggedInUser);
                 MainFrame mainFrame = new MainFrame(libraryController);
                 mainFrame.setVisible(true);
             } else {
