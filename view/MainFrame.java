@@ -83,7 +83,6 @@ public class MainFrame extends JFrame {
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(tableModel);
         libraryTable.setRowSorter(sorter);
         
-        // Live search: listens for every keystroke and filters table rows in real-time.
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             private void updateFilter() {
                 String text = searchField.getText();
@@ -201,8 +200,6 @@ public class MainFrame extends JFrame {
             JTextArea reviewArea = new JTextArea(4, 20);
             reviewArea.setText(entry.getReview() != null ? entry.getReview() : "");
             
-            // Rating and review fields are only enabled when status is "Completed".
-            // Dynamically toggle them when the user changes the status dropdown.
             boolean isCompleted = entry.getStatus() == 2;
             ratingField.setEnabled(isCompleted);
             reviewArea.setEnabled(isCompleted);
@@ -217,8 +214,7 @@ public class MainFrame extends JFrame {
                 }
             });
 
-            // Build the dialog content array. Episodic media (Anime, TV Series) gets
-            // an extra button to open a separate per-episode rating dialog.
+            // Build the dialog content array
             Object[] dialogContent;
             
             if (entry instanceof model.Episodic) {
