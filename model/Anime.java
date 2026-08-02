@@ -1,45 +1,17 @@
 package model;
-/**
- * Represents an anime entry in the user's media list.
- */
-public class Anime extends EpisodicMedia{
-    private String animationStudio;
+
+public class Anime extends MediaEntry {
+    private String studio;
     private String creator;
+    private int episodes;
     private boolean isSubbed;
 
-    /**
-     * Creates an anime with its details and generates episode objects.
-     * 
-     * @param title the title of the anime
-     * @param genre the genre of the anime
-     * @param animationStudio the studio that animated the anime
-     * @param creator the creator/writer of the anime
-     * @param noOfEpisodes the total number of episodes
-     * @param isSubbed whether the anime is subbed or dubbed
-     * Pre-condition: Title, genre, animationStudio, and creator are valid strings. noOfEpisodes is a positive integer.
-     * Post-condition: An Anime object is created with the specified details, and episode objects are generated.
-     */
-    public Anime(String title, String genre, int initialStatus, String animationStudio, String creator, int noOfEpisodes, boolean isSubbed) {
-        super(title, genre, initialStatus, noOfEpisodes, "Episode");
-        this.animationStudio = animationStudio;
+    public Anime(String title, String genre, int status, String studio, String creator, int episodes, boolean isSubbed) {
+        super(title, genre, status);
+        this.studio = studio;
         this.creator = creator;
+        this.episodes = episodes;
         this.isSubbed = isSubbed;
     }
-    
-    public String getAnimationStudio() {
-        return animationStudio;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public boolean IsSubbed() {
-        return isSubbed;
-    }
-
-    @Override
-    public String getTypeLabel() {
-        return "Anime";
-    }
+    @Override public String getTypeLabel() { return "Anime"; }
 }
