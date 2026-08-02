@@ -1,7 +1,7 @@
 package controller;
 
-import java.util.List;
 import model.*;
+import java.util.List;
 
 public class LibraryController {
     private final Library library;
@@ -9,71 +9,92 @@ public class LibraryController {
     public LibraryController(Library library) {
         this.library = library;
     }
-    
-    // add entry split into seperate data types
-    public boolean addVideoGame(String title, String genre, int initialStatus, int playtime, String developer, String platform) {
-        VideoGame game = new VideoGame(title, genre, initialStatus, playtime, developer, platform);
-        return library.addMedia(game);
+
+    public void addVideoGame(String title, String genre, int status, int playtime, String dev, String platform) {
+        library.addEntry(new VideoGame(title, genre, status, playtime, dev, platform));
     }
 
-    public boolean addAnime(String title, String genre, int initialStatus, String animationStudio, String creator, int noOfEpisodes, boolean isSubbed) {
-        Anime anime = new Anime(title, genre, initialStatus, animationStudio, creator, noOfEpisodes, isSubbed);
-        return library.addMedia(anime);
+    public void addAnime(String title, String genre, int status, String studio, String creator, int episodes, boolean isSubbed) {
+        library.addEntry(new Anime(title, genre, status, studio, creator, episodes, isSubbed));
     }
 
-    public boolean addTVSeries(String title, String genre, int initialStatus, String creator, int noOfEpisodes, boolean isRealityTV) {
-        TVSeries tv = new TVSeries(title, genre, initialStatus, creator, noOfEpisodes, isRealityTV);
-        return library.addMedia(tv);
+    public void addTVSeries(String title, String genre, int status, String creator, int episodes, boolean isRealityTV) {
+        library.addEntry(new TVSeries(title, genre, status, creator, episodes, isRealityTV));
     }
 
-    public boolean addMusicAlbum(String title, String genre, int initialStatus, String artist, String recordLabel, int noOfTracks) {
-        MusicAlbum album = new MusicAlbum(title, genre, initialStatus, artist, recordLabel, noOfTracks);
-        return library.addMedia(album);
+    public void addMusicAlbum(String title, String genre, int status, String artist, String label, int tracks) {
+        library.addEntry(new MusicAlbum(title, genre, status, artist, label, tracks));
     }
 
-    public boolean addMusicSingle(String title, String genre, int initialStatus, String artist, String recordLabel) {
-        MusicSingle single = new MusicSingle(title, genre, initialStatus, artist, recordLabel);
-        return library.addMedia(single);
-    } 
-    
-    public boolean removeEntry(MediaEntry entry) {
-        return library.removeMedia(entry);
+    public void addMusicSingle(String title, String genre, int status, String artist, String label) {
+        library.addEntry(new MusicSingle(title, genre, status, artist, label));
     }
 
-    public boolean updateStatus(MediaEntry entry, int newStatus) {
-        return entry.updateStatus(newStatus);
-    }
-
-    public boolean rate(MediaEntry entry, int rating) {
-        return entry.rate(rating);
-    }
-
-    public boolean review(MediaEntry entry, String reviewText) {
-        return entry.review(reviewText);
-    }
-
-    public int addPlaytime(VideoGame game, int hours) {
-        return game.addPlaytime(hours);
-    }
-
-    public int updateProgress(EpisodicMedia media, int segmentInput) {
-        return media.updateProgress(segmentInput); 
+    public void removeEntry(MediaEntry entry) {
+        library.removeEntry(entry);
     }
 
     public List<MediaEntry> getAllEntries() {
-        return library.getEntries();
+        return library.getAllEntries();
     }
 
-    public List<MediaEntry> filterByStatus(int status) {
-        return library.getEntriesByStatus(status);
-    }
- 
-    public List<MediaEntry> filterByType(String type) {
-        return library.getEntriesByType(type);
+    public void updateStatus(MediaEntry entry, int newStatus) {
+        entry.setStatus(newStatus);
     }
 
-    public Library.LibrarySummary getSummary() {
-        return library.getSummary();
+    public void rate(MediaEntry entry, int rating) {
+        entry.setRating(rating);
     }
 
+    public void review(MediaEntry entry, String review) {
+        entry.setReview(review);
+    }
+
+    public void saveLibraryData() {
+        FileHandler.saveLibrary(library.getAllEntries());
+    }
+
+    public void loadLibraryData() {
+        List<MediaEntry> savedData = FileHandler.loadLibrary();
+        if (savedData != null) {
+            for (MediaEntry entry : savedData) {
+                library.addEntry(entry);
+            }
+        }
+    }
+
+    // --- NEW: Export Report Bridge ---
+    public boolean exportDashboardReport() {
+        return FileHandler.exportSummaryReport(getSummary());
+    }
+
+    public LibrarySummary getSummary() {
+        LibrarySummary summary = new LibrarySummary();
+        List<MediaEntry> entries = library.getAllEntries();
+        summary.total = entries.size();
+        
+        int totalRating = 0;
+        int ratedItems = 0;
+
+        for (MediaEntry e : entries) {
+            if (e.getStatus() == 0) summary.planned++;
+            else if (e.getStatus() == 1) summary.inProgress++;
+            else if (e.getStatus() == 2) {
+                summary.completed++;
+                if (e.getRating() > 0) {
+                    totalRating += e.getRating();
+                    ratedItems++;
+                }
+            }
+
+            if (e instanceof Anime) summary.animeCount++;
+            else if (e instanceof TVSeries) summary.tvSeriesCount++;
+            else if (e instanceof VideoGame) summary.videoGameCount++;
+            else if (e instanceof MusicAlbum) summary.musicAlbumCount++;
+            else if (e instanceof MusicSingle) summary.musicSingleCount++;
+        }
+        
+        summary.averageRating = ratedItems > 0 ? (double) totalRating / ratedItems : 0.0;
+        return summary;
+    }
 }
